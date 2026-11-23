@@ -339,6 +339,32 @@ main.psic-main{ max-width:960px !important; }
 }
 .agente-card p.desc{ margin:0; font-size:.92rem; line-height:1.55; color:var(--suave); }
 
+/* Descripción desplegable de cada tutor: botón píldora vino/dorado
+   que abre y recoge la descripción completa (elemento <details>). */
+.agente-card details.desc-detalle{ margin-top:2px; }
+.agente-card details.desc-detalle summary{
+  list-style:none; cursor:pointer;
+  display:inline-flex; align-items:center; gap:7px;
+  font:inherit; font-weight:700; font-size:.86rem;
+  color:var(--acc-t, var(--vino));
+  background:#f7efd9;
+  border:1.5px solid var(--borde);
+  border-radius:999px;
+  padding:6px 14px;
+  transition:border-color .15s ease, background-color .15s ease;
+}
+.agente-card details.desc-detalle summary::-webkit-details-marker{ display:none; }
+.agente-card details.desc-detalle summary::after{
+  content:"▾"; font-size:.8em; line-height:1;
+  transition:transform .18s ease;
+}
+.agente-card details.desc-detalle summary:hover{
+  border-color:var(--dorado); background:#fbf3d9;
+}
+.agente-card details.desc-detalle[open ] summary{ margin-bottom:10px; }
+.agente-card details.desc-detalle[open ] summary::after{ transform:rotate(180deg); }
+.agente-card details.desc-detalle p.desc{ margin:0; }
+
 .paso{ color:var(--vino); font-weight:700; font-size:1.12rem; }
 .prov{
   border:1.5px solid var(--borde) !important;
@@ -539,29 +565,30 @@ html.reveal-on .revelar.revelado{ opacity:1; transform:translateY(0); }
    · Las rejillas caían a una sola columna interminable.
    ============================================================ */
 @media (max-width:700px){
-  /* --- Héroe del index: composición en columna deliberada --- */
+  /* --- Héroe del index: columna compacta, cabe en ~2/3 de pantalla --- */
   .hero-inner{
     flex-direction:column; align-items:flex-start;
-    gap:14px; padding:28px 20px 24px;
+    gap:8px; padding:16px 18px 14px;
   }
-  .hero-logo{ height:64px; width:64px; border-radius:18px; padding:6px; }
+  .hero-logo{ height:52px; width:52px; border-radius:15px; padding:5px; }
   .hero-copy{ min-width:0; }
-  .hero-copy h1{ font-size:2.3rem; }
-  .hero-sub{ font-size:1rem; line-height:1.55; margin-top:10px; }
+  .hero-copy .eyebrow{ margin-bottom:5px; font-size:.7rem; }
+  .hero-copy h1{ font-size:1.85rem; }
+  .hero-sub{ font-size:.93rem; line-height:1.45; margin-top:6px; }
   .hero img.hero-mascot{
-    height:168px; max-height:200px !important; width:auto;
-    align-self:center; margin-top:2px;
+    height:115px; max-height:120px !important; width:auto;
+    align-self:center; margin-top:0;
   }
 
-  /* --- Tarjeta destacada: figura completa, sin cortes --- */
+  /* --- Tarjeta destacada: compacta, figura completa sin cortes --- */
   .nav-destacada{
     flex-direction:column; text-align:center;
-    gap:12px; padding:24px 18px 26px; border-radius:22px;
+    gap:8px; padding:18px 16px 20px; border-radius:22px;
   }
-  .nav-destacada img{ height:148px; width:auto; margin:0 auto; display:block; }
-  .nav-destacada h3{ font-size:1.32rem; }
-  .nav-destacada p{ font-size:.97rem; line-height:1.55; }
-  .nav-destacada .accion{ margin-top:12px; }
+  .nav-destacada img{ height:105px; width:auto; margin:0 auto; display:block; }
+  .nav-destacada h3{ font-size:1.22rem; margin:0 0 5px; }
+  .nav-destacada p{ font-size:.93rem; line-height:1.48; }
+  .nav-destacada .accion{ margin-top:10px; padding:.55em 1.1em; font-size:.95rem; }
 
   /* --- Ritmo vertical y secciones --- */
   .inicio{ padding:26px 14px 4px; }
@@ -606,4 +633,7 @@ html.reveal-on .revelar.revelado{ opacity:1; transform:translateY(0); }
   .agente-card h3{ font-size:1.08rem; }
   .agente-card .rol{ font-size:.8rem; margin:2px 0 8px; }
   .agente-card p.desc{ font-size:.84rem; line-height:1.5; }
+  .agente-card details.desc-detalle summary{
+    font-size:.78rem; padding:5px 11px; gap:5px; white-space:nowrap;
+  }
 }
