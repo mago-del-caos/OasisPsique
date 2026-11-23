@@ -3,443 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UNRC - Repositorio de IAs</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Repositorio de IAs · Oasis Psique</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-
-        body {
-            min-height: 100vh;
-            background-color: var(--vino);
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-            padding: 20px;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        header.site .titulos p{ margin:4px 0 0; color:rgba(255,255,255,.88); }
+        main{ max-width:1120px; margin:28px auto; padding:0 16px 40px; }
+        .intro{ color:var(--suave); max-width:46em; margin:0 0 24px; }
+        .thumb .mono{
+            font-weight:800; color:var(--vino);
+            font-size:1.25rem; letter-spacing:.02em; line-height:1;
         }
-
-        /* Fondo vino sólido con patrón de puntos dorados tenues */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--vino);
-            z-index: -2;
+        .destacada-mono{
+            flex:none; width:104px; height:104px;
+            background:var(--dorado); color:var(--vino-tinta);
+            border-radius:50%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:3rem; font-weight:800; line-height:1;
+            box-shadow:0 8px 22px rgba(0,0,0,.25);
         }
-
-        .pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image:
-                radial-gradient(rgba(201, 162, 39, 0.16) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -1;
-            opacity: 0.35;
+        .volver{ display:inline-block; margin-top:26px; }
+        footer.repo{
+            border-top:3px solid var(--dorado);
+            margin-top:44px; padding-top:18px;
+            color:var(--suave); text-align:center;
         }
-
-        /* Contenido principal */
-        .main-content {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .title {
-            color: #fff;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: 800;
-            letter-spacing: 0.5px;
-            line-height: 1.15;
-            position: relative;
-            padding-bottom: 18px;
-        }
-
-        .title:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 4px;
-            background: var(--dorado);
-            border-radius: 2px;
-        }
-
-        .subtitle {
-            color: #f7efd9;
-            font-size: 1.4rem;
-            margin-bottom: 50px;
-            line-height: 1.7;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 25px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(201, 162, 39, 0.45);
-            border-radius: 16px;
-        }
-
-        /* Contenedor de botones de IA */
-        .buttons-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-            margin-bottom: 70px;
-        }
-
-        /* Tarjetas de IA: superficie tenue sobre vino, borde dorado */
-        .ai-button {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1.5px solid rgba(201, 162, 39, 0.5);
-            border-radius: 20px;
-            padding: 25px 18px;
-            color: white;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            transition: transform 0.18s ease, box-shadow 0.18s ease,
-                        border-color 0.18s ease, background-color 0.18s ease;
-            min-height: 170px;
-            justify-content: flex-start;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
-            position: relative;
-        }
-
-        .ai-button:hover {
-            transform: translateY(-4px);
-            background: rgba(255, 255, 255, 0.11);
-            border-color: var(--dorado);
-            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
-        }
-
-        .ai-button i {
-            font-size: 2.8rem;
-            margin-bottom: 18px;
-            color: var(--dorado-claro);
-        }
-
-        .ai-button .button-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            text-align: center;
-            line-height: 1.3;
-            margin-bottom: 12px;
-            color: white;
-        }
-
-        .ai-button .button-description {
-            font-size: 0.9rem;
-            text-align: center;
-            line-height: 1.4;
-            color: #efe6d2;
-        }
-
-        /* Botón «Regresar» anidado en la tarjeta de Canva */
-        .ai-button .button {
-            margin-top: 14px;
-            background: var(--dorado);
-            color: var(--vino-tinta);
-        }
-
-        /* Encabezado de sección */
-        .section-title {
-            color: var(--dorado-claro);
-            font-size: 2rem;
-            margin-top: 60px;
-            margin-bottom: 35px;
-            text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 3px solid rgba(201, 162, 39, 0.4);
-            position: relative;
-        }
-
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 3px;
-            background: var(--dorado);
-        }
-
-        /* Pie */
-        .footer {
-            margin-top: 80px;
-            color: #efe6d2;
-            font-size: 1.1rem;
-            padding: 30px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 20px;
-            border: 1px solid rgba(201, 162, 39, 0.35);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .footer:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--dorado);
-        }
-
-        .footer p {
-            margin: 8px 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer .highlight {
-            color: var(--dorado-claro);
-            font-weight: 600;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-
-            .title {
-                font-size: 2.3rem;
-                margin-bottom: 15px;
-            }
-
-            .title:after {
-                width: 150px;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-                padding: 20px;
-                margin-bottom: 40px;
-            }
-
-            .section-title {
-                font-size: 1.7rem;
-                margin-top: 50px;
-                margin-bottom: 30px;
-            }
-
-            .footer {
-                margin-top: 60px;
-                padding: 25px 20px;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 700px) {
-            .buttons-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 14px;
-                margin-top: 30px;
-                margin-bottom: 50px;
-            }
-
-            .ai-button {
-                padding: 18px 12px;
-                min-height: 150px;
-                border-radius: 18px;
-            }
-
-            .ai-button i {
-                font-size: 2.2rem;
-                margin-bottom: 12px;
-            }
-
-            .ai-button .button-title {
-                font-size: 1.05rem;
-            }
-
-            .ai-button .button-description {
-                font-size: 0.82rem;
-                line-height: 1.45;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-
-            .title {
-                font-size: 2rem;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                padding: 18px;
-                margin-bottom: 35px;
-                line-height: 1.5;
-            }
-
-            .main-content {
-                padding: 15px;
-            }
-
-            .section-title {
-                font-size: 1.5rem;
-            }
-        }
-
-        @media (min-width: 1200px) {
-            .title {
-                font-size: 3.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.5rem;
-                padding: 30px;
-            }
-
-            .buttons-container {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 30px;
-            }
-
-            .ai-button {
-                padding: 28px 20px;
-                min-height: 180px;
-            }
-
-            .ai-button i {
-                font-size: 3rem;
-            }
-
-            .ai-button .button-title {
-                font-size: 1.4rem;
-            }
-
-            .ai-button .button-description {
-                font-size: 1rem;
-            }
+        footer.repo p{ margin:6px 0; }
+        footer.repo .highlight{ color:var(--vino-oscuro); font-weight:600; }
+        @media (max-width:700px){
+            .destacada-mono{ width:84px; height:84px; font-size:2.4rem; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
-<body class="fondo-vino">
-    <!-- Fondo guinda con patrón -->
-    <div class="background"></div>
-    <div class="pattern"></div>
-    
-    <!-- Contenido principal -->
-    <div class="main-content" id="mainContent">
-        <h1 class="title">UNRC repositorio de IAs de acompañamiento pedagógico</h1>
-        <p class="subtitle">Parte del proyecto ecosistemas digitales del Maestro Pablo Adrian Rivera Juvenal</p>
-        
-        <!-- Sección de IA -->
-        <h2 class="section-title">Herramientas de Inteligencia Artificial</h2>
-        
-        <!-- Botones de enlace a las IA -->
-        <div class="buttons-container">
-            <a href="https://www.deepseek.com" target="_blank" class="ai-button">
-                <i class="fas fa-brain"></i>
-                <div class="button-title">Deepseek</div>
-                <div class="button-description">Asistente de IA avanzado para programación, análisis y razonamiento lógico</div>
-            </a>
-            
-            <a href="https://grok.com" target="_blank" class="ai-button">
-                <i class="fas fa-robot"></i>
-                <div class="button-title">Grok</div>
-                <div class="button-description">IA conversacional con acceso a información en tiempo real y contexto actualizado</div>
-            </a>
-            
-            <a href="https://websim.ai" target="_blank" class="ai-button">
-                <i class="fas fa-globe"></i>
-                <div class="button-title">Websim</div>
-                <div class="button-description">Simulación web y generación de sitios interactivos con inteligencia artificial</div>
-            </a>
-            
-            <!-- Opal IA de Google -->
-            <a href="https://ai.google/discover/palm2/" target="_blank" class="ai-button">
-                <i class="fab fa-google"></i>
-                <div class="button-title">Opal IA</div>
-                <div class="button-description">Modelo de lenguaje avanzado de Google para tareas complejas y razonamiento</div>
-            </a>
-            
-            <a href="https://qwen.ai" target="_blank" class="ai-button">
-                <i class="fas fa-microchip"></i>
-                <div class="button-title">Qwen IA</div>
-                <div class="button-description">Modelo de IA multimodal de Alibaba para texto, imagen y procesamiento multilingüe</div>
-            </a>
-            
-            <a href="https://gemini.google.com" target="_blank" class="ai-button">
-                <i class="fab fa-google"></i>
-                <div class="button-title">Gemini</div>
-                <div class="button-description">IA multimodal de Google que integra texto, voz, imagen y video en tiempo real</div>
-            </a>
-            
-            <a href="https://quillbot.com" target="_blank" class="ai-button">
-                <i class="fas fa-feather-alt"></i>
-                <div class="button-title">Quillbot</div>
-                <div class="button-description">Parafraseador, corrector y mejorador de textos con inteligencia artificial</div>
-            </a>
-            
-            <a href="https://suno.ai" target="_blank" class="ai-button">
-                <i class="fas fa-music"></i>
-                <div class="button-title">Suno</div>
-                <div class="button-description">Generación de música y audio originales con inteligencia artificial avanzada</div>
-            </a>
-            
-            <!-- Botones adicionales -->
-            <a href="https://notebooklm.google.com/" target="_blank" class="ai-button">
-                <i class="fas fa-book"></i>
-                <div class="button-title">NotebookLM</div>
-                <div class="button-description">Investigación y análisis inteligente de documentos con IA especializada</div>
-            </a>
-            
-            <a href="https://www.capcut.com/" target="_blank" class="ai-button">
-                <i class="fas fa-scissors"></i>
-                <div class="button-title">CapCut</div>
-                <div class="button-description">Editor de video online con herramientas de IA para efectos y automatización</div>
-            </a>
-            
-            <a href="https://voyant-tools.org/" target="_blank" class="ai-button">
-                <i class="fas fa-chart-bar"></i>
-                <div class="button-title">Voyant</div>
-                <div class="button-description">Herramientas de análisis de texto, minería de datos y visualización interactiva</div>
-            </a>
-            
-            <a href="https://www.canva.com/" target="_blank" class="ai-button">
-                <i class="fas fa-paint-brush"></i>
-                <div class="button-title">Canva</div>
-                <div class="button-description">Diseño gráfico profesional con asistente de IA integrado para creatividad</div>
-            <a href="index.html" class="button">Regresar </a>
-            </a>
+<body>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos">
+            <h1>Repositorio de IAs</h1>
+            <p>Herramientas de inteligencia artificial de acompañamiento pedagógico</p>
         </div>
-        
-        <div class="footer">
-            <p>UNRC - Repositorio de IAs de acompañamiento pedagógico</p>
-            <p>Proyecto ecosistemas digitales | <span class="highlight">Maestro Pablo Adrian Rivera Juvenal</span></p>
-            <p style="margin-top: 15px; font-size: 1rem; color: #f7efd9;">
-                <i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
-                Recursos educativos innovadores para la transformación digital en educación
-            </p>
-            <p style="font-size: 0.9rem; margin-top: 12px; opacity: 0.9;">
-                Universidad Nacional Rosario Castellanos - 2025
-            </p>
+        <img class="site-mascot" src="alb-tec-celular.png" alt="Albatros de la UNRC señalando un celular">
+    </header>
+    <main>
+        <p class="intro">Parte del proyecto Ecosistemas Digitales del maestro Pablo Adrian Rivera Juvenal. Una selección de herramientas de IA para estudiar, crear y analizar; cada tarjeta te lleva al sitio oficial.</p>
+
+        <div class="sec-head">
+            <p class="eyebrow">Herramienta principal</p>
+            <h2>Para empezar</h2>
         </div>
-    </div>
+        <a href="https://claude.ai" target="_blank" rel="noopener" class="nav-destacada ai-button">
+            <span class="destacada-mono" aria-hidden="true">C</span>
+            <div>
+                <h3>Claude</h3>
+                <p>Asistente de IA de Anthropic: redacta, resume, analiza textos largos y ayuda a programar. En el aula sirve para preparar lecturas, retroalimentar borradores y explicar un tema paso a paso.</p>
+                <span class="accion">Abrir Claude →</span>
+            </div>
+        </a>
+
+        <div class="sec-head">
+            <p class="eyebrow">Herramientas</p>
+            <h2>Más inteligencias artificiales de apoyo</h2>
+        </div>
+        <nav class="nav-grid" aria-label="Herramientas de inteligencia artificial">
+            <a href="https://www.deepseek.com" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">DS</span></span>
+                <span><h3>DeepSeek</h3><p>Modelo abierto y gratuito, fuerte en razonamiento, matemáticas y código. Útil para resolver problemas paso a paso y contrastar procedimientos.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://websim.com" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">W</span></span>
+                <span><h3>Websim</h3><p>Crea sitios y simulaciones web interactivas desde una descripción en texto. Permite prototipar páginas y experimentos virtuales sin saber programar.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://opal.google" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">O</span></span>
+                <span><h3>Opal</h3><p>Herramienta experimental de Google Labs para crear mini-aplicaciones con IA usando lenguaje natural, sin código. Ideal para construir pequeñas apps de práctica.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://qwen.ai" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">Q</span></span>
+                <span><h3>Qwen</h3><p>Familia de modelos de Alibaba para conversar y analizar imágenes y documentos en varios idiomas. Sirve para practicar idiomas y trabajar con textos e imágenes.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://gemini.google.com" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">G</span></span>
+                <span><h3>Gemini</h3><p>IA multimodal de Google que trabaja con texto, imagen, audio y video. Útil para investigar, resumir documentos y organizar ideas.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://quillbot.com" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">QB</span></span>
+                <span><h3>QuillBot</h3><p>Parafrasea, resume y corrige textos en varios idiomas. Ayuda a reescribir con palabras propias, cuidar la gramática y evitar el plagio involuntario.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://suno.com" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">S</span></span>
+                <span><h3>Suno</h3><p>Genera canciones y audio original a partir de una descripción. En el aula permite crear canciones para memorizar conceptos y ambientar proyectos.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://notebooklm.google.com/" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">N</span></span>
+                <span><h3>NotebookLM</h3><p>Cuaderno de investigación de Google: subes tus fuentes y la IA responde solo con base en ellas, con citas. Ideal para estudiar desde tus propios materiales.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://www.capcut.com/" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">CC</span></span>
+                <span><h3>CapCut</h3><p>Editor de video en línea con funciones de IA como subtítulos automáticos y recorte inteligente. Útil para producir videos cortos y exposiciones grabadas.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://voyant-tools.org/" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">V</span></span>
+                <span><h3>Voyant</h3><p>Herramienta académica de análisis de textos: frecuencias de palabras, tendencias y visualizaciones. Sirve para estudiar el vocabulario y los temas de un corpus.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="https://www.canva.com/" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">C</span></span>
+                <span><h3>Canva</h3><p>Diseño gráfico en línea con asistente de IA: presentaciones, carteles e infografías desde plantillas. Útil para elaborar materiales visuales y productos de proyecto.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+        </nav>
+
+        <footer class="repo">
+            <p>UNRC — Repositorio de IAs de acompañamiento pedagógico</p>
+            <p>Proyecto Ecosistemas Digitales | <span class="highlight">Maestro Pablo Adrian Rivera Juvenal</span></p>
+            <p>Recursos educativos innovadores para la transformación digital en educación</p>
+            <p>Universidad Nacional Rosario Castellanos — 2025</p>
+        </footer>
+        <p><a href="index.html" class="volver">← Volver</a></p>
+    </main>
 
     <script>
         // Confirmación para enlaces externos

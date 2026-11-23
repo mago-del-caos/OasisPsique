@@ -14,21 +14,8 @@
         header.site .titulos{ flex:1; min-width:220px; }
         header.site h1{ margin:0; }
         main{ max-width:920px; margin:26px auto; padding:0 16px 40px; }
-        .volver{ text-align:center; margin:26px 0 8px; }
-        .tarjeta .ilustracion{ display:block; height:180px; width:auto; max-width:100%; object-fit:contain; margin:0 auto 18px; }
-        .tarjeta p{ margin:0 0 14px; }
-        .tarjeta p:last-child{ margin-bottom:0; }
-        .hub{
-            display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-            gap:16px;
-        }
-        .hub button{ width:100%; padding:1em 1.2em; font-size:1.02rem; }
-        .intro{ text-align:center; margin:0 0 22px; }
-        .intro img{ height:150px; width:auto; }
-        @media (max-width:700px){
-            .hub{ grid-template-columns:1fr 1fr; gap:12px; }
-            .hub button{ padding:.85em .6em; font-size:.95rem; }
-        }
+        .intro{ color:var(--suave); max-width:44em; margin:0 0 22px; }
+        .volver{ display:inline-block; margin-top:26px; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
@@ -39,13 +26,30 @@
   <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
 </header>
 <main>
-    <div class="hub">
-        <button onclick="location.href='Mision.html'">Misión</button>
-        <button onclick="location.href='Vision.html'">Visión</button>
-        <button onclick="location.href='Historia.html'">Historia</button>
-        <button onclick="location.href='Colaboradores.html'">Colaboradores</button>
-        <button onclick="location.href='index.html'">Volver</button>
-    </div>
+    <p class="intro">Conoce el proyecto detrás de Oasis Psique: su propósito, su meta, su historia y las personas que lo hacen posible.</p>
+    <nav class="nav-grid" aria-label="Secciones de Quienes Somos">
+        <a href="Mision.html" class="nav-card">
+            <span class="thumb"><img src="albatros-presenta.png" alt=""></span>
+            <span><h3>Misión</h3><p>El propósito que guía a Oasis Psique: por qué existe este ecosistema y a quién sirve.</p></span>
+            <span class="flecha" aria-hidden="true">→</span>
+        </a>
+        <a href="Vision.html" class="nav-card">
+            <span class="thumb"><img src="profesora-piensa.png" alt=""></span>
+            <span><h3>Visión</h3><p>La meta a futuro del proyecto: hacia dónde crece la comunidad de Psicología a Distancia.</p></span>
+            <span class="flecha" aria-hidden="true">→</span>
+        </a>
+        <a href="Historia.html" class="nav-card">
+            <span class="thumb"><img src="profe-lee.png" alt=""></span>
+            <span><h3>Historia</h3><p>Cómo nació Oasis Psique y los momentos que lo han formado.</p></span>
+            <span class="flecha" aria-hidden="true">→</span>
+        </a>
+        <a href="Colaboradores.html" class="nav-card">
+            <span class="thumb"><img src="profesora-saludo.png" alt=""></span>
+            <span><h3>Colaboradores</h3><p>Las personas que hacen posible el proyecto: docentes y colaboradores.</p></span>
+            <span class="flecha" aria-hidden="true">→</span>
+        </a>
+    </nav>
+    <p><a href="index.html" class="volver">← Volver</a></p>
 </main>
 <script src="reveal.js"></script>
 </body>
