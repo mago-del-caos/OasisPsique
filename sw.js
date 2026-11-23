@@ -7,7 +7,7 @@
    que cachean fuerte). Sin conexión, las navegaciones responden
    desde la caché.
    Para forzar una limpieza total, sube el número de CACHE. */
-var CACHE = 'oasis-v5';
+var CACHE = 'oasis-v6';
 
 self.addEventListener('install', function (event) {
   self.skipWaiting();

@@ -20,14 +20,6 @@
             font-weight:800; color:var(--vino);
             font-size:1.25rem; letter-spacing:.02em; line-height:1;
         }
-        .destacada-mono{
-            flex:none; width:104px; height:104px;
-            background:var(--dorado); color:var(--vino-tinta);
-            border-radius:50%;
-            display:flex; align-items:center; justify-content:center;
-            font-size:3rem; font-weight:800; line-height:1;
-            box-shadow:0 8px 22px rgba(0,0,0,.25);
-        }
         .volver{ display:inline-block; margin-top:26px; }
         footer.repo{
             border-top:3px solid var(--dorado);
@@ -36,9 +28,6 @@
         }
         footer.repo p{ margin:6px 0; }
         footer.repo .highlight{ color:var(--vino-oscuro); font-weight:600; }
-        @media (max-width:700px){
-            .destacada-mono{ width:84px; height:84px; font-size:2.4rem; }
-        }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
@@ -55,23 +44,15 @@
         <p class="intro">Parte del proyecto Ecosistemas Digitales del maestro Pablo Adrian Rivera Juvenal. Una selección de herramientas de IA para estudiar, crear y analizar; cada tarjeta te lleva al sitio oficial.</p>
 
         <div class="sec-head">
-            <p class="eyebrow">Herramienta principal</p>
-            <h2>Para empezar</h2>
-        </div>
-        <a href="https://claude.ai" target="_blank" rel="noopener" class="nav-destacada ai-button">
-            <span class="destacada-mono" aria-hidden="true">C</span>
-            <div>
-                <h3>Claude</h3>
-                <p>Asistente de IA de Anthropic: redacta, resume, analiza textos largos y ayuda a programar. En el aula sirve para preparar lecturas, retroalimentar borradores y explicar un tema paso a paso.</p>
-                <span class="accion">Abrir Claude →</span>
-            </div>
-        </a>
-
-        <div class="sec-head">
             <p class="eyebrow">Herramientas</p>
-            <h2>Más inteligencias artificiales de apoyo</h2>
+            <h2>Inteligencias artificiales de apoyo</h2>
         </div>
         <nav class="nav-grid" aria-label="Herramientas de inteligencia artificial">
+            <a href="https://muse.ai" target="_blank" rel="noopener" class="nav-card ai-button">
+                <span class="thumb"><span class="mono">M</span></span>
+                <span><h3>Muse</h3><p>Nuestra herramienta principal. El agente personal de Meta con el que trabaja el profe Adrian: organiza pendientes, investiga, redacta y construye los materiales de este ecosistema.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
             <a href="https://www.deepseek.com" target="_blank" rel="noopener" class="nav-card ai-button">
                 <span class="thumb"><span class="mono">DS</span></span>
                 <span><h3>DeepSeek</h3><p>Modelo abierto y gratuito, fuerte en razonamiento, matemáticas y código. Útil para resolver problemas paso a paso y contrastar procedimientos.</p></span>
