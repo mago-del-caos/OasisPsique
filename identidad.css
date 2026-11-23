@@ -233,6 +233,10 @@ footer{
   height:150px; width:auto; flex:none;
   filter:drop-shadow(0 14px 18px rgba(0,0,0,.28));
 }
+/* Banner principal del index: una sola imagen (diseño de Pablo) */
+.hero-inner--banner{ display:block; padding:22px 24px; }
+.hero-banner{ width:100%; height:auto; display:block; border-radius:14px; }
+@media (max-width:700px){ .hero-inner--banner{ padding:12px; } }
 /* Solo para lectores de pantalla y buscadores (p. ej. el H1 del héroe) */
 .sr-only{
   position:absolute !important;
