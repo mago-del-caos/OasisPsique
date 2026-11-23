@@ -1,13 +1,13 @@
 /* Oasis Psique — Service Worker (PWA)
-   Estrategia: stale-while-revalidate para recursos del mismo origen.
-   Se sirve lo que hay en caché al instante y en segundo plano se
-   descarga la versión nueva, que queda lista para la siguiente visita.
+   Estrategia: red primero para HTML y CSS (las páginas y los estilos
+   se ven SIEMPRE en su versión más reciente cuando hay conexión; la
+   caché solo responde sin conexión). Imágenes y demás recursos:
+   stale-while-revalidate (caché al instante, red en segundo plano).
    Junto con skipWaiting + clients.claim, las actualizaciones llegan
    sin esperar a que el navegador decida revisar (clave en teléfonos
-   que cachean fuerte). Sin conexión, las navegaciones responden
-   desde la caché.
+   que cachean fuerte).
    Para forzar una limpieza total, sube el número de CACHE. */
-var CACHE = 'oasis-v6';
+var CACHE = 'oasis-v7';
 
 self.addEventListener('install', function (event) {
   self.skipWaiting();
@@ -36,6 +36,9 @@ self.addEventListener('fetch', function (event) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return; /* externos: red directa */
 
+  var esDocumento = req.mode === 'navigate' ||
+    /\.(html|css)$/.test(url.pathname) || url.pathname.endsWith('/');
+
   event.respondWith(
     caches.open(CACHE).then(function (cache) {
       return cache.match(req, { ignoreSearch: true }).then(function (enCache) {
@@ -50,8 +53,9 @@ self.addEventListener('fetch', function (event) {
           }
           return enCache;
         });
-        /* Stale-while-revalidate: caché ya, red en segundo plano. */
-        return enCache || red;
+        /* HTML/CSS: red primero (la versión nueva se ve al momento).
+           Resto: stale-while-revalidate (caché ya, red en segundo plano). */
+        return esDocumento ? red : (enCache || red);
       });
     })
   );
