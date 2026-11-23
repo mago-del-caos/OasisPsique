@@ -5,92 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comics Educativos - Oasis Psique</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        header.site p{ margin:4px 0 0; opacity:.92; }
+        main{ max-width:900px; margin:28px auto; padding:0 16px 40px; }
+        .intro{ color:var(--suave); max-width:46em; }
+        .comic-container{
+            margin-top:24px; display:flex; flex-direction:column; gap:20px;
         }
-        header img {
-            height: 150px;
-            margin: 0 20px;
-        }
-        h1 {
-            margin: 0;
-        }
-        h2 {
-            margin: 10px 0 0;
-            font-size: 1.2em;
-        }
-        main {
-            margin: 40px auto;
-            width: 80%;
-            max-width: 900px;
-            text-align: left;
-        }
-        .comic-container {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .comic {
-            border: 2px solid #800020;
-            border-radius: 10px;
-            padding: 15px;
-            background-color: #fefefe;
-        }
-        .comic img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 25px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            margin: 40px auto 0;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
-        footer {
-            margin-top: 40px;
-            background-color: #f8f8f8;
-            padding: 10px 0;
-            color: #333;
-            font-size: 0.9em;
-            text-align: center;
-        }
+        .comic h3{ margin:0 0 12px; color:var(--vino); }
+        .comic p{ margin:12px 0 0; }
+        .comic img{ border-radius:var(--r-md); }
+        .volver{ display:inline-block; margin-top:26px; }
+        footer{ padding:16px; text-align:center; font-size:.9em; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo" style="height:110px;width:110px;">
-        <div>
-            <h1>Oasis</h1>
-            <h2>Un ecosistema digital educativo libre</h2>
-        </div>
-        <img src="albatros-saludo.png" alt="Albatros mascota de la UNRC" style="height:135px;width:auto;">
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Oasis</h1><p>Un ecosistema digital educativo libre</p></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
     </header>
     <main>
-        <h2>Comics Educativos</h2>
-        <p>Aquí encontrarás cómics diseñados para aprender de forma visual y divertida sobre diversos temas de la psicología y la educación.</p>
+        <div class="sec-head">
+            <p class="eyebrow">Recursos visuales</p>
+            <h2>Comics Educativos</h2>
+        </div>
+        <p class="intro">Aquí encontrarás cómics diseñados para aprender de forma visual y divertida sobre diversos temas de la psicología y la educación.</p>
         <div class="comic-container">
             <div class="comic">
                 <h3>Cómic 1: La emoción escondida</h3>
@@ -103,10 +51,11 @@
                 <p>Una aventura gráfica sobre la importancia del descanso, la alimentación y el equilibrio emocional.</p>
             </div>
         </div>
-        <a href="index.html" class="button">Regresar al inicio</a>
+        <p><a href="index.html" class="volver">← Regresar al inicio</a></p>
     </main>
     <footer>
         <strong>Este proyecto es una creación del maestro Pablo Adrian Rivera Juvenal, profesor de tiempo completo de la URC.</strong>
     </footer>
+    <script src="reveal.js"></script>
 </body>
 </html>

@@ -5,86 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canales de Youtube</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:920px; margin:28px auto; padding:0 16px 40px; }
+        .canal{ padding:26px; }
+        .canal h2{ margin:0 0 8px; font-size:1.3rem; }
+        .canal p{ margin:0 0 18px; color:var(--suave); }
+        .video{
+            position:relative; aspect-ratio:16/9;
+            background:var(--crema-2);
+            border:1px solid var(--borde); border-radius:var(--r-md);
+            overflow:hidden;
         }
-        header h1 {
-            margin: 0;
+        .video iframe{
+            position:absolute; inset:0; width:100%; height:100%;
+            border:0; display:block;
         }
-        main {
-            margin: 20px auto;
-            width: 80%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        td {
-            vertical-align: top;
-            padding: 10px;
-            text-align: left;
-        }
-        iframe {
-            width: 100%;
-            max-width: 560px;
-            height: 315px;
-            border: none;
-            border-radius: 10px;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
-        .title {
-            font-weight: bold;
+        .volver{ display:inline-block; margin-top:22px; }
+        @media (max-width:700px){
+            .canal{ padding:20px 18px; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Canales de Youtube</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Canales de Youtube</h1></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
     </header>
     <main>
-        <table>
-            <tr>
-                <td>
-                    <iframe src="https://www.youtube.com/embed/mb5qnOSqWjo?si=2gCa6mSG0JZ7_bCN" allowfullscreen></iframe>
-                </td>
-                <td>
-                    <p class="title">URC epistemología y psicología</p>
-                    <p>
-                        Este canal pertenece al profe Adrian y sube sus sesiones, material de apoyo, cursos y conferencias.
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <a href="index.html" class="button">Regresar</a>
+        <div class="sec-head">
+            <p class="eyebrow">Video</p>
+            <h2>Canales recomendados</h2>
+        </div>
+        <article class="tarjeta canal">
+            <h2>URC epistemología y psicología</h2>
+            <p>Este canal pertenece al profe Adrian y sube sus sesiones, material de apoyo, cursos y conferencias.</p>
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/mb5qnOSqWjo?si=2gCa6mSG0JZ7_bCN" allowfullscreen></iframe>
+            </div>
+        </article>
+        <p><a href="index.html" class="volver">← Regresar</a></p>
     </main>
+    <script src="reveal.js"></script>
 </body>
 </html>

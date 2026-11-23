@@ -5,71 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guías de Estudio</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:920px; margin:28px auto; padding:0 16px 40px; }
+        .hero-img{
+            display:block; margin:0 auto 26px;
+            width:260px; max-width:70%; height:auto;
         }
-        img {
-            width: 33%;
-            max-height: 300px;
-            object-fit: cover;
+        a.tarjeta{
+            display:flex; align-items:center; gap:16px;
+            text-decoration:none; color:var(--tinta);
+            font-size:1.15rem; font-weight:700;
+            transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
         }
-        main {
-            margin: 20px auto;
-            width: 80%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
+        a.tarjeta:hover{
+            transform:translateY(-3px); box-shadow:var(--sombra);
+            border-color:var(--dorado); color:var(--tinta);
         }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 20px 30px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            transition: background-color 0.3s;
+        a.tarjeta .flecha{
+            margin-left:auto; flex:none;
+            color:var(--dorado-oscuro); font-size:1.3rem; font-weight:700;
         }
-        .button:hover {
-            background-color: #555555;
-        }
-        footer {
-            margin-top: 20px;
-            background-color: #f8f8f8;
-            padding: 10px 0;
-            color: #333;
-            font-size: 0.9em;
+        .volver{ display:inline-block; margin-top:24px; }
+        footer{ padding:16px; text-align:center; font-size:.9em; }
+        @media (max-width:700px){
+            a.tarjeta{ font-size:1.02rem; padding:20px 18px; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Guías de Estudio</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Guías de Estudio</h1></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
     </header>
-
-    <img src="profesora-escribe.png" alt="Guías de Estudio">
-
     <main>
-        <a href="Examen_diversidad.html" class="button">
-            Guía Diversidad e Inclusión Educativa
-        </a>
-        <a href="index.html" class="button">Volver</a>
+        <img class="hero-img" src="profesora-escribe.png" alt="Guías de Estudio">
+        <a href="Examen_diversidad.html" class="tarjeta">Guía Diversidad e Inclusión Educativa<span class="flecha" aria-hidden="true">→</span></a>
+        <p><a href="index.html" class="volver">← Volver</a></p>
     </main>
-
     <footer>
         <strong>Proyecto Oasis Psique | URC</strong>
     </footer>
+    <script src="reveal.js"></script>
 </body>
 </html>

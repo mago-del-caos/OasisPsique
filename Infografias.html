@@ -5,93 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Infografías</title>
     <style>
+        * { box-sizing: border-box; }
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background-color: #ffffff;
             margin: 0;
             padding: 0;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site {
+            display: flex; align-items: center; gap: 16px;
+            padding: 18px 22px; flex-wrap: wrap;
+            text-align: left;
         }
-        header h1 {
-            margin: 0;
-        }
+        header.site .titulos { flex: 1; min-width: 220px; }
+        header.site h1 { margin: 0; }
         main {
-            margin: 20px auto;
-            width: 80%;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
+            margin: 24px auto;
+            width: 88%;
+            max-width: 900px;
         }
         .main-image {
             max-width: 50%;
+            height: auto;
+            margin: 8px 0 20px;
+        }
+        .tarjeta {
+            text-align: left;
+            overflow: hidden;
         }
         .folder-image {
             max-width: 25%;
+            height: auto;
             float: left;
-            margin-right: 10px;
+            margin: 0 16px 8px 0;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        td {
-            vertical-align: top;
-            padding: 10px;
-            text-align: left;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
-        .title {
+        .tarjeta .title {
             font-weight: bold;
+            color: var(--vino);
+            font-size: 1.1rem;
+            margin-top: 0;
+        }
+        .button { margin-top: 20px; }
+        @media (max-width: 700px) {
+            .main-image { max-width: 75%; }
+            .folder-image { max-width: 40%; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Infografías</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Infografías</h1></div>
+        <img class="site-mascot" src="profe-lee.png" alt="Albatros profesor leyendo un libro">
     </header>
     <main>
         <img src="profe-lee.png" alt="Albatros profesor leyendo un libro" class="main-image">
-        <table>
-            <tr>
-                <td colspan="2">
-                    <a href="https://drive.google.com/drive/folders/1Aj4fE2s8BnAtwSxToK6LGLyZSD23KYcy?usp=sharing" target="_blank">
-                        <img src="profesora-escribe.png" alt="Albatros profesora escribiendo en su libreta" class="folder-image">
-                    </a>
-                    <p class="title">Infografías Profe Adrian</p>
-                    <p>
-                        En este espacio el profe Adrian te comparte sus infografías para tu estudio.
-                    </p>
-                </td>
-            </tr>
-        </table>
+        <article class="tarjeta">
+            <a href="https://drive.google.com/drive/folders/1Aj4fE2s8BnAtwSxToK6LGLyZSD23KYcy?usp=sharing" target="_blank">
+                <img src="profesora-escribe.png" alt="Albatros profesora escribiendo en su libreta" class="folder-image">
+            </a>
+            <p class="title">Infografías Profe Adrian</p>
+            <p>
+                En este espacio el profe Adrian te comparte sus infografías para tu estudio.
+            </p>
+        </article>
         <a href="index.html" class="button">Regresar</a>
     </main>
+<script src="reveal.js"></script>
 </body>
 </html>

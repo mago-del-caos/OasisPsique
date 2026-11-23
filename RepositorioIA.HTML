@@ -15,51 +15,35 @@
 
         body {
             min-height: 100vh;
-            background-color: #800020; /* Color guinda/borgoña */
-            color: white;
+            background-color: var(--vino);
+            color: #fff;
             overflow-x: hidden;
             position: relative;
             padding: 20px;
         }
 
-        /* Fondo guinda con textura sutil */
+        /* Fondo vino sólido con patrón de puntos dorados tenues */
         .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
-                linear-gradient(135deg, #800020 0%, #5a0017 100%),
-                radial-gradient(circle at 20% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.15) 0%, transparent 50%);
+            background: var(--vino);
             z-index: -2;
         }
 
-        /* Patrón sutil */
         .pattern {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-image:
+                radial-gradient(rgba(201, 162, 39, 0.16) 1px, transparent 1px);
             background-size: 30px 30px;
             z-index: -1;
-            opacity: 0.3;
-        }
-
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            opacity: 0.35;
         }
 
         /* Contenido principal */
@@ -69,38 +53,33 @@
             margin: 0 auto;
             padding: 20px;
             text-align: center;
-            animation: fadeIn 1s ease-out forwards;
         }
 
         .title {
-            color: white;
+            color: #fff;
             font-size: 3rem;
             margin-bottom: 20px;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             font-weight: 800;
             letter-spacing: 0.5px;
-            background: linear-gradient(to right, #ffffff, #ffd1dc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeIn 1s ease-out 0.2s both;
+            line-height: 1.15;
             position: relative;
+            padding-bottom: 18px;
         }
 
         .title:after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             width: 200px;
             height: 4px;
-            background: linear-gradient(to right, transparent, #ff69b4, transparent);
+            background: var(--dorado);
             border-radius: 2px;
         }
 
         .subtitle {
-            color: #ffd1dc;
+            color: #f7efd9;
             font-size: 1.4rem;
             margin-bottom: 50px;
             line-height: 1.7;
@@ -108,13 +87,9 @@
             margin-left: auto;
             margin-right: auto;
             padding: 25px;
-            background: rgba(255, 105, 180, 0.15);
-            border-radius: 20px;
-            border-left: 6px solid #ff69b4;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(10px);
-            animation: fadeIn 1s ease-out 0.4s both;
-            border-right: 1px solid rgba(255, 182, 193, 0.2);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(201, 162, 39, 0.45);
+            border-radius: 16px;
         }
 
         /* Contenedor de botones de IA */
@@ -124,13 +99,12 @@
             gap: 25px;
             margin-top: 40px;
             margin-bottom: 70px;
-            animation: fadeIn 1s ease-out 0.6s both;
         }
 
-        /* BOTONES ROSAS/MAUVE MEJORADOS */
+        /* Tarjetas de IA: superficie tenue sobre vino, borde dorado */
         .ai-button {
-            background: linear-gradient(145deg, rgba(255, 105, 180, 0.25), rgba(219, 112, 147, 0.15));
-            border: 2px solid rgba(255, 182, 193, 0.4);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1.5px solid rgba(201, 162, 39, 0.5);
             border-radius: 20px;
             padding: 25px 18px;
             color: white;
@@ -138,53 +112,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            backdrop-filter: blur(12px);
+            transition: transform 0.18s ease, box-shadow 0.18s ease,
+                        border-color 0.18s ease, background-color 0.18s ease;
             min-height: 170px;
             justify-content: flex-start;
-            box-shadow: 
-                0 10px 25px rgba(0, 0, 0, 0.25),
-                inset 0 1px 0 rgba(255, 255, 255, 0.15),
-                0 0 20px rgba(255, 20, 147, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
             position: relative;
-            overflow: hidden;
-        }
-
-        .ai-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .ai-button:hover:before {
-            left: 100%;
         }
 
         .ai-button:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: linear-gradient(145deg, rgba(255, 105, 180, 0.35), rgba(219, 112, 147, 0.25));
-            border-color: #ffb6c1;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.35),
-                0 0 50px rgba(255, 20, 147, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.11);
+            border-color: var(--dorado);
+            box-shadow: 0 12px 26px rgba(0, 0, 0, 0.28);
         }
 
         .ai-button i {
             font-size: 2.8rem;
             margin-bottom: 18px;
-            color: #ffb6c1;
-            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
-            transition: transform 0.3s;
-        }
-
-        .ai-button:hover i {
-            transform: scale(1.2);
+            color: var(--dorado-claro);
         }
 
         .ai-button .button-title {
@@ -194,33 +140,32 @@
             line-height: 1.3;
             margin-bottom: 12px;
             color: white;
-            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-            position: relative;
-            z-index: 1;
         }
 
         .ai-button .button-description {
             font-size: 0.9rem;
             text-align: center;
             line-height: 1.4;
-            color: #ffe4e9;
-            opacity: 0.95;
-            position: relative;
-            z-index: 1;
+            color: #efe6d2;
+        }
+
+        /* Botón «Regresar» anidado en la tarjeta de Canva */
+        .ai-button .button {
+            margin-top: 14px;
+            background: var(--dorado);
+            color: var(--vino-tinta);
         }
 
         /* Encabezado de sección */
         .section-title {
-            color: #ffb6c1;
+            color: var(--dorado-claro);
             font-size: 2rem;
             margin-top: 60px;
             margin-bottom: 35px;
             text-align: center;
             padding-bottom: 15px;
-            border-bottom: 3px solid rgba(255, 182, 193, 0.3);
-            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+            border-bottom: 3px solid rgba(201, 162, 39, 0.4);
             position: relative;
-            animation: fadeIn 1s ease-out 0.5s both;
         }
 
         .section-title:after {
@@ -231,22 +176,19 @@
             transform: translateX(-50%);
             width: 150px;
             height: 3px;
-            background: linear-gradient(to right, transparent, #ff69b4, transparent);
+            background: var(--dorado);
         }
 
-        /* Footer mejorado */
+        /* Pie */
         .footer {
             margin-top: 80px;
-            color: #ffc0cb;
+            color: #efe6d2;
             font-size: 1.1rem;
             padding: 30px;
             text-align: center;
-            background: rgba(255, 105, 180, 0.12);
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            border: 1px solid rgba(255, 182, 193, 0.25);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            backdrop-filter: blur(10px);
-            animation: fadeIn 1s ease-out 0.8s both;
+            border: 1px solid rgba(201, 162, 39, 0.35);
             position: relative;
             overflow: hidden;
         }
@@ -258,7 +200,7 @@
             left: 0;
             right: 0;
             height: 3px;
-            background: linear-gradient(to right, transparent, #ff69b4, #ffb6c1, #ff69b4, transparent);
+            background: var(--dorado);
         }
 
         .footer p {
@@ -268,15 +210,8 @@
         }
 
         .footer .highlight {
-            color: #ffd700;
+            color: var(--dorado-claro);
             font-weight: 600;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Efecto de brillo sutil en los botones */
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 20, 147, 0.1); }
-            50% { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 25px rgba(255, 20, 147, 0.2); }
         }
 
         /* RESPONSIVE */
@@ -284,50 +219,28 @@
             body {
                 padding: 15px;
             }
-            
+
             .title {
                 font-size: 2.3rem;
                 margin-bottom: 15px;
             }
-            
+
             .title:after {
                 width: 150px;
             }
-            
+
             .subtitle {
                 font-size: 1.2rem;
                 padding: 20px;
                 margin-bottom: 40px;
             }
-            
-            .buttons-container {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 18px;
-                margin-top: 30px;
-                margin-bottom: 50px;
-            }
-            
-            .ai-button {
-                padding: 20px 15px;
-                min-height: 160px;
-                border-radius: 18px;
-            }
-            
-            .ai-button i {
-                font-size: 2.4rem;
-                margin-bottom: 15px;
-            }
-            
-            .ai-button .button-title {
-                font-size: 1.2rem;
-            }
-            
+
             .section-title {
                 font-size: 1.7rem;
                 margin-top: 50px;
                 margin-bottom: 30px;
             }
-            
+
             .footer {
                 margin-top: 60px;
                 padding: 25px 20px;
@@ -335,43 +248,55 @@
             }
         }
 
+        @media (max-width: 700px) {
+            .buttons-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+                margin-top: 30px;
+                margin-bottom: 50px;
+            }
+
+            .ai-button {
+                padding: 18px 12px;
+                min-height: 150px;
+                border-radius: 18px;
+            }
+
+            .ai-button i {
+                font-size: 2.2rem;
+                margin-bottom: 12px;
+            }
+
+            .ai-button .button-title {
+                font-size: 1.05rem;
+            }
+
+            .ai-button .button-description {
+                font-size: 0.82rem;
+                line-height: 1.45;
+            }
+        }
+
         @media (max-width: 480px) {
             body {
                 padding: 10px;
             }
-            
+
             .title {
                 font-size: 2rem;
             }
-            
+
             .subtitle {
                 font-size: 1rem;
                 padding: 18px;
                 margin-bottom: 35px;
                 line-height: 1.5;
             }
-            
-            .buttons-container {
-                grid-template-columns: 1fr;
-                max-width: 320px;
-                margin-left: auto;
-                margin-right: auto;
-                gap: 15px;
-            }
-            
-            .ai-button {
-                padding: 18px 15px;
-                min-height: 150px;
-            }
-            
-            .ai-button i {
-                font-size: 2.2rem;
-            }
-            
+
             .main-content {
                 padding: 15px;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
@@ -381,30 +306,30 @@
             .title {
                 font-size: 3.5rem;
             }
-            
+
             .subtitle {
                 font-size: 1.5rem;
                 padding: 30px;
             }
-            
+
             .buttons-container {
                 grid-template-columns: repeat(4, 1fr);
                 gap: 30px;
             }
-            
+
             .ai-button {
                 padding: 28px 20px;
                 min-height: 180px;
             }
-            
+
             .ai-button i {
                 font-size: 3rem;
             }
-            
+
             .ai-button .button-title {
                 font-size: 1.4rem;
             }
-            
+
             .ai-button .button-description {
                 font-size: 1rem;
             }
@@ -506,7 +431,7 @@
         <div class="footer">
             <p>UNRC - Repositorio de IAs de acompañamiento pedagógico</p>
             <p>Proyecto ecosistemas digitales | <span class="highlight">Maestro Pablo Adrian Rivera Juvenal</span></p>
-            <p style="margin-top: 15px; font-size: 1rem; color: #ffd1dc;">
+            <p style="margin-top: 15px; font-size: 1rem; color: #f7efd9;">
                 <i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
                 Recursos educativos innovadores para la transformación digital en educación
             </p>
@@ -560,5 +485,6 @@
         window.addEventListener('load', adjustLayout);
         window.addEventListener('resize', adjustLayout);
     </script>
+    <script src="reveal.js"></script>
 </body>
 </html>

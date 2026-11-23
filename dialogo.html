@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,59 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habla con los Autores</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:920px; margin:28px auto; padding:0 16px 40px; }
+        .lead{ max-width:46em; }
+        .hero-img{
+            display:block; margin:22px auto 26px;
+            width:300px; max-width:80%; height:auto;
         }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            margin: 20px auto;
-            width: 80%;
-        }
-        img {
-            max-width: 50%;
-            height: auto;
-            margin: 20px 0;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
+        .tarjeta{ text-align:center; }
+        .tarjeta .button{ width:100%; text-align:center; }
+        .volver{ display:inline-block; margin-top:24px; }
+        @media (max-width:700px){
+            .rejilla.rejilla-corta{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+            .rejilla-corta .tarjeta{ padding:16px 14px; }
+            .rejilla-corta .tarjeta .button{ padding:.8em .8em; font-size:.92rem; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Habla con los Autores</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Habla con los Autores</h1></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
     </header>
     <main>
-        <p>Habla con los autores y experimenta de primera mano sus ideas por medio de nuestro motor de personalizado basado en CHAT GPT</p>
-        <img src="profesora-presenta.png" alt="Imagen de diálogo con los autores" style="display: block; margin: 0 auto;">
-        <a href="https://chatgpt.com/g/g-710plJ7CQ-karl-popper" target="_blank" class="button">Habla con Popper</a>
-        <a href="https://chatgpt.com/g/g-rYQmJmxha-aristoteles" target="_blank" class="button">Habla con Aristóteles</a>
-        <a href="https://chatgpt.com/g/g-aOReB3PJl-socrates" target="_blank" class="button">Habla con Sócrates</a>
-    <a href="index.html" class="button">Volver</a>
+        <p class="lead">Habla con los autores y experimenta de primera mano sus ideas por medio de nuestro motor de personalizado basado en CHAT GPT</p>
+        <img class="hero-img" src="profesora-presenta.png" alt="Imagen de diálogo con los autores">
+        <div class="rejilla rejilla-corta">
+            <div class="tarjeta">
+                <a href="https://chatgpt.com/g/g-710plJ7CQ-karl-popper" target="_blank" class="button">Habla con Popper</a>
+            </div>
+            <div class="tarjeta">
+                <a href="https://chatgpt.com/g/g-rYQmJmxha-aristoteles" target="_blank" class="button">Habla con Aristóteles</a>
+            </div>
+            <div class="tarjeta">
+                <a href="https://chatgpt.com/g/g-aOReB3PJl-socrates" target="_blank" class="button">Habla con Sócrates</a>
+            </div>
+        </div>
+        <p><a href="index.html" class="volver">← Volver</a></p>
     </main>
+    <script src="reveal.js"></script>
 </body>
 </html>

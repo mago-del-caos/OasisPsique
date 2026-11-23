@@ -5,104 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cuestionario TIC TAC TEPS</title>
   <style>
-    /* Reset básico */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: #f8f8f8;
-      font-family: Arial, sans-serif;
-      color: #333;
-      line-height: 1.6;
-    }
-    /* Contenedor principal */
-    .container {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 2rem;
-      background-color: #fff;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    /* Encabezados y textos */
-    h1 {
-      text-align: center;
-      margin-bottom: 1rem;
-      color: #800000; /* guinda */
-    }
-    p {
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    /* Grupo de entrada */
-    .input-group {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 1.5rem;
-    }
-    .input-group label {
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-    .input-group input[type="text"] {
-      padding: 0.75rem;
-      border: 1px solid #ddd;
-      border-radius: 4px;
-      font-size: 1rem;
-    }
-    /* Estilo de cada pregunta */
-    .question {
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #eee;
-    }
-    .question p {
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #800000;
-    }
-    .question label {
-      display: block;
-      margin-bottom: 0.5rem;
-      cursor: pointer;
-    }
-    /* Botones */
-    button {
-      background-color: #800000;
-      color: #fff;
-      padding: 0.75rem 1.5rem;
-      border: none;
-      border-radius: 4px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      display: block;
-      margin: 1rem auto;
-    }
-    button:hover {
-      background-color: #660000;
-    }
-    /* Resultados */
-    .results-container {
-      text-align: center;
-      margin-top: 2rem;
-    }
-    /* Adaptabilidad móvil */
-    @media (max-width: 600px) {
-      .container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
-    }
-  </style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:860px; margin:26px auto; padding:0 16px 40px; }
+  .intro{ text-align:center; color:var(--suave); margin:0 0 20px; }
+  .input-group{ display:flex; flex-direction:column; gap:6px; margin-bottom:22px; }
+  .input-group input[type="text"]{ width:100%; }
+  .question{ margin-bottom:16px; }
+  .question p{ font-weight:700; color:var(--vino); margin:0 0 8px; text-align:left; }
+  .question label{ display:block; padding:6px 8px; border-radius:8px; cursor:pointer; font-weight:400; }
+  .question label:hover{ background:var(--crema-2); }
+  #quiz-form button, .results-container button, #back-btn{ display:block; margin:14px auto 0; }
+  .results-container{ text-align:center; margin-top:22px; }
+  .results-container h2{ margin-top:0; }
+  @media (max-width:700px){ main{ margin:18px auto; } }
+</style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Cuestionario sobre TIC, TAC y TEP</h1>
-    <p>Por favor, introduce tu nombre completo y responde las siguientes 10 preguntas.</p>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Cuestionario sobre TIC, TAC y TEP</h1></div>
+  <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
+  <section class="tarjeta">
+    <p class="intro">Por favor, introduce tu nombre completo y responde las siguientes 10 preguntas.</p>
     <div class="input-group">
       <label for="nombre">Nombre del Participante:</label>
       <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
@@ -188,7 +120,8 @@
     </div>
     <!-- Botón de regresar -->
     <button type="button" id="back-btn" onclick="window.location.href='Aplicacion.html'">Regresar</button>
-  </div>
+  </section>
+</main>
   
   <script>
     // Evaluación del cuestionario
@@ -307,5 +240,6 @@
       window.URL.revokeObjectURL(url);
     });
   </script>
+  <script src="reveal.js"></script>
 </body>
 </html>

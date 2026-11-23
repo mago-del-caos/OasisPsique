@@ -5,70 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplicaciones de Apoyo</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:1020px; margin:28px auto; padding:0 16px 40px; }
+        .hero-img{
+            display:block; margin:0 auto 18px;
+            width:240px; max-width:65%; height:auto;
         }
-        header h1 {
-            margin: 0;
+        .lead{ text-align:center; font-size:1.125rem; max-width:42em; margin:0 auto 26px; }
+        a.tarjeta{
+            display:flex; align-items:center; gap:12px;
+            text-decoration:none; color:var(--vino);
+            font-weight:700; line-height:1.35;
+            transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
         }
-        main {
-            margin: 20px auto;
-            width: 80%;
+        a.tarjeta:hover{
+            transform:translateY(-3px); box-shadow:var(--sombra);
+            border-color:var(--dorado); color:var(--vino-oscuro);
         }
-        img {
-            max-width: 50%;
-            height: auto;
-            margin: 20px 0;
+        a.tarjeta .flecha{
+            margin-left:auto; flex:none;
+            color:var(--dorado-oscuro); font-size:1.2rem; font-weight:700;
         }
-        p {
-            font-size: 1.2em;
-            color: #333;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
+        .volver{ display:inline-block; margin-top:24px; }
+        @media (max-width:700px){
+            .rejilla.rejilla-corta{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+            .rejilla-corta a.tarjeta{ padding:16px 14px; font-size:.92rem; }
+            .lead{ font-size:1rem; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Aplicaciones de Apoyo</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Aplicaciones de Apoyo</h1></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
     </header>
     <main>
-        <img src="albatros-salto.png" alt="Imagen de Aplicaciones de Apoyo">
-        <p>En este lugar podrás encontrar las aplicaciones realizadas para tu formación.</p>
-        
-        <a href="https://websim.ai/p/b5ixktmqxxer0g8qobqz/23" target="_blank" class="button">Modelo de Toulmin</a>
-        <a href="https://chatgpt.com/g/g-674105f10fa881918be88615e6200120-apoyo-para-unidad-3-pap" target="_blank" class="button">Simulador Persona en Crisis</a>
-        <a href="tic.html" class="button">Prueba TIC, TAC, TEPS</a>
-        <a href="Sombreros.html" target="_blank" class="button">Sombreros para pensar</a>
-        <a href="https://gd.games/instant-builds/024e3e42-732e-4819-8f7a-5ed56b02b4a4" target="_blank" class="button">Modelo Gunawardena</a>
-        <a href="Juegop.html" class="button">Pensamientos</a>
-        <a href="aspectos.html" target="_blank" class="button">Elementos del emprendimiento social</a>
-        <a href="Conceptos-clave.html" target="_blank" class="button">Conceptos clave innovasión social</a>
-        <a href="analisis.html" class="button">Técnicas de Diseño de Análisis</a> <!-- Botón nuevo -->
-        <a href="index.html" class="button">Volver</a>
+        <img class="hero-img" src="albatros-salto.png" alt="Imagen de Aplicaciones de Apoyo">
+        <p class="lead">En este lugar podrás encontrar las aplicaciones realizadas para tu formación.</p>
+        <div class="rejilla rejilla-corta">
+            <a href="https://websim.ai/p/b5ixktmqxxer0g8qobqz/23" target="_blank" class="tarjeta">Modelo de Toulmin<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="https://chatgpt.com/g/g-674105f10fa881918be88615e6200120-apoyo-para-unidad-3-pap" target="_blank" class="tarjeta">Simulador Persona en Crisis<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="tic.html" class="tarjeta">Prueba TIC, TAC, TEPS<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="Sombreros.html" target="_blank" class="tarjeta">Sombreros para pensar<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="https://gd.games/instant-builds/024e3e42-732e-4819-8f7a-5ed56b02b4a4" target="_blank" class="tarjeta">Modelo Gunawardena<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="Juegop.html" class="tarjeta">Pensamientos<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="aspectos.html" target="_blank" class="tarjeta">Elementos del emprendimiento social<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="Conceptos-clave.html" target="_blank" class="tarjeta">Conceptos clave innovasión social<span class="flecha" aria-hidden="true">→</span></a>
+            <a href="analisis.html" class="tarjeta">Técnicas de Diseño de Análisis<span class="flecha" aria-hidden="true">→</span></a>
+        </div>
+        <p><a href="index.html" class="volver">← Volver</a></p>
     </main>
+    <script src="reveal.js"></script>
 </body>
 </html>
