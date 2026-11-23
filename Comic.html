@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comics Educativos - Oasis Psique</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #800020;
+            color: white;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header img {
+            height: 150px;
+            margin: 0 20px;
+        }
+        h1 {
+            margin: 0;
+        }
+        h2 {
+            margin: 10px 0 0;
+            font-size: 1.2em;
+        }
+        main {
+            margin: 40px auto;
+            width: 80%;
+            max-width: 900px;
+            text-align: left;
+        }
+        .comic-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .comic {
+            border: 2px solid #800020;
+            border-radius: 10px;
+            padding: 15px;
+            background-color: #fefefe;
+        }
+        .comic img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .button {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background-color: #800020;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-size: 1.1em;
+            margin: 40px auto 0;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #555555;
+        }
+        footer {
+            margin-top: 40px;
+            background-color: #f8f8f8;
+            padding: 10px 0;
+            color: #333;
+            font-size: 0.9em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="URC.jpg" alt="URC logo">
+        <div>
+            <h1>Oasis</h1>
+            <h2>Un ecosistema digital educativo libre</h2>
+        </div>
+        <img src="OASIS.jpg" alt="Oasis logo">
+    </header>
+    <main>
+        <h2>Comics Educativos</h2>
+        <p>Aquí encontrarás cómics diseñados para aprender de forma visual y divertida sobre diversos temas de la psicología y la educación.</p>
+        <div class="comic-container">
+            <div class="comic">
+                <h3>Cómic 1: La emoción escondida</h3>
+                <img src="comic1.jpg" alt="Cómic educativo 1">
+                <p>Este cómic explora cómo identificar y expresar emociones desde temprana edad.</p>
+            </div>
+            <div class="comic">
+                <h3>Cómic 2: El poder del autocuidado</h3>
+                <img src="comic2.jpg" alt="Cómic educativo 2">
+                <p>Una aventura gráfica sobre la importancia del descanso, la alimentación y el equilibrio emocional.</p>
+            </div>
+        </div>
+        <a href="index.html" class="button">Regresar al inicio</a>
+    </main>
+    <footer>
+        <strong>Este proyecto es una creación del maestro Pablo Adrian Rivera Juvenal, profesor de tiempo completo de la URC.</strong>
+    </footer>
+</body>
+</html>

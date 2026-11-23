@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Conceptos de Innovación Social</title>
+<img src="zorro_clave.jpg" alt="Zorro maestro con conceptos clave" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fbe3e8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #60002c;
+      font-size: 24px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .accordion {
+      background-color: #ffffff;
+      color: #60002c;
+      cursor: pointer;
+      padding: 15px;
+      width: 100%;
+      text-align: left;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .accordion:hover {
+      background-color: #f5cfd8;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+      background-color: #fff0f4;
+      margin: 10% auto;
+      padding: 20px;
+      border: 2px solid #60002c;
+      width: 80%;
+      max-width: 600px;
+      font-size: 16px;
+      color: #60002c;
+    }
+
+    .close {
+      color: #60002c;
+      float: right;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Conceptos Clave de Innovación Social</h1>
+
+<div class="grid">
+  <button class="accordion" onclick="openModal(`Transformar ideas en realidades sostenibles.`)">Innovación social implica acción, no solo pensamiento</button>
+  <button class="accordion" onclick="openModal(`<ul><li>Es novedoso en su contexto.</li><li>Responde a necesidades sociales específicas.</li><li>Se pone en práctica (no es solo una idea).</li><li>Involucra y moviliza a los beneficiarios.</li><li>Transforma relaciones sociales.</li></ul>`)">Características de un proyecto de innovación social</button>
+  <button class="accordion" onclick="openModal(`Estudiar y comprender el sistema o comunidad objetivo antes de planear.`)">Diagnóstico inicial</button>
+  <button class="accordion" onclick="openModal(`Problema, alcance, beneficiarios, contexto cultural, lugar, recursos.`)">Reflexiones clave para el diagnóstico</button>
+  <button class="accordion" onclick="openModal(`Física, mental, espiritual, social y ecológica.`)">Identificación de necesidades holísticas</button>
+  <button class="accordion" onclick="openModal(`Factores geográficos, culturales, económicos, sociales y políticos que influyen en la problemática.`)">Importancia del contexto</button>
+  <button class="accordion" onclick="openModal(`Límites físicos o virtuales donde se implementará el proyecto.`)">Definición clara del lugar</button>
+  <button class="accordion" onclick="openModal(`Materiales, humanos y financieros.`)">Identificación de recursos disponibles</button>
+  <button class="accordion" onclick="openModal(`Debe ser claro, objetivo y basado en hechos observables.`)">Planteamiento del problema</button>
+  <button class="accordion" onclick="openModal(`Brecha + efectos + población afectada + espacio donde se manifiesta.`)">Estructura del planteamiento del problema</button>
+  <button class="accordion" onclick="openModal(`Ayudan a entender cómo estructurar correctamente la información.`)">Ejemplos de planteamiento de problemas</button>
+  <button class="accordion" onclick="openModal(`<ul><li>Nombre y descripción.</li><li>Localización geográfica.</li><li>Presentación institucional.</li><li>Antecedentes y fundamentación.</li><li>Situación actual y objetivos.</li><li>Grupos meta.</li></ul>`)">Desarrollo del proyecto</button>
+  <button class="accordion" onclick="openModal(`Roles, capacidades técnicas y operativas claras.`)">Responsables del proyecto</button>
+  <button class="accordion" onclick="openModal(`Acciones concretas que logren los objetivos.`)">Actividades del proyecto</button>
+  <button class="accordion" onclick="openModal(`Incluye cantidades estimadas por tipo de recurso.`)">Listado de recursos necesarios</button>
+  <button class="accordion" onclick="openModal(`Basado en recursos, tiempo y actividades.`)">Presupuesto estimado</button>
+  <button class="accordion" onclick="openModal(`Tiempos estimados por actividad.`)">Cronograma detallado</button>
+  <button class="accordion" onclick="openModal(`Variables que se observarán durante la implementación.`)">Monitoreo y seguimiento</button>
+  <button class="accordion" onclick="openModal(`Cómo se medirá el cumplimiento de objetivos y resultados.`)">Evaluación final</button>
+  <button class="accordion" onclick="openModal(`Permite identificar las brechas actuales.`)">Visualización del futuro deseado</button>
+  <button class="accordion" onclick="openModal(`Como la lluvia de ideas para generar soluciones innovadoras.`)">Uso de herramientas creativas</button>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div id="modal-text"></div>
+  </div>
+</div>
+
+<script>
+  function openModal(content) {
+    document.getElementById('modal-text').innerHTML = content;
+    document.getElementById('modal').style.display = 'block';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').style.display = 'none';
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById('modal');
+    if (event.target === modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+</script>
+
+</body>
+</html>

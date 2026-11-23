@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen de Prueba DIversidad e inclusión educativa</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #800020; 
+            color: #800020; 
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            background-color: white;
+            padding: 2em;
+            border-radius: 20px;
+            box-shadow: 0 4px rgba(0,0,0.2);
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #800020;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #66001a;
+        }
+        .question {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            border: 2px solid #800020;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        .option {
+            margin: 10px 0;
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+        #results {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 5px;
+            border: 2px solid #800020;
+        }
+        #timer {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .correct {
+            background-color: #ddffdd;
+        }
+        .incorrect {
+            background-color: #ffdddd;
+        }
+        #quiz-screen {
+            border: 2px solid #800020;
+        }
+    </style>
+</head>
+
+<body style="guinda-theme">
+    <div id="timer" class="hidden">00:00</div>
+    
+    <div class="container">
+        <div id="start-screen">
+            <h1>Examen de Prueba DIversidad e inclusión educativa</h1>
+             <P> Por favor lee y contesta las preguntas al final toma captura de pantalla a tu constancia </P>
+            <p>Por favor ingresa tu nombre para comenzar:</p>
+            <input type="text" id="username" placeholder="Tu nombre">
+            <button id="start-btn">Comenzar Examen</button>
+        </div>
+
+        <div id="quiz-screen" class="hidden">
+            <h2 id="question-title"></h2>
+            <div id="questions-container"></div>
+        </div>
+
+        <div id="result-screen" class="hidden">
+            <h2>Resultados para <span id="result-username"></span></h2>
+            <div id="results"></div>
+            <div id="study-tips"></div>
+            <button id="restart-btn-btn">Volver a empezar</button>
+            <button id="view-cert-btn">Ver Constancia</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.5.1/jspdf-autotable.umd.min.js"></script>
+
+    <script>
+        let currentQuestions = [];
+        let userAnswers = {};
+        let startTime;
+        let timerInterval;
+        let username;
+        let jsPDF;
+        let currentQuestionIndex = 0; // Track current question position
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.jspdf) {
+                window.jsPDF = window.jspdf.jsPDF;
+            }
+        });
+
+        document.getElementById('start-btn').addEventListener('click', startQuiz);
+        document.getElementById('restart-btn-btn').addEventListener('click', restartQuiz);
+        document.getElementById('view-cert-btn').addEventListener('click', showCertificate);
+
+        const questions = [
+            {
+                question: "¿Por qué la presencia de diversidad en un grupo no garantiza necesariamente la inclusión?",
+                options: [
+                    "Porque la inclusión solo se logra cuando todos son tratados exactamente igual, sin importar sus diferencias.",
+                    "Porque la diversidad por sí sola no asegura que existan estructuras de participación y enseñanza adaptadas a las necesidades de cada persona.",
+                    "Porque la inclusión depende únicamente de la voluntad individual de cada persona para integrarse al grupo.",
+                    "Porque la diversidad suele generar conflictos inevitables entre los miembros de un grupo."
+                ],
+                answer: 1
+            },
+            {
+                question: "¿Cuál es el objetivo principal de analizar las particularidades que atraviesan la vida de las personas en el ámbito educativo, según el texto?",
+                options: [
+                    "Identificar a los estudiantes que deben ser normalizados para asegurar la igualdad.",
+                    "Establecer un criterio único de enseñanza que minimice las diferencias.",
+                    "Reconocer las diferencias sin normalizar desigualdades y promover una inclusión que celebre la diversidad.",
+                    "Clasificar a los estudiantes por categorías sociales para facilitar su integración."
+                ],
+                answer: 2
+            },
+            {
+                question: "Según el texto, ¿cuál es una condición necesaria para construir una pedagogía verdaderamente integradora?",
+                options: [
+                    "Aplicar estrategias pedagógicas solo para estudiantes con discapacidades sensoriales.",
+                    "Enfocar la enseñanza únicamente en los contenidos del currículo formal.",
+                    "Ampliar el enfoque educativo para incluir diferencias cognitivas, emocionales, de género e identidad.",
+                    "Homogeneizar los estilos de aprendizaje en todas las aulas."
+                ],
+                answer: 2
+            },
+            {
+                question: "De acuerdo con el texto, ¿por qué es importante considerar diferencias socioculturales en ambientes educativos?",
+                options: [
+                    "Porque permiten clasificar a los estudiantes en función de su nivel socioeconómico y estilo de vida.",
+                    "Porque determinan si un estudiante pertenece o no a un grupo con necesidades educativas especiales.",
+                    "Porque estas diferencias pueden influir en el acceso a las oportunidades educativas y en las interacciones dentro del aula",
+                    "Porque ayudan a mantener una enseñanza uniforme ignorando las particularidades individuales."
+                ],
+                answer: 2
+            },
+            {
+                question: "¿Cuál fue uno de los efectos del Informe Warnock de 1978 en el campo educativo?",
+                options: [
+                    "La segregación para personas con discapacidades.",
+                    "La eliminación del concepto de necesidades educativas especiales.",
+                    "La promoción de integración educativa considerando la diversidad.",
+                    "La exclusión de los padres de familia del proceso educativo."
+                ],
+                answer: 2
+            },
+            {
+                question: "¿Qué rol no tenían las personas marginadas en el contexto previo al siglo XX, según?",
+                options: [
+                    "Castigo de los otros y una amenaza social.",
+                    "Demonización de las personas.",
+                    "Integración y comprensión de las diferencias.",
+                    "Sujetos suceptibles al sacrificio ritual."
+                ],
+                answer: 2
+            },
+            {
+                question: "¿Cuál fue el objetivo de la creación del Centro de Atención Múltiple (CAM) en México?",
+                options: [
+                    "Reforzar el modelo asistencialista y segregar a estudiantes.",
+                    "Brindar atención especializada a los necesidades educativas especiales.",
+                    "Proporcionar instrucción ligiosa exclusiva a estudiantes indígenas.",
+                    "Ofrecer clases especiales a estudiantes con altas capacidades."
+                ],
+                answer: 1
+            },
+            {
+                question: "¿Cuál fue una crítica importante al modelo de integración educativa previo a la inclusión?",
+                options: [
+                    "Que se enfocó en eliminar contenidos escolares tradicionales.",
+                    "Que obligaba a todos los estudiantes a centros médicos.",
+                    "Que seguía segregando alumnado relacionándolo con otros discapacitados similares.",
+                    "Que eliminaba la figura docente guía del aprendizaje."
+                ],
+                answer: 2
+            },
+            {
+                question: "¿Qué debe considerar la equidad educativa además de la inclusión?",
+                options: [
+                    "Solamente el acceso a infraestructura adecuada.",
+                    "El refuerzo de enseñanza memorística.",
+                    "Condiciones socioeconómicas, geográficas, demográficas y de género del alumnado.",
+                    "La aplicación homogénea de un currículum sin adaptaciones."
+                ],
+                answer: 2
+            }
+        ];
+
+        function startQuiz() {
+            username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Por favor ingresa tu nombre.');
+                return;
+            }
+
+            document.getElementById('start-screen').classList.add('hidden');
+            document.getElementById('quiz-screen').classList.remove('hidden');
+            
+            currentQuestions = getRandomQuestions(10);
+            displayCurrentQuestion();
+            
+            startTime = new Date();
+            timerInterval = setInterval(updateTimer, 1000);
+        }
+
+        function getRandomQuestions(count) {
+            const shuffled = [...questions].sort(() => 0.5 - Math.random());
+            return shuffled.slice(0, count);
+        }
+
+        function displayCurrentQuestion() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+            
+            const q = currentQuestions[currentQuestionIndex];
+            container.innerHTML = `
+                <div class="question">
+                    <h3>Pregunta ${currentQuestionIndex + 1} de ${currentQuestions.length}</h3>
+                    <p>${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <label class="option">
+                                <input type="radio" name="current-question" value="${i}">
+                                ${opt}
+                            </label>
+                        `).join('')}
+                    </div>
+                    ${currentQuestionIndex > 0 ? `<button id="prev-btn">Anterior</button>` : ""}
+                    <button id="next-btn">${currentQuestionIndex < currentQuestions.length - 1 ? "Siguiente" : "Terminar"}</button>
+                </div>
+            `;
+
+            document.getElementById('next-btn').addEventListener('click', nextQuestion);
+            if (currentQuestionIndex > 0) {
+                document.getElementById('prev-btn').addEventListener('click', previousQuestion);
+            }
+        }
+
+        function nextQuestion() {
+            const selected = document.querySelector('input[name="current-question"]:checked');
+            if (selected) {
+                userAnswers[currentQuestionIndex] = parseInt(selected.value);
+            }
+            
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= currentQuestions.length) {
+                submitQuiz();
+            } else {
+                displayCurrentQuestion();
+            }
+        }
+
+        function previousQuestion() {
+            currentQuestionIndex--;
+            displayCurrentQuestion();
+        }
+
+        function updateTimer() {
+            const now = new Date();
+            const elapsed = new Date(now - startTime);
+            const minutes = elapsed.getUTCMinutes().toString().padStart(2, '0');
+            const seconds = elapsed.getUTCSeconds().toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+            document.getElementById('timer').classList.remove('hidden');
+        }
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            document.getElementById('quiz-screen').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            
+            document.getElementById('result-username').textContent = username;
+            
+            const resultElement = document.getElementById('results');
+            resultElement.innerHTML = `
+                <h3>Resultados:</h3>
+                <p>Puntuación: ${Object.values(userAnswers).filter((answer, index) => answer === currentQuestions[index].answer).length} de ${currentQuestions.length} (${Math.round(Object.values(userAnswers).filter((answer, index) => answer === currentQuestions[index].answer).length / currentQuestions.length * 100)}%)</p>
+                <p>Tiempo empleado: ${document.getElementById('timer').textContent}</p>
+                
+                <h3>Respuestas:</h3>
+                ${currentQuestions.map((q, index) => {
+                    const isCorrect = userAnswers[index] === q.answer;
+                    return `
+                        <div class="question ${isCorrect ? 'correct' : 'incorrect'}">
+                            <p><strong>${index + 1}. ${q.question}</strong></p>
+                            <p>Tu respuesta: ${userAnswers[index] !== undefined ? q.options[userAnswers[index]] : 'No respondida'}</p>
+                            ${!isCorrect ? `<p>Respuesta correcta: ${q.options[q.answer]}</p>` : ''}
+                        </div>
+                    `;
+                }).join('')}
+            `;
+            
+            const studyTipsElement = document.getElementById('study-tips');
+            studyTipsElement.innerHTML = `
+                <h3>Consejos de estudio:</h3>
+                <ul>
+                    <li>Revisa las respuestas incorrectas para entender dónde te equivocaste.</li>
+                    <li>Organiza tu tiempo de estudio en sesiones concentradas.</li>
+                    <li>Practica con exámenes similares para mejorar.</li>
+                    <li>Identifica los temas donde tienes más dificultades.</li>
+                </ul>
+            `;
+        }
+
+        function showCertificate() {
+            try {
+                const certificate = `
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Constancia de Examen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #800020;
+            color: white;
+            text-align: center;
+            padding: 20px
+        }
+        .certificate {
+            background-color: white;
+            margin: auto;
+            padding: 0px;
+            max-width: 800px;
+            border-radius: 2px;
+            border: 1px solid #800020;
+            color: #800020;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate">
+ <div class="certificate">
+       <img src="diversidad.jpg" alt="Diversidad Educativa" style="width: 30%;">        <h2>CONSTANCIA DE EXAMEN PRUEBA</h2>
+        <p>Estudiante: ${username}</p>
+        <p>Puntuación: ${Object.values(userAnswers).filter((answer, index) => answer === currentQuestions[index].answer).length} de ${currentQuestions.length}</p>
+        <p>Realizada por Pablo Adrian Rivera Juvenal</p>
+    </div>
+</body>
+</html>
+                `;
+                const certWindow = window.open('', '_blank');
+                certWindow.document.write(certificate);
+                certWindow.document.close();
+            } catch (e) {
+                alert("Error al mostrar constancia: " + e.message);
+            }
+        }
+
+        function restartQuiz() {
+            userAnswers = {};
+            document.getElementById('result-screen').classList.add('hidden');
+            document.getElementById('start-screen').classList.remove('hidden');
+            document.getElementById('username').value = '';
+            document.getElementById('timer').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>

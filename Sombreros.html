@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sombreros para Pensar</title>
+    <style>
+        body {
+            background-color: #800000;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 15px;
+            font-size: 1.5em;
+            color: white;
+            border: 2px solid black;
+            cursor: pointer;
+            width: 200px;
+        }
+        #blanco-button {
+            background-color: #ffffff;
+            color: black;
+        }
+        #rojo-button {
+            background-color: #ff0000;
+        }
+        #negro-button {
+            background-color: #000000;
+        }
+        #amarillo-button {
+            background-color: #ffff00;
+            color: black;
+        }
+        #verde-button {
+            background-color: #008000;
+        }
+        #azul-button {
+            background-color: #0000ff;
+        }
+        #cumbia-button {
+            background-color: #ffa500;
+        }
+        #prueba-button {
+            background-color: #4b0082;
+        }
+        #regresar-button {
+            background-color: #ff69b4;
+            margin-top: 20px;
+        }
+        .content-container {
+            margin-top: 20px;
+            width: 80%;
+            max-width: 800px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            font-size: 1.2em;
+            min-height: 100px;
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleContent(button) {
+            const contentContainer = document.getElementById('content-display');
+            const contentId = button.id.replace('-button', '');
+            let content = '';
+            let color = '';
+            let textColor = 'black';
+
+            switch (contentId) {
+                case 'blanco':
+                    content = '<p>El sombrero blanco representa la objetividad y los hechos. Se enfoca en los datos disponibles y las evidencias.<br><br> Ejemplo: "Los datos muestran un aumento del 10% en las ventas".</p>';
+                    color = '#ffffff';
+                    break;
+                case 'rojo':
+                    content = '<p>El sombrero rojo representa las emociones e intuiciones. Permite expresar sentimientos y corazonadas sin necesidad de justificar.<br><br> Ejemplo: "Tengo un mal presentimiento sobre esta decisión".</p>';
+                    color = '#ff0000';
+                    break;
+                case 'negro':
+                    content = '<p>El sombrero negro se enfoca en el juicio crítico y los riesgos. Ayuda a identificar los posibles problemas o dificultades.<br><br> Ejemplo: "Si seguimos este plan, podríamos enfrentar pérdidas financieras".</p>';
+                    color = '#000000';
+                    textColor = 'white';
+                    break;
+                case 'amarillo':
+                    content = '<p>El sombrero amarillo simboliza el optimismo. Se enfoca en los beneficios y el valor positivo de las ideas.<br><br> Ejemplo: "Este proyecto tiene el potencial de generar grandes ingresos".</p>';
+                    color = '#ffff00';
+                    break;
+                case 'verde':
+                    content = '<p>El sombrero verde se relaciona con la creatividad y nuevas ideas. Permite explorar alternativas y posibilidades.<br><br> Ejemplo: "Podríamos lanzar una versión completamente nueva de nuestro producto".</p>';
+                    color = '#008000';
+                    break;
+                case 'azul':
+                    content = '<p>El sombrero azul se enfoca en la organización y el control del proceso de pensamiento. Ayuda a planificar y dirigir.<br><br> Ejemplo: "Primero discutiremos las ideas, luego evaluaremos los riesgos y finalmente tomaremos una decisión".</p>';
+                    color = '#0000ff';
+                    break;
+                case 'cumbia':
+                    content = '<p>Disfruta la Cumbia de los Sombreros <a href="https://youtu.be/OEDn74tL37A?si=BW9IhC6X7OAxF4hV" target="_blank">aquí</a>.</p>';
+                    color = '#ffa500';
+                    break;
+                default:
+                    content = '';
+                    color = '#f9f9f9';
+            }
+
+            if (contentContainer.innerHTML === content) {
+                contentContainer.style.display = 'none';
+                contentContainer.innerHTML = '';
+            } else {
+                contentContainer.innerHTML = content;
+                contentContainer.style.backgroundColor = color;
+                contentContainer.style.color = textColor;
+                contentContainer.style.display = 'block';
+            }
+        }
+
+        function goToSombreroP() {
+            window.location.href = 'sombrerop.html';
+        }
+    </script>
+</head>
+<body>
+    <h1>Sombreros para Pensar</h1>
+    
+    <div class="buttons-container">
+        <button id="blanco-button" onclick="toggleContent(this)">Sombrero Blanco</button>
+        <button id="rojo-button" onclick="toggleContent(this)">Sombrero Rojo</button>
+        <button id="negro-button" onclick="toggleContent(this)">Sombrero Negro</button>
+        <button id="amarillo-button" onclick="toggleContent(this)">Sombrero Amarillo</button>
+        <button id="verde-button" onclick="toggleContent(this)">Sombrero Verde</button>
+        <button id="azul-button" onclick="toggleContent(this)">Sombrero Azul</button>
+        <button id="cumbia-button" onclick="toggleContent(this)">Cumbia de los Sombreros</button>
+        <button id="prueba-button" onclick="goToSombreroP()">Prueba</button>
+    </div>
+
+    <div id="content-display" class="content-container"></div>
+
+    <!-- Botón Regresar corregido -->
+    <button id="regresar-button" onclick="location.href='Aplicacion.html'">Regresar</button>
+</body>
+</html>

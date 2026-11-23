@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspectos fundamentales del emprendimiento social y su aplicación</title>
+    <style>
+        body {
+            background-color: #800000; /* Color guinda */
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .button {
+            background-color: #5c2a2a;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 80%;
+        }
+        .button:hover {
+            background-color: #a14d4d;
+        }
+        .content {
+            display: none;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #4d1f1f;
+            border-radius: 5px;
+        }
+        #backButton {
+            background-color: #5c2a2a;
+            padding: 15px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        #backButton:hover {
+            background-color: #a14d4d;
+        }
+        img {
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="Zorro23.jpg" alt="Zorro23">
+
+    <div class="container">
+        <h1>Aspectos fundamentales del emprendimiento social y su aplicación</h1>
+
+        <button class="button" onclick="toggleContent(1)">1. Emprendimiento Social</button>
+        <div class="content" id="content1">El emprendimiento social se centra en resolver problemas sociales y ambientales mediante modelos de negocio sostenibles.</div>
+
+        <button class="button" onclick="toggleContent(2)">2. Diferencia con el emprendimiento tradicional</button>
+        <div class="content" id="content2">El emprendimiento social prioriza el impacto social en lugar de maximizar las ganancias económicas.</div>
+
+        <button class="button" onclick="toggleContent(3)">3. Agentes de cambio</button>
+        <div class="content" id="content3">Los emprendedores sociales son individuos que, mediante soluciones creativas, buscan mejorar la calidad de vida y promover la equidad.</div>
+
+        <button class="button" onclick="toggleContent(4)">4. Innovación</button>
+        <div class="content" id="content4">Los emprendedores sociales desarrollan soluciones novedosas a problemas complejos, adaptándose a las realidades locales.</div>
+
+        <button class="button" onclick="toggleContent(5)">5. Sostenibilidad</button>
+        <div class="content" id="content5">Los emprendimientos sociales buscan un equilibrio entre la sostenibilidad económica y los objetivos de desarrollo social.</div>
+
+        <button class="button" onclick="toggleContent(6)">6. Impacto positivo</button>
+        <div class="content" id="content6">A diferencia de las empresas tradicionales, los emprendimientos sociales se enfocan en mejorar el bienestar de las personas y las comunidades.</div>
+
+        <button class="button" onclick="toggleContent(7)">7. Modelos de negocio social</button>
+        <div class="content" id="content7">Empresas creadas para resolver un problema social y que reinvierten sus ganancias para continuar con su misión.</div>
+
+        <button class="button" onclick="toggleContent(8)">8. Objetivos de la unidad</button>
+        <div class="content" id="content8">Se busca que los estudiantes comprendan el concepto y la práctica del emprendimiento social y se conviertan en agentes de cambio.</div>
+
+        <button class="button" onclick="toggleContent(9)">9. Sostenibilidad financiera</button>
+        <div class="content" id="content9">Asegura que los proyectos sociales sean autosuficientes, evitando depender exclusivamente de donaciones.</div>
+
+        <button class="button" onclick="toggleContent(10)">10. Impacto en los ODS</button>
+        <div class="content" id="content10">Los emprendimientos sociales están alineados con los Objetivos de Desarrollo Sostenible (ODS) de la Agenda 2030 de las Naciones Unidas.</div>
+
+        <button class="button" onclick="toggleContent(11)">11. Ejemplos exitosos</button>
+        <div class="content" id="content11">Iniciativas que abordan problemas como el acceso a servicios básicos, la educación inclusiva y la energía renovable.</div>
+
+        <button class="button" onclick="toggleContent(12)">12. Tipos de modelos de negocio social</button>
+        <div class="content" id="content12">Incluyen modelos de empleo inclusivo, acceso a bienes y servicios básicos, comercio justo e innovación tecnológica.</div>
+
+        <button class="button" onclick="toggleContent(13)">13. Empleo inclusivo</button>
+        <div class="content" id="content13">Empresas que generan empleo para personas vulnerables, como talleres para personas con discapacidad.</div>
+
+        <button class="button" onclick="toggleContent(14)">14. Acceso a servicios básicos</button>
+        <div class="content" id="content14">Negocios que proporcionan acceso a agua potable, energía renovable y servicios médicos en áreas remotas.</div>
+
+        <button class="button" onclick="toggleContent(15)">15. Comercio justo</button>
+        <div class="content" id="content15">Modelos que aseguran precios justos y condiciones laborales dignas para los productores locales.</div>
+
+        <button class="button" onclick="toggleContent(16)">16. Innovación tecnológica</button>
+        <div class="content" id="content16">Utilización de la tecnología para resolver problemas sociales, como aplicaciones para la inclusión financiera.</div>
+
+        <button class="button" onclick="toggleContent(17)">17. Medición del impacto</button>
+        <div class="content" id="content17">Evaluar si un proyecto social está alcanzando sus objetivos y generando el impacto esperado.</div>
+
+        <button class="button" onclick="toggleContent(18)">18. Sostenibilidad y escalabilidad</button>
+        <div class="content" id="content18">Un emprendimiento social debe asegurar que pueda crecer y mantenerse sin perder la calidad de su impacto.</div>
+
+        <button class="button" onclick="toggleContent(19)">19. Plan de emprendimiento social</button>
+        <div class="content" id="content19">Documento estratégico que define acciones y proporciona claridad para implementar proyectos sociales.</div>
+
+        <button class="button" onclick="toggleContent(20)">20. Componentes del plan</button>
+        <div class="content" id="content20">Incluye resumen ejecutivo, misión, visión, análisis del contexto, modelo de negocio, plan de marketing y evaluación de impacto.</div>
+
+        <button class="button" onclick="toggleContent(21)">21. Atractivo para recursos</button>
+        <div class="content" id="content21">Un plan bien diseñado atrae a inversores y aliados al mostrar claramente el impacto social y cómo se utilizarán los recursos.</div>
+
+        <button class="button" onclick="toggleContent(22)">22. Riesgos y oportunidades</button>
+        <div class="content" id="content22">El plan ayuda a identificar posibles riesgos y oportunidades para el crecimiento y la mejora del proyecto.</div>
+
+        <button class="button" onclick="toggleContent(23)">23. Claridad y organización</button>
+        <div class="content" id="content23">Un plan bien estructurado proporciona dirección y permite tomar decisiones informadas en todo el proceso.</div>
+
+        <button class="button" onclick="toggleContent(24)">24. Comunicación efectiva</button>
+        <div class="content" id="content24">El plan facilita la comunicación con stakeholders y asegura que todos los miembros del equipo estén alineados con los objetivos.</div>
+
+        <button class="button" onclick="toggleContent(25)">25. Evaluación continua</button>
+        <div class="content" id="content25">El impacto social debe medirse continuamente para ajustar las intervenciones y asegurar la eficacia del proyecto.</div>
+
+            <!-- Botón Regresar corregido -->
+
+    <button id="regresar-button" onclick="location.href='Aplicacion.html'">Regresar</button>
+
+</body>
+</html>
+
+
+    </div>
+
+    <script>
+        function toggleContent(id) {
+            var content = document.getElementById('content' + id);
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

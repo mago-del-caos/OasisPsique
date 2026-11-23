@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNRC - Repositorio de IAs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #800020; /* Color guinda/borgoña */
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        /* Fondo guinda con textura sutil */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(135deg, #800020 0%, #5a0017 100%),
+                radial-gradient(circle at 20% 80%, rgba(255, 20, 147, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 105, 180, 0.15) 0%, transparent 50%);
+            z-index: -2;
+        }
+
+        /* Patrón sutil */
+        .pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Contenido principal */
+        .main-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .title {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #ffffff, #ffd1dc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeIn 1s ease-out 0.2s both;
+            position: relative;
+        }
+
+        .title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(to right, transparent, #ff69b4, transparent);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            color: #ffd1dc;
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            line-height: 1.7;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 25px;
+            background: rgba(255, 105, 180, 0.15);
+            border-radius: 20px;
+            border-left: 6px solid #ff69b4;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-out 0.4s both;
+            border-right: 1px solid rgba(255, 182, 193, 0.2);
+        }
+
+        /* Contenedor de botones de IA */
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+            margin-bottom: 70px;
+            animation: fadeIn 1s ease-out 0.6s both;
+        }
+
+        /* BOTONES ROSAS/MAUVE MEJORADOS */
+        .ai-button {
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.25), rgba(219, 112, 147, 0.15));
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            border-radius: 20px;
+            padding: 25px 18px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(12px);
+            min-height: 170px;
+            justify-content: flex-start;
+            box-shadow: 
+                0 10px 25px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15),
+                0 0 20px rgba(255, 20, 147, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-button:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .ai-button:hover:before {
+            left: 100%;
+        }
+
+        .ai-button:hover {
+            transform: translateY(-10px) scale(1.05);
+            background: linear-gradient(145deg, rgba(255, 105, 180, 0.35), rgba(219, 112, 147, 0.25));
+            border-color: #ffb6c1;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.35),
+                0 0 50px rgba(255, 20, 147, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        }
+
+        .ai-button i {
+            font-size: 2.8rem;
+            margin-bottom: 18px;
+            color: #ffb6c1;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s;
+        }
+
+        .ai-button:hover i {
+            transform: scale(1.2);
+        }
+
+        .ai-button .button-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: center;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: white;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-button .button-description {
+            font-size: 0.9rem;
+            text-align: center;
+            line-height: 1.4;
+            color: #ffe4e9;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Encabezado de sección */
+        .section-title {
+            color: #ffb6c1;
+            font-size: 2rem;
+            margin-top: 60px;
+            margin-bottom: 35px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid rgba(255, 182, 193, 0.3);
+            text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+            position: relative;
+            animation: fadeIn 1s ease-out 0.5s both;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #ff69b4, transparent);
+        }
+
+        /* Footer mejorado */
+        .footer {
+            margin-top: 80px;
+            color: #ffc0cb;
+            font-size: 1.1rem;
+            padding: 30px;
+            text-align: center;
+            background: rgba(255, 105, 180, 0.12);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 182, 193, 0.25);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1s ease-out 0.8s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #ff69b4, #ffb6c1, #ff69b4, transparent);
+        }
+
+        .footer p {
+            margin: 8px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer .highlight {
+            color: #ffd700;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Efecto de brillo sutil en los botones */
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 20px rgba(255, 20, 147, 0.1); }
+            50% { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25), 0 0 25px rgba(255, 20, 147, 0.2); }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .title {
+                font-size: 2.3rem;
+                margin-bottom: 15px;
+            }
+            
+            .title:after {
+                width: 150px;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .buttons-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 18px;
+                margin-top: 30px;
+                margin-bottom: 50px;
+            }
+            
+            .ai-button {
+                padding: 20px 15px;
+                min-height: 160px;
+                border-radius: 18px;
+            }
+            
+            .ai-button i {
+                font-size: 2.4rem;
+                margin-bottom: 15px;
+            }
+            
+            .ai-button .button-title {
+                font-size: 1.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+                margin-top: 50px;
+                margin-bottom: 30px;
+            }
+            
+            .footer {
+                margin-top: 60px;
+                padding: 25px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                padding: 18px;
+                margin-bottom: 35px;
+                line-height: 1.5;
+            }
+            
+            .buttons-container {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+                gap: 15px;
+            }
+            
+            .ai-button {
+                padding: 18px 15px;
+                min-height: 150px;
+            }
+            
+            .ai-button i {
+                font-size: 2.2rem;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .title {
+                font-size: 3.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem;
+                padding: 30px;
+            }
+            
+            .buttons-container {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 30px;
+            }
+            
+            .ai-button {
+                padding: 28px 20px;
+                min-height: 180px;
+            }
+            
+            .ai-button i {
+                font-size: 3rem;
+            }
+            
+            .ai-button .button-title {
+                font-size: 1.4rem;
+            }
+            
+            .ai-button .button-description {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fondo guinda con patrón -->
+    <div class="background"></div>
+    <div class="pattern"></div>
+    
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent">
+        <h1 class="title">UNRC repositorio de IAs de acompañamiento pedagógico</h1>
+        <p class="subtitle">Parte del proyecto ecosistemas digitales del Maestro Pablo Adrian Rivera Juvenal</p>
+        
+        <!-- Sección de IA -->
+        <h2 class="section-title">Herramientas de Inteligencia Artificial</h2>
+        
+        <!-- Botones de enlace a las IA -->
+        <div class="buttons-container">
+            <a href="https://www.deepseek.com" target="_blank" class="ai-button">
+                <i class="fas fa-brain"></i>
+                <div class="button-title">Deepseek</div>
+                <div class="button-description">Asistente de IA avanzado para programación, análisis y razonamiento lógico</div>
+            </a>
+            
+            <a href="https://grok.com" target="_blank" class="ai-button">
+                <i class="fas fa-robot"></i>
+                <div class="button-title">Grok</div>
+                <div class="button-description">IA conversacional con acceso a información en tiempo real y contexto actualizado</div>
+            </a>
+            
+            <a href="https://websim.ai" target="_blank" class="ai-button">
+                <i class="fas fa-globe"></i>
+                <div class="button-title">Websim</div>
+                <div class="button-description">Simulación web y generación de sitios interactivos con inteligencia artificial</div>
+            </a>
+            
+            <!-- Opal IA de Google -->
+            <a href="https://ai.google/discover/palm2/" target="_blank" class="ai-button">
+                <i class="fab fa-google"></i>
+                <div class="button-title">Opal IA</div>
+                <div class="button-description">Modelo de lenguaje avanzado de Google para tareas complejas y razonamiento</div>
+            </a>
+            
+            <a href="https://qwen.ai" target="_blank" class="ai-button">
+                <i class="fas fa-microchip"></i>
+                <div class="button-title">Qwen IA</div>
+                <div class="button-description">Modelo de IA multimodal de Alibaba para texto, imagen y procesamiento multilingüe</div>
+            </a>
+            
+            <a href="https://gemini.google.com" target="_blank" class="ai-button">
+                <i class="fab fa-google"></i>
+                <div class="button-title">Gemini</div>
+                <div class="button-description">IA multimodal de Google que integra texto, voz, imagen y video en tiempo real</div>
+            </a>
+            
+            <a href="https://quillbot.com" target="_blank" class="ai-button">
+                <i class="fas fa-feather-alt"></i>
+                <div class="button-title">Quillbot</div>
+                <div class="button-description">Parafraseador, corrector y mejorador de textos con inteligencia artificial</div>
+            </a>
+            
+            <a href="https://suno.ai" target="_blank" class="ai-button">
+                <i class="fas fa-music"></i>
+                <div class="button-title">Suno</div>
+                <div class="button-description">Generación de música y audio originales con inteligencia artificial avanzada</div>
+            </a>
+            
+            <!-- Botones adicionales -->
+            <a href="https://notebooklm.google.com/" target="_blank" class="ai-button">
+                <i class="fas fa-book"></i>
+                <div class="button-title">NotebookLM</div>
+                <div class="button-description">Investigación y análisis inteligente de documentos con IA especializada</div>
+            </a>
+            
+            <a href="https://www.capcut.com/" target="_blank" class="ai-button">
+                <i class="fas fa-scissors"></i>
+                <div class="button-title">CapCut</div>
+                <div class="button-description">Editor de video online con herramientas de IA para efectos y automatización</div>
+            </a>
+            
+            <a href="https://voyant-tools.org/" target="_blank" class="ai-button">
+                <i class="fas fa-chart-bar"></i>
+                <div class="button-title">Voyant</div>
+                <div class="button-description">Herramientas de análisis de texto, minería de datos y visualización interactiva</div>
+            </a>
+            
+            <a href="https://www.canva.com/" target="_blank" class="ai-button">
+                <i class="fas fa-paint-brush"></i>
+                <div class="button-title">Canva</div>
+                <div class="button-description">Diseño gráfico profesional con asistente de IA integrado para creatividad</div>
+            <a href="index.html" class="button">Regresar </a>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>UNRC - Repositorio de IAs de acompañamiento pedagógico</p>
+            <p>Proyecto ecosistemas digitales | <span class="highlight">Maestro Pablo Adrian Rivera Juvenal</span></p>
+            <p style="margin-top: 15px; font-size: 1rem; color: #ffd1dc;">
+                <i class="fas fa-lightbulb" style="margin-right: 8px;"></i>
+                Recursos educativos innovadores para la transformación digital en educación
+            </p>
+            <p style="font-size: 0.9rem; margin-top: 12px; opacity: 0.9;">
+                Universidad Nacional Rosario Castellanos - 2025
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Confirmación para enlaces externos
+        document.querySelectorAll('.ai-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const confirmNavigation = confirm("¿Estás seguro de que quieres visitar este enlace externo?");
+                if (!confirmNavigation) {
+                    e.preventDefault();
+                }
+            });
+        });
+
+        // Efecto hover mejorado para botones
+        document.querySelectorAll('.ai-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.animation = 'glow 1.5s infinite alternate';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.animation = '';
+            });
+        });
+
+        // Efecto de carga progresiva
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("UNRC - Repositorio de IAs de acompañamiento pedagógico");
+            console.log("Proyecto ecosistemas digitales - Maestro Pablo Adrian Rivera Juvenal");
+            console.log("Versión optimizada - 2024");
+        });
+
+        // Ajustar diseño responsive
+        function adjustLayout() {
+            const width = window.innerWidth;
+            
+            if (width < 480) {
+                document.querySelectorAll('.ai-button').forEach(button => {
+                    button.style.padding = '15px 12px';
+                    button.style.minHeight = '140px';
+                });
+            }
+        }
+
+        window.addEventListener('load', adjustLayout);
+        window.addEventListener('resize', adjustLayout);
+    </script>
+</body>
+</html>

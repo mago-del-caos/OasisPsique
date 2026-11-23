@@ -1,0 +1,1238 @@
+<html>
+<head>
+    <base href="." />
+    <meta charset="UTF-8">
+    <title>Juego Didáctico</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6DD5FA, #FF758C);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .button-container {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .game-button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            cursor: pointer;
+            background: linear-gradient(45deg, #2196F3, #4CAF50);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+        }
+
+        .game-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .return-button {
+            background: linear-gradient(45deg, #FF5722, #FFC107);
+            margin-top: 1rem;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #333;
+        }
+
+        .close-button:hover {
+            color: #ff0000;
+        }
+
+        .start-game-button {
+            background: linear-gradient(45deg, #9C27B0, #673AB7);
+            margin-top: 1.5rem;
+            display: block;
+            width: 200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .modal-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        #gameCanvas {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            cursor: crosshair;
+        }
+
+        .game-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .point {
+            fill: #4CAF50;
+            cursor: pointer;
+            transition: r 0.3s;
+        }
+
+        .point:hover {
+            r: 8;
+        }
+
+        .line {
+            stroke: #2196F3;
+            stroke-width: 2;
+        }
+
+        .concept-text {
+            font-size: 12px;
+            fill: #333;
+            text-anchor: middle;
+        }
+
+        .timer {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .alert-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            z-index: 2000;
+            text-align: center;
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        .droplet-game-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .droplet {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 30%, #6DD5FA, #2196F3);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .droplet:hover {
+            transform: scale(1.2);
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .paddle {
+            width: 100px;
+            height: 10px;
+            background: #2196F3;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 20px;
+        }
+
+        .concept-popup {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+            pointer-events: none;
+            animation: fadeOut 1.5s forwards;
+            z-index: 100;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            70% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .collected-concepts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .concept-background {
+            color: rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            margin: 5px;
+            text-align: center;
+        }
+
+        .idea-counter {
+            font-size: 24px;
+            color: #333;
+            margin: 1rem 0;
+        }
+
+        .lightbulb {
+            position: absolute;
+            font-size: 4rem;
+            animation: popAndFade 2s forwards;
+            left: 50% !important;
+            top: 50% !important;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes popAndFade {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            20% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 1;
+            }
+            80% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 0;
+            }
+        }
+
+        .nonlinear-game-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .urc-figure {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .urc-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .dino-game-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .dino {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M20,80 L80,80 L50,20 Z" fill="#4CAF50"/></svg>');
+            background-size: contain;
+        }
+
+        .obstacle {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            bottom: 50px;
+            background: #ff4444;
+            border-radius: 5px;
+        }
+
+        .game-difficulty {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .difficulty-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .difficulty-btn.active {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .rhizome-game-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .rhizome-canvas {
+            background: white;
+            border-radius: 10px;
+            cursor: crosshair;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .fluid-text {
+            font-size: 1.5em;
+            color: #2196F3;
+            margin: 1rem 0;
+            text-align: center;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="mainPage">
+        <h1 class="floating">¡Juego Didáctico!</h1>
+        <div class="button-container">
+            <button class="game-button" id="btnPensamientoComplejo">Pensamiento Complejo</button>
+            <button class="game-button" id="btnModernidadLiquida">Modernidad Líquida</button>
+            <button class="game-button" id="btnNoLinealidad">No Linealidad</button>
+            <button class="game-button" id="btnPensamientoEnRed">Pensamiento en Red</button>
+            <button class="game-button" id="btnPensamientoRizomatico">Pensamiento Rizomático</button>
+          <button class="game-button" id="btnConstancia">Constancia</button>
+        </div>
+    </div>
+
+    <div class="game-container" id="gameContainer">
+        <div class="timer" id="timer">6000</div>
+        <h2>Conecta los Conceptos de la Complejidad</h2>
+        <svg id="gameCanvas" width="600" height="400"></svg>
+        <button class="game-button return-button" onclick="returnToMain()">Volver al Menú Principal</button>
+    </div>
+
+    <div class="droplet-game-container" id="dropletGameContainer">
+        <div class="score">Gotas: <span id="dropletScore">0</span></div>
+        <div id="gameArea" style="width: 600px; height: 400px; position: relative; background: #f0f9ff; border-radius: 10px;">
+            <div class="collected-concepts" id="collectedConcepts"></div>
+            <div id="paddle" class="paddle"></div>
+        </div>
+        <button class="game-button return-button" onclick="returnToMain()">Volver al Menú Principal</button>
+    </div>
+
+    <div class="nonlinear-game-container" id="nonlinearGameContainer">
+        <h2>¿Cuántas formas diferentes hay para presentar un tema?</h2>
+        <p style="color: #666; margin-bottom: 1rem;">Cada vez que tengas una idea, ¡aprieta el botón!</p>
+        <div class="idea-counter">Record actual: 24</div>
+        <div class="idea-counter">Tus ideas: <span id="ideaCount">0</span></div>
+        <div class="timer" id="nlTimer">600</div>
+        <button class="game-button" id="ideaButton">¡Tengo una idea!</button>
+        <div id="lightbulbContainer" style="position: relative; width: 100%; height: 300px;"></div>
+        <button class="game-button return-button" onclick="returnToMain()">Volver al Menú Principal</button>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal()">✕</button>
+            <h2 id="modalTitle"></h2>
+            <p id="modalContent" class="modal-text"></p>
+            <div id="gameButton"></div>
+            <button class="game-button return-button" onclick="closeModal()">Regresar al Menú Principal</button>
+        </div>
+    </div>
+
+    <div id="alertModal" class="alert-modal">
+        <h2>¡Lo conseguiste!</h2>
+        <p>La primera letra de la palabra secreta es "C"</p>
+        <button class="game-button" onclick="closeAlertAndReturn()">Continuar</button>
+    </div>
+
+    <script>
+        const concepts = [
+            {id: 1, x: 300, y: 200},
+            {id: 2, x: 150, y: 100},
+            {id: 3, x: 450, y: 100},
+            {id: 4, x: 150, y: 300},
+            {id: 5, x: 450, y: 300},
+            {id: 6, x: 300, y: 50},
+            {id: 7, x: 300, y: 350},
+            {id: 8, x: 50, y: 200},
+            {id: 9, x: 550, y: 200},
+            {id: 10, x: 300, y: 125}
+        ];
+
+        const liquidModernityConcepts = [
+            "Aprendizaje flexible y adaptativo",
+            "Educación continua y permanente",
+            "Conocimiento dinámico y cambiante",
+            "Adaptación a nuevas tecnologías",
+            "Habilidades transferibles",
+            "Pensamiento crítico fluido",
+            "Aprendizaje colaborativo",
+            "Educación sin fronteras",
+            "Competencias digitales",
+            "Resiliencia educativa"
+        ];
+
+        let selectedPoint = null;
+        let connections = [];
+        let svg;
+        let timeLeft = 600;
+        let timerId = null;
+        let dropletScore = 0;
+        let dropletGameInterval;
+        let paddleX = 250;
+        let collectedConcepts = [];
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('btnPensamientoComplejo').addEventListener('click', () => openModal('Pensamiento Complejo'));
+            document.getElementById('btnModernidadLiquida').addEventListener('click', () => openModal('Modernidad Líquida'));
+            document.getElementById('btnNoLinealidad').addEventListener('click', () => openModal('No Linealidad'));
+            document.getElementById('btnPensamientoEnRed').addEventListener('click', () => openModal('Pensamiento en Red'));
+            document.getElementById('btnPensamientoRizomatico').addEventListener('click', () => openModal('Pensamiento Rizomático'));
+        });
+
+        function openModal(subject) {
+            const modal = document.getElementById('modal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            const gameButton = document.getElementById('gameButton');
+            
+            modalTitle.textContent = subject;
+            gameButton.innerHTML = '';
+
+            if(subject === 'Pensamiento en Red') {
+                modalContent.innerHTML = `
+                    <p>El Pensamiento en Red es un enfoque cognitivo que entiende el conocimiento como una estructura interconectada donde las ideas, conceptos y aprendizajes están vinculados entre sí. Este modelo de pensamiento enfatiza que el aprendizaje no ocurre de manera aislada, sino a través de conexiones y relaciones entre diferentes elementos del conocimiento.</p>
+                    <div class="urc-figure">
+                        <h3 class="urc-title">Figura 1: Mapa del Pensamiento en Red</h3>
+                        <svg width="100%" height="400" viewBox="0 0 800 400">
+                            <g>
+                                <circle cx="400" cy="200" r="60" fill="#FF758C" opacity="0.9"/>
+                                <text x="400" y="200" text-anchor="middle" fill="#333" dy=".3em">Pensamiento en Red</text>
+                            </g>
+                            <line x1="400" y1="140" x2="300" y2="80" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="300" cy="80" r="40" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="300" y="80" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="300" dy="-0.6em">Conexiones</tspan>
+                                <tspan x="300" dy="1.2em">múltiples</tspan>
+                            </text>
+                            <line x1="400" y1="200" x2="200" y2="200" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="200" cy="200" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="200" y="200" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="200" dy="-0.6em">Pensamiento</tspan>
+                                <tspan x="200" dy="1.2em">colaborativo</tspan>
+                            </text>
+                            <line x1="400" y1="260" x2="300" y2="320" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="300" cy="320" r="40" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="300" y="320" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="300" dy="-0.6em">Aprendizaje</tspan>
+                                <tspan x="300" dy="1.2em">distribuido</tspan>
+                            </text>
+                            <line x1="400" y1="200" x2="600" y2="200" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="600" cy="200" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="600" y="200" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="600" dy="-0.6em">Inteligencia</tspan>
+                                <tspan x="600" dy="1.2em">colectiva</tspan>
+                            </text>
+                            <line x1="400" y1="140" x2="500" y2="80" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="500" cy="80" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="500" y="80" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="500" dy="-0.6em">Construcción</tspan>
+                                <tspan x="500" dy="1.2em">social</tspan>
+                            </text>
+                            <line x1="400" y1="260" x2="500" y2="320" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="500" cy="320" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="500" y="320" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="500" dy="-0.6em">Conocimiento</tspan>
+                                <tspan x="500" dy="1.2em">compartido</tspan>
+                            </text>
+                        </svg>
+                        <button class="game-button start-game-button" onclick="startDinoGame()">Jugar Demo</button>
+                    </div>
+                `;
+            } else if(subject === 'Pensamiento Rizomático') {
+                modalContent.innerHTML = `
+                    <p>El Pensamiento Rizomático, inspirado en el concepto botánico del rizoma desarrollado por Deleuze y Guattari, representa una forma de pensamiento no jerárquica y multidireccional. A diferencia del pensamiento arbóreo (lineal y jerárquico), el pensamiento rizomático permite conexiones heterogéneas entre ideas, conceptos y disciplinas, similar a cómo los rizomas en las plantas pueden crecer en cualquier dirección y establecer conexiones en múltiples puntos. En la educación, este enfoque fomenta un aprendizaje más flexible y creativo, donde el conocimiento se construye a través de múltiples conexiones, sin un punto de inicio o fin definido, permitiendo a los estudiantes establecer relaciones inesperadas entre diferentes áreas del conocimiento.</p>
+                    <button class="game-button start-game-button" onclick="startRhizomeGame()">Juego</button>
+                `;
+            } else if(subject === 'Pensamiento Complejo') {
+                modalContent.textContent = 'El Pensamiento Complejo es un método de pensamiento desarrollado por Edgar Morin que se opone al reduccionismo y la simplicidad. Propone abordar la realidad como un sistema interconectado donde todo está relacionado. Este enfoque nos permite comprender fenómenos desde múltiples perspectivas, reconociendo la incertidumbre y la contradicción como partes naturales del conocimiento. No rechaza la simplicidad, sino que la integra en una comprensión más amplia y multidimensional de la realidad.';
+                gameButton.innerHTML = '<button class="game-button start-game-button" onclick="startGame()">Iniciar Juego</button>';
+            } else if(subject === 'Modernidad Líquida') {
+                modalContent.textContent = 'La Modernidad Líquida es un concepto acuñado por Zygmunt Bauman que describe la actual fase de la modernidad, caracterizada por la fluidez, el cambio constante y la incertidumbre. En esta era, las estructuras sociales y las instituciones se vuelven más flexibles y temporales, como los líquidos que no mantienen su forma. Las relaciones, el trabajo, y la identidad se vuelven más maleables y menos estables que en la "modernidad sólida" anterior.';
+                gameButton.innerHTML = '<button class="game-button start-game-button" onclick="startDropletGame()">Iniciar Juego de Gotas</button>';
+            } else if(subject === 'No Linealidad') {
+                modalContent.textContent = 'La No Linealidad representa un enfoque educativo que rompe con la tradicional progresión secuencial del aprendizaje. Este concepto está íntimamente ligado con la creatividad y el pensamiento lateral, permitiendo múltiples caminos y conexiones en el proceso de aprendizaje. En la educación, la no linealidad fomenta la exploración libre, la asociación de ideas aparentemente no relacionadas y el desarrollo de soluciones innovadoras. El pensamiento lateral, como componente esencial, permite a los estudiantes abordar problemas desde perspectivas inesperadas, generando nuevas conexiones y descubrimientos en su proceso de aprendizaje.';
+                gameButton.innerHTML = '<button class="game-button start-game-button" onclick="startNonLinearGame()">Iniciar Juego No Lineal</button>';
+            } else if(subject === 'Retos de la URC') {
+                modalContent.innerHTML = `
+                    <div class="urc-figure">
+                        <h3 class="urc-title">Figura 1: Mapa de algunos retos educación URC</h3>
+                        <svg width="100%" height="400" viewBox="0 0 800 400">
+                            <g>
+                                <circle cx="400" cy="200" r="60" fill="#FF758C" opacity="0.9"/>
+                                <text x="400" y="200" text-anchor="middle" fill="#333" dy=".3em">Retos URC</text>
+                            </g>
+                            <line x1="400" y1="140" x2="300" y2="80" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="300" cy="80" r="40" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="300" y="80" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="300" dy="-0.6em">Acceso limitado</tspan>
+                                <tspan x="300" dy="1.2em">a tecnología</tspan>
+                            </text>
+                            <line x1="400" y1="200" x2="200" y2="200" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="200" cy="200" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="200" y="200" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="200" dy="-0.6em">Analfabetismo</tspan>
+                                <tspan x="200" dy="1.2em">digital</tspan>
+                            </text>
+                            <line x1="400" y1="260" x2="300" y2="320" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="300" cy="320" r="40" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="300" y="320" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="300" dy="-0.6em">Brechas</tspan>
+                                <tspan x="300" dy="1.2em">digitales</tspan>
+                            </text>
+                            <line x1="400" y1="200" x2="600" y2="200" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="600" cy="200" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="600" y="200" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="600" dy="-0.6em">Restricciones</tspan>
+                                <tspan x="600" dy="1.2em">de tiempo</tspan>
+                            </text>
+                            <line x1="400" y1="140" x2="500" y2="80" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="500" cy="80" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="500" y="80" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="500" dy="-0.6em">Comprensión</tspan>
+                                <tspan x="500" dy="1.2em">lectora</tspan>
+                            </text>
+                            <line x1="400" y1="260" x2="500" y2="320" stroke="#6DD5FA" stroke-width="2"/>
+                            <circle cx="500" cy="320" r="45" fill="#6DD5FA" opacity="0.8"/>
+                            <text x="500" y="320" text-anchor="middle" fill="#333" dy=".3em">
+                                <tspan x="500" dy="-0.6em">Estrategias</tspan>
+                                <tspan x="500" dy="1.2em">adaptativas</tspan>
+                            </text>
+                        </svg>
+                        <button class="game-button start-game-button" onclick="startDinoGame()">Jugar Demo de Retos</button>
+                    </div>
+                `;
+            } else {
+                modalContent.textContent = `Contenido sobre ${subject}`;
+            }
+            
+            modal.style.display = 'flex';
+        }
+
+        function initGame() {
+            svg = document.getElementById('gameCanvas');
+            
+            concepts.forEach(concept => {
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", concept.x);
+                circle.setAttribute("cy", concept.y);
+                circle.setAttribute("r", 6);
+                circle.setAttribute("class", "point");
+                circle.setAttribute("data-id", concept.id);
+                
+                svg.appendChild(circle);
+                circle.addEventListener('click', handlePointClick);
+            });
+        }
+
+        function handlePointClick(event) {
+            const point = event.target;
+            const pointId = parseInt(point.getAttribute('data-id'));
+
+            if (selectedPoint === null) {
+                selectedPoint = pointId;
+                point.setAttribute("r", "8");
+            } else {
+                if (selectedPoint !== pointId) {
+                    const connection = [Math.min(selectedPoint, pointId), Math.max(selectedPoint, pointId)];
+                    
+                    if (!connections.some(conn => 
+                        conn[0] === connection[0] && conn[1] === connection[1])) {
+                        connections.push(connection);
+                        drawConnection(connection);
+                    }
+                }
+                
+                document.querySelector(`circle[data-id="${selectedPoint}"]`).setAttribute("r", "6");
+                selectedPoint = null;
+            }
+        }
+
+        function drawConnection([id1, id2]) {
+            const point1 = concepts.find(c => c.id === id1);
+            const point2 = concepts.find(c => c.id === id2);
+            
+            const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            line.setAttribute("x1", point1.x);
+            line.setAttribute("y1", point1.y);
+            line.setAttribute("x2", point2.x);
+            line.setAttribute("y2", point2.y);
+            line.setAttribute("class", "line");
+            
+            svg.insertBefore(line, svg.firstChild);
+        }
+
+        function startTimer() {
+            timeLeft = 600;
+            const timerElement = document.getElementById('timer');
+            
+            timerId = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerId);
+                    showCompletionMessage();
+                }
+            }, 1000);
+        }
+
+        function showCompletionMessage() {
+            document.getElementById('alertModal').style.display = 'block';
+        }
+
+        function closeAlertAndReturn() {
+            document.getElementById('alertModal').style.display = 'none';
+            returnToMain();
+        }
+
+        function startGame() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('gameContainer').style.display = 'flex';
+            initGame();
+            startTimer();
+        }
+
+        function startDropletGame() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('dropletGameContainer').style.display = 'flex';
+            dropletScore = 0;
+            document.getElementById('dropletScore').textContent = dropletScore;
+            
+            const gameArea = document.getElementById('gameArea');
+            const paddle = document.getElementById('paddle');
+            
+            gameArea.addEventListener('mousemove', (e) => {
+                const rect = gameArea.getBoundingClientRect();
+                paddleX = e.clientX - rect.left - paddle.offsetWidth / 2;
+                paddleX = Math.max(0, Math.min(paddleX, gameArea.offsetWidth - paddle.offsetWidth));
+                paddle.style.left = paddleX + 'px';
+            });
+
+            dropletGameInterval = setInterval(createDroplet, 1000);
+        }
+
+        function createDroplet() {
+            const gameArea = document.getElementById('gameArea');
+            const droplet = document.createElement('div');
+            droplet.className = 'droplet';
+            
+            const randomX = Math.random() * (gameArea.offsetWidth - 20);
+            droplet.style.left = randomX + 'px';
+            droplet.style.top = '0px';
+            
+            gameArea.appendChild(droplet);
+            
+            let posY = 0;
+            const fallInterval = setInterval(() => {
+                if (!gameArea.contains(droplet)) {
+                    clearInterval(fallInterval);
+                    return;
+                }
+
+                posY += 2;
+                droplet.style.top = posY + 'px';
+                
+                if (posY >= gameArea.offsetHeight - 30) {
+                    const dropletX = randomX + 10;
+
+                    if (dropletX >= paddleX && dropletX <= (paddleX + 100)) {
+                        dropletScore++;
+                        document.getElementById('dropletScore').textContent = dropletScore;
+
+                        const concept = liquidModernityConcepts[Math.floor(Math.random() * liquidModernityConcepts.length)];
+                        if (!collectedConcepts.includes(concept)) {
+                            collectedConcepts.push(concept);
+                            const conceptDiv = document.createElement('div');
+                            conceptDiv.className = 'concept-background';
+                            conceptDiv.textContent = concept;
+                            document.getElementById('collectedConcepts').appendChild(conceptDiv);
+                        }
+
+                        const popup = document.createElement('div');
+                        popup.className = 'concept-popup';
+                        popup.textContent = concept;
+                        popup.style.left = dropletX + 'px';
+                        popup.style.top = (posY - 40) + 'px';
+                        gameArea.appendChild(popup);
+                        
+                        setTimeout(() => {
+                            if (gameArea.contains(popup)) {
+                                gameArea.removeChild(popup);
+                            }
+                        }, 1500);
+
+                        if (dropletScore >= 8) {
+                            clearInterval(dropletGameInterval);
+                            showCompletionMessageDroplet();
+                        }
+                        
+                        if (gameArea.contains(droplet)) {
+                            gameArea.removeChild(droplet);
+                        }
+                        clearInterval(fallInterval);
+                    }
+                }
+                
+                if (posY >= gameArea.offsetHeight) {
+                    if (gameArea.contains(droplet)) {
+                        gameArea.removeChild(droplet);
+                    }
+                    clearInterval(fallInterval);
+                }
+            }, 20);
+        }
+
+        function showCompletionMessageDroplet() {
+            const alertModal = document.getElementById('alertModal');
+            alertModal.querySelector('h2').textContent = '¡Lograste el reto de la modernidad!';
+            alertModal.querySelector('p').textContent = 'La siguiente letra es "A"'
+            alertModal.style.display = 'block';
+        }
+
+        function startNonLinearGame() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('nonlinearGameContainer').style.display = 'flex';
+            
+            let ideaCount = 0;
+            let timeLeft = 600;
+            const ideaButton = document.getElementById('ideaButton');
+            const ideaCountDisplay = document.getElementById('ideaCount');
+            const timerDisplay = document.getElementById('nlTimer');
+            const container = document.getElementById('lightbulbContainer');
+            
+            ideaButton.addEventListener('click', function() {
+                ideaCount++;
+                ideaCountDisplay.textContent = ideaCount;
+                
+                const lightbulb = document.createElement('div');
+                lightbulb.className = 'lightbulb';
+                lightbulb.textContent = '💡';
+                lightbulb.style.left = Math.random() * (container.offsetWidth - 40) + 'px';
+                lightbulb.style.top = Math.random() * (container.offsetHeight - 40) + 'px';
+                container.appendChild(lightbulb);
+                
+                createConfetti();
+                
+                setTimeout(() => {
+                    if (container.contains(lightbulb)) {
+                        container.removeChild(lightbulb);
+                    }
+                }, 1000);
+            });
+            
+            const timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    const alertModal = document.getElementById('alertModal');
+                    alertModal.querySelector('h2').textContent = '¡Vaya que creativo eres!';
+                    alertModal.querySelector('p').textContent = 'La siguiente letra es "O"'
+                    alertModal.style.display = 'block';
+                    ideaButton.disabled = true;
+                }
+            }, 1000);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.position = 'fixed';
+                confetti.style.width = '10px';
+                confetti.style.height = '10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = '50%';
+                confetti.style.top = '50%';
+                confetti.style.borderRadius = '50%';
+                confetti.style.zIndex = 1000;
+                document.body.appendChild(confetti);
+                
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 10 + Math.random() * 20;
+                const distance = 100 + Math.random() * 300;
+                
+                const animation = confetti.animate([
+                    { 
+                        transform: 'translate(-50%, -50%) scale(0)',
+                        opacity: 1 
+                    },
+                    { 
+                        transform: `translate(
+                            ${Math.cos(angle) * distance}px, 
+                            ${Math.sin(angle) * distance}px
+                        ) scale(1)`,
+                        opacity: 0 
+                    }
+                ], {
+                    duration: 1500,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        function returnToMain() {
+            // Get all possible game containers and hide them if they exist
+            const containers = [
+                'gameContainer',
+                'dropletGameContainer', 
+                'nonlinearGameContainer',
+                'dinoGameContainer',
+                'rhizomeGameContainer'
+            ];
+            
+            containers.forEach(containerId => {
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.style.display = 'none';
+                }
+            });
+
+            // Show main page
+            const mainPage = document.getElementById('mainPage');
+            if (mainPage) {
+                mainPage.style.display = 'block';
+            }
+            
+            // Reset SVG if it exists
+            if (svg) {
+                svg.innerHTML = '';
+            }
+            selectedPoint = null;
+            connections = [];
+            
+            // Clear timer if running
+            if (timerId) {
+                clearInterval(timerId);
+                timerId = null;
+            }
+            
+            // Clear droplet game interval if running
+            if (dropletGameInterval) {
+                clearInterval(dropletGameInterval);
+            }
+
+            // Clear droplets and popups if game area exists
+            const gameArea = document.getElementById('gameArea');
+            if (gameArea) {
+                const droplets = [...gameArea.getElementsByClassName('droplet')];
+                droplets.forEach(droplet => {
+                    if (gameArea.contains(droplet)) {
+                        gameArea.removeChild(droplet);
+                    }
+                });
+
+                const popups = [...gameArea.getElementsByClassName('concept-popup')];
+                popups.forEach(popup => {
+                    if (gameArea.contains(popup)) {
+                        gameArea.removeChild(popup);
+                    }
+                });
+            }
+
+            // Reset collected concepts
+            collectedConcepts = [];
+            const collectedConceptsContainer = document.getElementById('collectedConcepts');
+            if (collectedConceptsContainer) {
+                collectedConceptsContainer.innerHTML = '';
+            }
+
+            // Clean up game elements
+            if (gameLoop) {
+                clearInterval(gameLoop);
+                gameLoop = null;
+            }
+            
+            // Remove event listeners
+            document.removeEventListener('keydown', jump);
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        let gameLoop;
+        let isJumping = false;
+        let dinoY = 50;
+        let velocity = 0;
+        let gravity = 0.8;
+        let jumpForce = -15;
+        let difficulty = 'easy';
+        let obstacles = [];
+        let gameScore = 0;
+
+        function startDinoGame() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'none';
+            const gameContainer = document.createElement('div');
+            gameContainer.id = 'dinoGameContainer';
+            gameContainer.className = 'dino-game-container';
+            gameContainer.innerHTML = `
+                <div class="game-difficulty">
+                    <button class="difficulty-btn active" onclick="setDifficulty('easy')">Fácil</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('medium')">Medio</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('hard')">Difícil</button>
+                </div>
+                <div id="gameArea" style="width: 600px; height: 400px; position: relative; background: #f0f9ff; border-radius: 10px;">
+                    <div class="dino" id="dino"></div>
+                </div>
+                <div class="timer" id="dinoTimer">600</div>
+                <button class="game-button return-button" onclick="returnToMain()">Volver al Menú Principal</button>
+            `;
+            document.body.appendChild(gameContainer);
+            gameContainer.style.display = 'flex';
+            initDinoGame();
+        }
+
+        function setDifficulty(level) {
+            difficulty = level;
+            document.querySelectorAll('.difficulty-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function initDinoGame() {
+            const dino = document.getElementById('dino');
+            let timeLeft = 600;
+            
+            document.addEventListener('keydown', jump);
+            
+            gameLoop = setInterval(() => {
+                updateDino();
+                updateObstacles();
+                checkCollisions();
+                
+                timeLeft--;
+                document.getElementById('dinoTimer').textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 20);
+            
+            setInterval(createObstacle, getDifficultySpeed());
+        }
+
+        function getDifficultySpeed() {
+            switch(difficulty) {
+                case 'easy': return 2000;
+                case 'medium': return 1500;
+                case 'hard': return 1000;
+                default: return 2000;
+            }
+        }
+
+        function jump(event) {
+            if (event.code === 'Space' && !isJumping) {
+                isJumping = true;
+                velocity = jumpForce;
+            }
+        }
+
+        function updateDino() {
+            const dino = document.getElementById('dino');
+            velocity += gravity;
+            dinoY += velocity;
+            
+            if (dinoY > 50) {
+                dinoY = 50;
+                isJumping = false;
+                velocity = 0;
+            }
+            
+            dino.style.bottom = dinoY + 'px';
+        }
+
+        function createObstacle() {
+            const gameArea = document.getElementById('gameArea');
+            const obstacle = document.createElement('div');
+            obstacle.className = 'obstacle';
+            obstacle.style.left = '600px';
+            gameArea.appendChild(obstacle);
+            obstacles.push(obstacle);
+        }
+
+        function updateObstacles() {
+            obstacles.forEach((obstacle, index) => {
+                const left = parseFloat(obstacle.style.left);
+                if (left < -30) {
+                    obstacle.remove();
+                    obstacles.splice(index, 1);
+                } else {
+                    obstacle.style.left = (left - 5) + 'px';
+                }
+            });
+        }
+
+        function checkCollisions() {
+            const dino = document.getElementById('dino');
+            const dinoRect = dino.getBoundingClientRect();
+            
+            obstacles.forEach(obstacle => {
+                const obstacleRect = obstacle.getBoundingClientRect();
+                if (isColliding(dinoRect, obstacleRect)) {
+                    endGame();
+                }
+            });
+        }
+
+        function isColliding(rect1, rect2) {
+            return !(rect1.right < rect2.left || 
+                     rect1.left > rect2.right || 
+                     rect1.bottom < rect2.top || 
+                     rect1.top > rect2.bottom);
+        }
+
+        function endGame() {
+            clearInterval(gameLoop);
+            document.removeEventListener('keydown', jump);
+            
+            const alertModal = document.getElementById('alertModal');
+            alertModal.querySelector('h2').textContent = '¡Juego terminado!';
+            alertModal.querySelector('p').textContent = 
+                'Dependiendo las condiciones del estudiante, la actividad puede ser un reto o algo imposible de solucionar. La última letra es S';
+            alertModal.style.display = 'block';
+        }
+
+        function startRhizomeGame() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'none';
+            
+            // Create rhizome game container if it doesn't exist
+            let container = document.getElementById('rhizomeGameContainer');
+            if (!container) {
+                container = document.createElement('div');
+                container.id = 'rhizomeGameContainer';
+                container.className = 'rhizome-game-container';
+                container.innerHTML = `
+                    <h2>Dibuja tu Rizoma</h2>
+                    <p class="fluid-text">El rizoma posee una estructura fluida</p>
+                    <canvas id="rhizomeCanvas" class="rhizome-canvas" width="600" height="400"></canvas>
+                    <button class="game-button" onclick="clearCanvas()">Limpiar</button>
+                    <button class="game-button return-button" onclick="returnToMain()">Volver al Menú Principal</button>
+                `;
+                document.body.appendChild(container);
+                initRhizomeCanvas();
+            }
+            container.style.display = 'flex';
+        }
+
+        function initRhizomeCanvas() {
+            const canvas = document.getElementById('rhizomeCanvas');
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let lastX = 0;
+            let lastY = 0;
+
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.strokeStyle = '#2196F3';
+                ctx.lineWidth = 2;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            }
+
+            function stopDrawing() {
+                isDrawing = false;
+            }
+        }
+
+        function clearCanvas() {
+            const canvas = document.getElementById('rhizomeCanvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      document.getElementById('btnConstancia').addEventListener('click', function() {
+    const nombre = prompt("Ingresa tu nombre para generar la constancia:");
+    if (nombre) {
+        const nuevaVentana = window.open("", "Constancia", "width=600,height=400");
+        nuevaVentana.document.write(`
+            <html>
+            <head>
+                <title>Constancia</title>
+                <style>
+                    body {
+                        font-family: 'Arial', sans-serif;
+                        background: #fff;
+                        padding: 2rem;
+                        text-align: center;
+                        color: #333;
+                    }
+                    h1 {
+                        font-size: 2em;
+                        margin-bottom: 1rem;
+                    }
+                    p {
+                        font-size: 1.2em;
+                    }
+                </style>
+            </head>
+            <body>
+                <h1>Constancia de Pensamientos</h1>
+                <p>Se otorga la presente a:</p>
+                <p><strong>${nombre}</strong></p>
+                <p>Por su participación en el juego didáctico.</p>
+                <br>
+                <p>Emitida por el Maestro Pablo Adrián Rivera Juvenal</p>
+            </body>
+            </html>
+        `);
+        nuevaVentana.document.close();
+    }
+});
+      
+    </script>
+</body>
+</html>

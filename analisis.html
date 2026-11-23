@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnicas de Análisis de Contenido</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #800020; /* Cambiado a guinda */
+            --secondary: #600018; /* Tono más oscuro de guinda */
+            --accent: #d81b60; /* Acento que combina con guinda */
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4cc9f0;
+            --warning: #ff9e00;
+            --info: #4895ef;
+            --gray: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+            position: relative;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .search-box {
+            flex-grow: 1;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            background: white;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.3); /* Actualizado para guinda */
+        }
+        
+        .search-box i {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .filter-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            background: white;
+            color: var(--primary);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .back-button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.1rem;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+            max-width: 200px;
+        }
+        
+        .back-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            color: white;
+        }
+        
+        .techniques-container {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+        
+        .technique-item {
+            border-bottom: 1px solid #eee;
+            transition: var(--transition);
+        }
+        
+        .technique-item:last-child {
+            border-bottom: none;
+        }
+        
+        .technique-header {
+            padding: 20px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .technique-header:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .technique-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .technique-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .technique-arrow {
+            color: var(--gray);
+            transition: var(--transition);
+            font-size: 1.2rem;
+        }
+        
+        .technique-content {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: var(--transition);
+            background: #f8f9fa;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        
+        .technique-item.active .technique-content {
+            max-height: 1000px;
+            padding: 25px;
+        }
+        
+        .technique-item.active .technique-arrow {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        
+        .technique-item.active .technique-header {
+            background-color: #f0f4ff;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .technique-content p {
+            margin-bottom: 15px;
+        }
+        
+        .technique-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .technique-content li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 10px;
+        }
+        
+        .technique-content li::before {
+            content: "•";
+            color: var(--accent);
+            font-weight: bold;
+            position: absolute;
+            left: -10px;
+        }
+        
+        .highlight {
+            background-color: rgba(216, 27, 96, 0.1); /* Actualizado para el acento */
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent);
+            font-weight: 600;
+        }
+        
+        .technique-meta {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        @media (max-width: 768px) {
+            .controls {
+                flex-direction: column;
+            }
+            
+            .search-box {
+                max-width: 100%;
+            }
+            
+            .filter-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .technique-header {
+                padding: 15px 20px;
+            }
+            
+            .technique-title {
+                font-size: 1.2rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .stats {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+        
+        /* Animación de entrada */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .technique-item {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        .technique-item:nth-child(1) { animation-delay: 0.1s; }
+        .technique-item:nth-child(2) { animation-delay: 0.2s; }
+        .technique-item:nth-child(3) { animation-delay: 0.3s; }
+        .technique-item:nth-child(4) { animation-delay: 0.4s; }
+        .technique-item:nth-child(5) { animation-delay: 0.5s; }
+        .technique-item:nth-child(6) { animation-delay: 0.6s; }
+        .technique-item:nth-child(7) { animation-delay: 0.7s; }
+        .technique-item:nth-child(8) { animation-delay: 0.8s; }
+        .technique-item:nth-child(9) { animation-delay: 0.9s; }
+        .technique-item:nth-child(10) { animation-delay: 1.0s; }
+        .technique-item:nth-child(11) { animation-delay: 1.1s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Técnicas de Análisis de Contenido</h1>
+            <p class="subtitle">Herramientas metodológicas para la investigación cualitativa y cuantitativa</p>
+        </header>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="search" placeholder="Buscar técnica...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="filter-buttons">
+                <button id="show-all">
+                    <i class="fas fa-list"></i>
+                    Mostrar todas
+                </button>
+                <button id="reset-view">
+                    <i class="fas fa-sync-alt"></i>
+                    Restablecer
+                </button>
+            </div>
+        </div>
+        
+        <div class="techniques-container" id="techniques-container">
+            <!-- Las técnicas se cargarán dinámicamente con JavaScript -->
+        </div>
+        
+        <!-- Botón Volver añadido -->
+        <a href="Aplicacion.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+        
+        <footer>
+            <p>Tabla 3. Técnicas de Análisis de Contenido - Material educativo</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">11</div>
+                    <div class="stat-label">Técnicas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Cualitativas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">Cuantitativas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Mixtas</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Datos de las técnicas
+        const techniquesData = [
+            {
+                id: "analisis-contenido",
+                title: "Análisis de contenido",
+                icon: "fas fa-file-alt",
+                content: `
+                    <p>Técnica objetiva y sistemática, de enfoque cualitativo o cuantitativo, que trabaja con materiales representativos mediante la rejilla de análisis de contenido.</p>
+                    <p>Su aplicación sigue un proceso estructurado:</p>
+                    <ul>
+                        <li>Se establecen los objetivos</li>
+                        <li>Se define el universo de estudio</li>
+                        <li>Se seleccionan los documentos y unidades de contenido</li>
+                        <li>Finalmente se determinan las categorías para el análisis</li>
+                    </ul>
+                `,
+                type: "mixta",
+                complexity: "media"
+            },
+            {
+                id: "analisis-documental",
+                title: "Análisis documental",
+                icon: "fas fa-book",
+                content: `
+                    <p>Técnica que permite seleccionar las ideas clave de un documento para expresar su contenido de manera clara y recuperar la información relevante.</p>
+                    <p>Su proceso se guía por categorías e indicadores que orientan el diagnóstico e involucra el conocimiento, análisis, síntesis, representación y recuperación del documento.</p>
+                    <p>El instrumento utilizado para este análisis son las fichas de trabajo o fichas de contenido.</p>
+                `,
+                type: "cualitativa",
+                complexity: "baja"
+            },
+            {
+                id: "observacion-directa",
+                title: "Observación directa",
+                icon: "fas fa-eye",
+                content: `
+                    <p>Técnica esencial en la investigación, ya que permite recopilar datos en contextos reales y cotidianos mediante herramientas como notas de campo, grabaciones de audio y video, y estudios de tiempos y movimientos.</p>
+                    <p>A lo largo de la historia, ha sido clave en la construcción del conocimiento científico (Namakforoosh, 2007).</p>
+                    <p>Dependiendo del enfoque, el observador puede estar presente de manera directa, encubierta o utilizar medios técnicos para una observación indirecta. Asimismo, puede adoptar un rol participante al integrarse activamente en el grupo estudiado.</p>
+                    <p>Existen diversos tipos de observación, tanto cualitativos como cuantitativos.</p>
+                `,
+                type: "cualitativa",
+                complexity: "media"
+            },
+            {
+                id: "encuesta-muestreo",
+                title: "Encuesta por muestreo",
+                icon: "fas fa-chart-bar",
+                content: `
+                    <p>Técnica ampliamente utilizada debido a su capacidad para recopilar información de manera eficiente mediante un mismo instrumento.</p>
+                    <p>Su popularidad radica en que permite inferir características de toda una población a partir de una muestra representativa, lo que la hace más accesible y económica.</p>
+                    <p>El principal instrumento utilizado es el cuestionario impreso, compuesto por preguntas que pueden ser cerradas, abiertas o semiabiertas, según el enfoque y los objetivos del diagnóstico.</p>
+                `,
+                type: "cuantitativa",
+                complexity: "media"
+            },
+            {
+                id: "entrevista",
+                title: "Entrevista",
+                icon: "fas fa-comments",
+                content: `
+                    <p>Técnica de recolección de información basada en la interacción personal con el entrevistado, desarrollada en condiciones específicas.</p>
+                    <p>Su objetivo principal es obtener datos relevantes a través de un guion de preguntas, que puede variar desde:</p>
+                    <ul>
+                        <li><span class="highlight">Estructuradas</span> (cerradas y predefinidas)</li>
+                        <li><span class="highlight">Semi-estructuradas</span> (con margen de flexibilidad)</li>
+                        <li><span class="highlight">Abiertas</span> (similares a conversaciones dirigidas)</li>
+                    </ul>
+                    <p>Además, puede apoyarse en grabaciones de audio o video para su registro.</p>
+                `,
+                type: "cualitativa",
+                complexity: "alta"
+            },
+            {
+                id: "grupo-focal",
+                title: "Grupo focal",
+                icon: "fas fa-users",
+                content: `
+                    <p>Técnica de discusión estructurada en la que un moderador guía a los participantes en torno a un tema específico.</p>
+                    <p>Aunque se fomenta la libre expresión, la discusión sigue una orientación para evitar desviaciones hacia temas irrelevantes.</p>
+                    <p>El moderador introduce el tema, mantiene el enfoque y revitaliza la conversación cuando ésta se estanca.</p>
+                `,
+                type: "cualitativa",
+                complexity: "alta"
+            },
+            {
+                id: "diagrama-pareto",
+                title: "Diagrama de Pareto",
+                icon: "fas fa-chart-pie",
+                content: `
+                    <p>Nombrado así por Joseph Juran en honor al economista Vilfredo Pareto, es una técnica utilizada para identificar y priorizar los problemas más frecuentes, optimizando la toma de decisiones dentro de recursos y tiempo limitados.</p>
+                    <p>Su principal ventaja es permitir una visualización clara de los factores críticos que requieren mayor atención, descartando elementos de menor relevancia. De este modo, se enfocan los esfuerzos en aspectos clave para implementar mejoras de manera eficiente, evitando el desperdicio de recursos.</p>
+                    <p>El diagrama de Pareto es un tipo de gráfico de barras utilizado para mostrar la frecuencia o impacto de diferentes causas que contribuyen a un problema.</p>
+                    <p>Se basa en el principio de Pareto, que establece que aproximadamente el 80% de los efectos provienen del 20% de las causas. (Franco, s. f.)</p>
+                `,
+                type: "cuantitativa",
+                complexity: "media"
+            },
+            {
+                id: "analisis-foda",
+                title: "Análisis FODA",
+                icon: "fas fa-th-large",
+                content: `
+                    <p>El origen del análisis FODA se atribuye a Albert Humphrey en la década de los 60´s, y desarrollado posteriormente por Kenneth Andrews y Roland Christensen, es una herramienta estratégica utilizada para evaluar la situación actual de una organización o persona.</p>
+                    <p>Su nombre proviene de las iniciales de Fortalezas, Oportunidades, Debilidades y Amenazas.</p>
+                    <p>Su aplicación busca potenciar las fortalezas, reducir las debilidades y aprovechar al máximo las oportunidades.</p>
+                    <p>En México, esta técnica ha evolucionado en el ámbito educativo, identificando factores internos y externos que influyen en los objetivos, clasificándolos en facilitadores y apoyos (impacto positivo) u obstáculos y riesgos (impacto negativo).</p>
+                `,
+                type: "mixta",
+                complexity: "baja"
+            },
+            {
+                id: "diagrama-arbol",
+                title: "Diagrama de árbol",
+                icon: "fas fa-project-diagram",
+                content: `
+                    <p>Técnica de diagnóstico eficaz que permite analizar problemas de manera estructurada, ahorrando tiempo y facilitando la identificación de causas, efectos y relaciones entre factores.</p>
+                    <p>Su aplicación implica:</p>
+                    <ul>
+                        <li>Definir el problema central</li>
+                        <li>Formular preguntas para desglosarlo en niveles jerárquicos</li>
+                        <li>Organizar las respuestas en un esquema estructurado</li>
+                        <li>Revisar el análisis e invertir el proceso para verificar su coherencia</li>
+                    </ul>
+                    <p>Esta herramienta ayuda a dividir un tema en sus componentes, un proyecto en actividades o un problema en sus causas, priorizando el más relevante en el tronco del árbol, mientras que las causas se ubican en las raíces, lo que permite una mejor comprensión y toma de decisiones.</p>
+                `,
+                type: "cualitativa",
+                complexity: "media"
+            },
+            {
+                id: "diagrama-causa-efecto",
+                title: "Diagrama de causa-efecto",
+                icon: "fas fa-stream",
+                content: `
+                    <p>Herramienta gráfica utilizada para analizar problemas y mejorar la calidad en diversos ámbitos, incluido el educativo.</p>
+                    <p>Representa el problema en una línea horizontal con ramificaciones que organizan las causas en categorías, permitiendo visualizar sus relaciones y comprender su origen.</p>
+                `,
+                type: "cualitativa",
+                complexity: "baja"
+            },
+            {
+                id: "diagrama-afinidad",
+                title: "Diagrama de afinidad",
+                icon: "fas fa-object-group",
+                content: `
+                    <p>Según Calixto (2009), es una técnica que organiza datos verbales con base en sus similitudes para comprender la estructura de un problema.</p>
+                    <p>Se emplea en situaciones confusas aún no analizadas, utilizando información, predicciones y opiniones, permitiendo relacionar datos de diversas fuentes según sus elementos comunes o supuestos definidos por el equipo de diagnóstico.</p>
+                    <p>Este método proporciona una visión global del problema, facilitando:</p>
+                    <ul>
+                        <li>La identificación de su naturaleza</li>
+                        <li>La detección de aspectos ocultos</li>
+                        <li>La organización de ideas dispersas</li>
+                        <li>La orientación en la toma de decisiones</li>
+                    </ul>
+                `,
+                type: "cualitativa",
+                complexity: "alta"
+            }
+        ];
+
+        // Elementos del DOM
+        const techniquesContainer = document.getElementById('techniques-container');
+        const searchInput = document.getElementById('search');
+        const showAllBtn = document.getElementById('show-all');
+        const resetViewBtn = document.getElementById('reset-view');
+
+        // Renderizar las técnicas en el contenedor
+        function renderTechniques(techniques) {
+            techniquesContainer.innerHTML = '';
+            
+            techniques.forEach(technique => {
+                const techniqueElement = document.createElement('div');
+                techniqueElement.className = 'technique-item';
+                techniqueElement.setAttribute('data-id', technique.id);
+                
+                // Determinar color según tipo
+                let typeColor = '';
+                let typeText = '';
+                switch(technique.type) {
+                    case 'cualitativa':
+                        typeColor = '#4cc9f0';
+                        typeText = 'Cualitativa';
+                        break;
+                    case 'cuantitativa':
+                        typeColor = '#ff9e00';
+                        typeText = 'Cuantitativa';
+                        break;
+                    case 'mixta':
+                        typeColor = '#f72585';
+                        typeText = 'Mixta';
+                        break;
+                }
+                
+                // Determinar icono de complejidad
+                let complexityIcon = '';
+                switch(technique.complexity) {
+                    case 'baja':
+                        complexityIcon = 'fas fa-thermometer-empty';
+                        break;
+                    case 'media':
+                        complexityIcon = 'fas fa-thermometer-half';
+                        break;
+                    case 'alta':
+                        complexityIcon = 'fas fa-thermometer-full';
+                        break;
+                }
+                
+                techniqueElement.innerHTML = `
+                    <div class="technique-header">
+                        <div class="technique-title">
+                            <div class="technique-icon">
+                                <i class="${technique.icon}"></i>
+                            </div>
+                            ${technique.title}
+                        </div>
+                        <div class="technique-arrow">
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                    </div>
+                    <div class="technique-content">
+                        ${technique.content}
+                        <div class="technique-meta">
+                            <div class="meta-item">
+                                <i class="fas fa-tag" style="color: ${typeColor};"></i>
+                                ${typeText}
+                            </div>
+                            <div class="meta-item">
+                                <i class="${complexityIcon}"></i>
+                                Complejidad ${technique.complexity}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                techniquesContainer.appendChild(techniqueElement);
+            });
+            
+            // Añadir event listeners a los headers
+            document.querySelectorAll('.technique-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const techniqueItem = this.parentElement;
+                    const isActive = techniqueItem.classList.contains('active');
+                    
+                    // Cerrar todos los demás
+                    document.querySelectorAll('.technique-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // Abrir el actual si no estaba activo
+                    if (!isActive) {
+                        techniqueItem.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Filtrar técnicas según búsqueda
+        function filterTechniques() {
+            const searchTerm = searchInput.value.toLowerCase();
+            
+            const filteredTechniques = techniquesData.filter(technique => {
+                return technique.title.toLowerCase().includes(searchTerm) || 
+                       technique.content.toLowerCase().includes(searchTerm);
+            });
+            
+            renderTechniques(filteredTechniques);
+        }
+
+        // Mostrar todas las técnicas
+        function showAllTechniques() {
+            renderTechniques(techniquesData);
+            searchInput.value = '';
+        }
+
+        // Restablecer vista (cerrar todos los acordeones)
+        function resetView() {
+            document.querySelectorAll('.technique-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        // Inicializar la página
+        function init() {
+            renderTechniques(techniquesData);
+            
+            // Event listeners
+            searchInput.addEventListener('input', filterTechniques);
+            showAllBtn.addEventListener('click', showAllTechniques);
+            resetViewBtn.addEventListener('click', resetView);
+        }
+
+        // Iniciar la aplicación cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

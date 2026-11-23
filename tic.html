@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario TIC TAC TEPS</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f8f8f8;
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* Contenedor principal */
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* Encabezados y textos */
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #800000; /* guinda */
+    }
+    p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    /* Grupo de entrada */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .input-group input[type="text"] {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    /* Estilo de cada pregunta */
+    .question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #800000;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    /* Botones */
+    button {
+      background-color: #800000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 1rem auto;
+    }
+    button:hover {
+      background-color: #660000;
+    }
+    /* Resultados */
+    .results-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    /* Adaptabilidad móvil */
+    @media (max-width: 600px) {
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cuestionario sobre TIC, TAC y TEP</h1>
+    <p>Por favor, introduce tu nombre completo y responde las siguientes 10 preguntas.</p>
+    <div class="input-group">
+      <label for="nombre">Nombre del Participante:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
+    </div>
+    <form id="quiz-form">
+      <!-- Pregunta 1 -->
+      <div class="question">
+        <p>1. ¿Qué significan generalmente las siglas TIC?</p>
+        <label><input type="radio" name="q1" value="a"> a) Tecnologías de Interconexión Comunicativa</label>
+        <label><input type="radio" name="q1" value="b"> b) Tecnologías de la Información y la Comunicación</label>
+        <label><input type="radio" name="q1" value="c"> c) Técnicas Innovadoras de Computación</label>
+      </div>
+      <!-- Pregunta 2 -->
+      <div class="question">
+        <p>2. ¿Cuál de las siguientes es una herramienta de colaboración en línea?</p>
+        <label><input type="radio" name="q2" value="a"> a) Procesador de textos (instalado)</label>
+        <label><input type="radio" name="q2" value="b"> b) Hoja de cálculo (sin conexión)</label>
+        <label><input type="radio" name="q2" value="c"> c) Google Docs</label>
+      </div>
+      <!-- Pregunta 3 -->
+      <div class="question">
+        <p>3. ¿Cuál es un beneficio clave del uso de TIC en la educación?</p>
+        <label><input type="radio" name="q3" value="a"> a) Reducir la interacción social</label>
+        <label><input type="radio" name="q3" value="b"> b) Facilitar el acceso a recursos y aprendizaje interactivo</label>
+        <label><input type="radio" name="q3" value="c"> c) Aumentar el costo de los materiales educativos</label>
+      </div>
+      <!-- Pregunta 4 -->
+      <div class="question">
+        <p>4. ¿Qué se entiende por "ciudadanía digital"?</p>
+        <label><input type="radio" name="q4" value="a"> a) Tener la última tecnología</label>
+        <label><input type="radio" name="q4" value="b"> b) Usar la tecnología de forma segura, responsable y ética</label>
+        <label><input type="radio" name="q4" value="c"> c) Solo usar redes sociales</label>
+      </div>
+      <!-- Pregunta 5 -->
+      <div class="question">
+        <p>5. ¿Cuál de las siguientes NO es una ventaja de almacenar archivos en la nube?</p>
+        <label><input type="radio" name="q5" value="a"> a) Acceso desde cualquier lugar con internet</label>
+        <label><input type="radio" name="q5" value="b"> b) Mayor seguridad contra daños físicos del dispositivo</label>
+        <label><input type="radio" name="q5" value="c"> c) No requiere conexión a internet para acceder siempre</label>
+      </div>
+      <!-- Pregunta 6 -->
+      <div class="question">
+        <p>6. ¿Qué representa el término TAC en el contexto educativo?</p>
+        <label><input type="radio" name="q6" value="a"> a) Tecnologías de Amplificación del Conocimiento</label>
+        <label><input type="radio" name="q6" value="b"> b) Tecnologías del Aprendizaje y el Conocimiento</label>
+        <label><input type="radio" name="q6" value="c"> c) Técnicas Avanzadas de Comunicación</label>
+      </div>
+      <!-- Pregunta 7 -->
+      <div class="question">
+        <p>7. ¿Qué significa TEP en el ámbito educativo?</p>
+        <label><input type="radio" name="q7" value="a"> a) Transformación Educativa Personalizada</label>
+        <label><input type="radio" name="q7" value="b"> b) Tecnologías, Educación y Participación</label>
+        <label><input type="radio" name="q7" value="c"> c) Técnicas Especializadas de Programación</label>
+      </div>
+      <!-- Pregunta 8 -->
+      <div class="question">
+        <p>8. ¿Cuál es una ventaja del uso integrado de TIC, TAC y TEP en el aula?</p>
+        <label><input type="radio" name="q8" value="a"> a) Promueven la participación y el aprendizaje activo</label>
+        <label><input type="radio" name="q8" value="b"> b) Aumentan el costo de la educación</label>
+        <label><input type="radio" name="q8" value="c"> c) Reducen el acceso a la información digital</label>
+      </div>
+      <!-- Pregunta 9 -->
+      <div class="question">
+        <p>9. ¿Qué rol juega la ciudadanía digital en la era de las TIC y TAC?</p>
+        <label><input type="radio" name="q9" value="a"> a) Garantiza el uso ético y seguro de la tecnología</label>
+        <label><input type="radio" name="q9" value="b"> b) Limita el acceso a nuevas tecnologías</label>
+        <label><input type="radio" name="q9" value="c"> c) Es irrelevante en la era digital</label>
+      </div>
+      <!-- Pregunta 10 -->
+      <div class="question">
+        <p>10. ¿Cuál es una de las principales barreras para implementar TIC en educación?</p>
+        <label><input type="radio" name="q10" value="a"> a) Falta de infraestructura tecnológica</label>
+        <label><input type="radio" name="q10" value="b"> b) Exceso de recursos tecnológicos</label>
+        <label><input type="radio" name="q10" value="c"> c) Insuficiente capacitación docente</label>
+      </div>
+      <button type="submit" id="submit-btn">Enviar Respuestas</button>
+    </form>
+    <div id="results" class="results-container" style="display: none;">
+      <h2>Resultados</h2>
+      <p id="score"></p>
+      <p id="message"></p>
+      <button id="download-btn" style="display: none;">Descargar Constancia</button>
+    </div>
+    <!-- Botón de regresar -->
+    <button type="button" id="back-btn" onclick="window.location.href='Aplicación.html'">Regresar</button>
+  </div>
+  
+  <script>
+    // Evaluación del cuestionario
+    document.getElementById("quiz-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Respuestas correctas
+      const answers = {
+        q1: "b",
+        q2: "c",
+        q3: "b",
+        q4: "b",
+        q5: "c",
+        q6: "b",
+        q7: "b",
+        q8: "a",
+        q9: "a",
+        q10: "a"
+      };
+
+      let score = 0;
+      const totalQuestions = Object.keys(answers).length;
+      
+      // Revisar respuestas
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        for (let radio of radios) {
+          if (radio.checked && radio.value === answers[key]) {
+            score++;
+            break;
+          }
+        }
+      }
+      
+      // Mostrar resultados según la puntuación
+      let resultMessage = "";
+      if (score >= 7) {
+        resultMessage = "¡Felicidades, has aprobado el cuestionario!";
+        document.getElementById("download-btn").style.display = "block";
+      } else {
+        resultMessage = "No has alcanzado la nota mínima. Inténtalo de nuevo.";
+        document.getElementById("download-btn").style.display = "none";
+      }
+      
+      document.getElementById("score").textContent = "Puntuación: " + score + " / " + totalQuestions;
+      document.getElementById("message").textContent = resultMessage;
+      document.getElementById("results").style.display = "block";
+      
+      // Almacenar datos para constancia
+      document.getElementById("download-btn").dataset.nombre = document.getElementById("nombre").value;
+      document.getElementById("download-btn").dataset.score = score;
+      document.getElementById("download-btn").dataset.total = totalQuestions;
+      document.getElementById("download-btn").dataset.message = resultMessage;
+    });
+
+    // Descargar constancia en formato HTML
+    document.getElementById("download-btn").addEventListener("click", function() {
+      const nombre = this.dataset.nombre || "Participante";
+      const score = this.dataset.score;
+      const total = this.dataset.total;
+      const resultMessage = this.dataset.message;
+      
+      // Contenido HTML para la constancia
+      const certificateHTML = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Constancia de Participación</title>
+  <style>
+    body { 
+      background-color: #fff; 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      margin: 0; 
+      padding: 0;
+    }
+    .certificate {
+      border: 10px solid #800000;
+      margin: 50px auto;
+      padding: 20px;
+      width: 80%;
+    }
+    h1 { 
+      color: #800000; 
+    }
+    p { 
+      font-size: 1.2em; 
+    }
+    .issuer { 
+      font-weight: bold; 
+      margin-top: 30px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <h1>Constancia de Participación</h1>
+    <p>Se otorga la presente constancia a <strong>${nombre}</strong></p>
+    <p>Puntuación: ${score} / ${total}</p>
+    <p>${resultMessage}</p>
+    <p class="issuer">Emitida por el maestro Pablo Adrian Rivera Juvenal</p>
+    <p class="issuer">por parte del Movimiento Mexicano</p>
+  </div>
+</body>
+</html>
+      `;
+      
+      const blob = new Blob([certificateHTML], { type: "text/html;charset=utf-8" });
+      const url = window.URL.createObjectURL(blob);
+      
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "constancia.html";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

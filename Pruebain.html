@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionario de Emprendimiento Social</title>
+    <style>
+        body {
+            background-color: #FFD6E7; /* Fondo rosa claro */
+            color: #800020; /* Letra guinda */
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .header-img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+        .question {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #FFF0F5;
+            border-radius: 8px;
+        }
+        .options {
+            margin-left: 20px;
+        }
+        button {
+            background-color: #800020;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #A00030;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #FFF0F5;
+            border-radius: 8px;
+            font-size: 18px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <img src="Innovación.jpg" alt="Innovación" class="header-img">
+    <h1>Cuestionario de Emprendimiento Social</h1>
+    
+    <form id="quiz">
+        <div class="question">
+            <p>1. ¿Qué valor del emprendedor social implica actuar con transparencia y rectitud en todas sus acciones?</p>
+            <div class="options">
+                <label><input type="radio" name="q1" value="A"> A) Iniciativa</label><br>
+                <label><input type="radio" name="q1" value="B"> B) Honestidad</label><br>
+                <label><input type="radio" name="q1" value="C"> C) Oportunidad</label><br>
+                <label><input type="radio" name="q1" value="D"> D) Tolerancia</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>2. ¿Por qué es importante que la organización de un emprendimiento social sea flexible?</p>
+            <div class="options">
+                <label><input type="radio" name="q2" value="A"> A) Para que cada integrante haga lo que quiera sin reglas</label><br>
+                <label><input type="radio" name="q2" value="B"> B) Para evitar cumplir objetivos formales</label><br>
+                <label><input type="radio" name="q2" value="C"> C) Porque permite adaptarse a cambios sociales, económicos o comunitarios de forma eficiente</label><br>
+                <label><input type="radio" name="q2" value="D"> D) Porque no se requiere estructura en este tipo de proyectos</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>3. ¿Qué elemento es esencial en un emprendimiento social exitoso?</p>
+            <div class="options">
+                <label><input type="radio" name="q3" value="A"> A) Contratar influencers para la promoción</label><br>
+                <label><input type="radio" name="q3" value="B"> B) Reducir al mínimo el contacto con la comunidad</label><br>
+                <label><input type="radio" name="q3" value="C"> C) Generar impacto social positivo con un modelo autosustentable</label><br>
+                <label><input type="radio" name="q3" value="D"> D) Obtener grandes beneficios económicos en el primer año</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>4. ¿Qué caracteriza a una necesidad comparativa?</p>
+            <div class="options">
+                <label><input type="radio" name="q4" value="A"> A) Se basa en la intuición de la persona</label><br>
+                <label><input type="radio" name="q4" value="B"> B) Se manifiesta únicamente en el entorno rural</label><br>
+                <label><input type="radio" name="q4" value="C"> C) Se identifica al comparar grupos con y sin acceso a servicios o recursos</label><br>
+                <label><input type="radio" name="q4" value="D"> D) Solo la detectan instituciones académicas</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>5. ¿Cuál es el principal objetivo del emprendimiento social?</p>
+            <div class="options">
+                <label><input type="radio" name="q5" value="A"> A) Maximizar las ganancias de los accionistas</label><br>
+                <label><input type="radio" name="q5" value="B"> B) Resolver problemáticas sociales mediante modelos sostenibles</label><br>
+                <label><input type="radio" name="q5" value="C"> C) Expandir mercados internacionales</label><br>
+                <label><input type="radio" name="q5" value="D"> D) Sustituir al gobierno en la prestación de servicios</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>6. ¿Cuál de las siguientes describe mejor una necesidad sentida?</p>
+            <div class="options">
+                <label><input type="radio" name="q6" value="A"> A) Una carencia que las personas experimentan personalmente, aunque no siempre la expresen o busquen ayuda</label><br>
+                <label><input type="radio" name="q6" value="B"> B) Una necesidad identificada por expertos</label><br>
+                <label><input type="radio" name="q6" value="C"> C) Una carencia que se compara con otros grupos</label><br>
+                <label><input type="radio" name="q6" value="D"> D) Un deseo sin importancia</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>7. ¿Qué valor se manifiesta cuando el emprendedor se enfrenta a lo desconocido sin garantías de éxito?</p>
+            <div class="options">
+                <label><input type="radio" name="q7" value="A"> A) Responsabilidad</label><br>
+                <label><input type="radio" name="q7" value="B"> B) Tolerancia a la incertidumbre</label><br>
+                <label><input type="radio" name="q7" value="C"> C) Orientación a metas</label><br>
+                <label><input type="radio" name="q7" value="D"> D) Iniciativa</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>8. ¿Cuál de los siguientes ejemplos representa mejor una innovación inclusiva?</p>
+            <div class="options">
+                <label><input type="radio" name="q8" value="A"> A) Una aplicación móvil exclusiva para ejecutivos financieros</label><br>
+                <label><input type="radio" name="q8" value="B"> B) Una nueva línea de cosméticos de lujo</label><br>
+                <label><input type="radio" name="q8" value="C"> C) Un robot automatizado para ensamblaje en fábricas automotrices</label><br>
+                <label><input type="radio" name="q8" value="D"> D) Un sistema de purificación de agua de bajo costo para comunidades rurales</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>9. ¿Cuál es el objetivo principal de un emprendimiento social?</p>
+            <div class="options">
+                <label><input type="radio" name="q9" value="A"> A) Obtener la máxima rentabilidad económica posible</label><br>
+                <label><input type="radio" name="q9" value="B"> B) Resolver problemas sociales mediante soluciones innovadoras y sostenibles</label><br>
+                <label><input type="radio" name="q9" value="C"> C) Acaparar el mercado antes que la competencia</label><br>
+                <label><input type="radio" name="q9" value="D"> D) Expandirse globalmente sin considerar el impacto local</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>10. ¿Qué distingue a un proyecto de innovación social?</p>
+            <div class="options">
+                <label><input type="radio" name="q10" value="A"> A) Utiliza exclusivamente tecnología avanzada</label><br>
+                <label><input type="radio" name="q10" value="B"> B) Solo se aplica en zonas urbanas</label><br>
+                <label><input type="radio" name="q10" value="C"> C) Tiene como fin obtener reconocimiento académico</label><br>
+                <label><input type="radio" name="q10" value="D"> D) Propone soluciones nuevas a necesidades sociales específicas involucrando a la comunidad</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>11. ¿Qué es una necesidad percibida?</p>
+            <div class="options">
+                <label><input type="radio" name="q11" value="A"> A) Una necesidad descubierta a través de encuestas estadísticas</label><br>
+                <label><input type="radio" name="q11" value="B"> B) Una carencia que la persona reconoce y manifiesta conscientemente</label><br>
+                <label><input type="radio" name="q11" value="C"> C) Una necesidad reconocida por el gobierno</label><br>
+                <label><input type="radio" name="q11" value="D"> D) Una necesidad que no se puede satisfacer</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>12. ¿Cuál de los siguientes elementos corresponde a una oportunidad en el análisis FODA?</p>
+            <div class="options">
+                <label><input type="radio" name="q12" value="A"> A) Falta de recursos financieros</label><br>
+                <label><input type="radio" name="q12" value="B"> B) Competencia creciente</label><br>
+                <label><input type="radio" name="q12" value="C"> C) Tendencias del mercado que pueden ser aprovechadas para crecer</label><br>
+                <label><input type="radio" name="q12" value="D"> D) Bajo rendimiento del personal interno</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>13. ¿Qué implica la sostenibilidad en un emprendimiento social?</p>
+            <div class="options">
+                <label><input type="radio" name="q13" value="A"> A) Lograr ganancias rápidas sin importar el impacto</label><br>
+                <label><input type="radio" name="q13" value="B"> B) Depender permanentemente de donaciones externas</label><br>
+                <label><input type="radio" name="q13" value="C"> C) Mantener el impacto social positivo a largo plazo mediante un modelo autosustentable</label><br>
+                <label><input type="radio" name="q13" value="D"> D) Limitar el crecimiento del proyecto para reducir costos</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>14. ¿Qué valor impulsa al emprendedor a no rendirse ante los fracasos y seguir intentando?</p>
+            <div class="options">
+                <label><input type="radio" name="q14" value="A"> A) Oportunidad</label><br>
+                <label><input type="radio" name="q14" value="B"> B) Honestidad</label><br>
+                <label><input type="radio" name="q14" value="C"> C) Perseverancia</label><br>
+                <label><input type="radio" name="q14" value="D"> D) Autocontrol</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>15. ¿Cuál es un ejemplo claro de innovación organizacional según el Manual de Oslo?</p>
+            <div class="options">
+                <label><input type="radio" name="q15" value="A"> A) Lanzar un nuevo smartphone</label><br>
+                <label><input type="radio" name="q15" value="B"> B) Crear una nueva sucursal en otra ciudad</label><br>
+                <label><input type="radio" name="q15" value="C"> C) Adoptar un nuevo método de gestión de recursos humanos</label><br>
+                <label><input type="radio" name="q15" value="D"> D) Reemplazar maquinaria antigua por otra más rápida</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>16. ¿Por qué es importante contar con un plan en un emprendimiento social?</p>
+            <div class="options">
+                <label><input type="radio" name="q16" value="A"> A) Para cumplir con un requisito legal exclusivamente</label><br>
+                <label><input type="radio" name="q16" value="B"> B) Para obtener reconocimiento social inmediato</label><br>
+                <label><input type="radio" name="q16" value="C"> C) Porque permite definir metas claras, organizar recursos y evaluar el impacto del proyecto</label><br>
+                <label><input type="radio" name="q16" value="D"> D) Para impresionar a posibles inversionistas sin necesidad de acción concreta</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>17. ¿Cuál de las siguientes afirmaciones describe mejor la innovación social?</p>
+            <div class="options">
+                <label><input type="radio" name="q17" value="A"> A) Es una estrategia empresarial para reducir impuestos</label><br>
+                <label><input type="radio" name="q17" value="B"> B) Se limita a organizaciones gubernamentales</label><br>
+                <label><input type="radio" name="q17" value="C"> C) Transforma las relaciones sociales y la forma en que las personas satisfacen sus necesidades</label><br>
+                <label><input type="radio" name="q17" value="D"> D) Solo se aplica cuando hay subsidios del Estado</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>18. ¿Por qué es importante considerar el impacto social en un proyecto de innovación?</p>
+            <div class="options">
+                <label><input type="radio" name="q18" value="A"> A) Para atraer influencers y aumentar la visibilidad del producto</label><br>
+                <label><input type="radio" name="q18" value="B"> B) Porque permite que la innovación genere beneficios reales y sostenibles para la sociedad</label><br>
+                <label><input type="radio" name="q18" value="C"> C) Para cumplir con requisitos publicitarios</label><br>
+                <label><input type="radio" name="q18" value="D"> D) Porque mejora el posicionamiento SEO del proyecto</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>19. ¿Cuál de los siguientes valores permite al emprendedor mantener la calma ante situaciones difíciles?</p>
+            <div class="options">
+                <label><input type="radio" name="q19" value="A"> A) Perseverancia</label><br>
+                <label><input type="radio" name="q19" value="B"> B) Autocontrol</label><br>
+                <label><input type="radio" name="q19" value="C"> C) Asumir riesgos</label><br>
+                <label><input type="radio" name="q19" value="D"> D) Decisión</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>20. ¿Cuál es el principio fundamental del Enfoque Participativo Rural (EPR)?</p>
+            <div class="options">
+                <label><input type="radio" name="q20" value="A"> A) Reemplazar las decisiones comunitarias por las del gobierno</label><br>
+                <label><input type="radio" name="q20" value="B"> B) Aplicar únicamente métodos cuantitativos para el diagnóstico social</label><br>
+                <label><input type="radio" name="q20" value="C"> C) Involucrar activamente a las comunidades rurales en la identificación de sus problemas y soluciones</label><br>
+                <label><input type="radio" name="q20" value="D"> D) Delegar todas las tareas de desarrollo a organizaciones externas</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>21. ¿Cuál de estas NO es una categoría de innovación según el Manual de Oslo?</p>
+            <div class="options">
+                <label><input type="radio" name="q21" value="A"> A) Innovación de producto</label><br>
+                <label><input type="radio" name="q21" value="B"> B) Innovación financiera</label><br>
+                <label><input type="radio" name="q21" value="C"> C) Innovación de proceso</label><br>
+                <label><input type="radio" name="q21" value="D"> D) Innovación de marketing</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>22. ¿Cuál de las siguientes opciones representa una necesidad normativa?</p>
+            <div class="options">
+                <label><input type="radio" name="q22" value="A"> A) Un deseo expresado por una comunidad</label><br>
+                <label><input type="radio" name="q22" value="B"> B) Una necesidad determinada por expertos en función de criterios técnicos o profesionales</label><br>
+                <label><input type="radio" name="q22" value="C"> C) Una carencia relacionada con valores religiosos</label><br>
+                <label><input type="radio" name="q22" value="D"> D) Una necesidad emocional no verbalizada</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>23. ¿Cuál de los siguientes es un tipo de innovación definido por el Manual de Oslo?</p>
+            <div class="options">
+                <label><input type="radio" name="q23" value="A"> A) Innovación estructural</label><br>
+                <label><input type="radio" name="q23" value="B"> B) Innovación ambiental</label><br>
+                <label><input type="radio" name="q23" value="C"> C) Innovación de producto</label><br>
+                <label><input type="radio" name="q23" value="D"> D) Innovación publicitaria</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>24. Un alto impacto social en una innovación se refleja cuando:</p>
+            <div class="options">
+                <label><input type="radio" name="q24" value="A"> A) Aumenta las ventas de la empresa</label><br>
+                <label><input type="radio" name="q24" value="B"> B) Solo es adoptada por sectores con poder adquisitivo</label><br>
+                <label><input type="radio" name="q24" value="C"> C) Mejora significativamente la calidad de vida de comunidades o personas en situación de vulnerabilidad</label><br>
+                <label><input type="radio" name="q24" value="D"> D) Gana un premio de diseño internacional</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>25. ¿En qué consiste la innovación de proceso?</p>
+            <div class="options">
+                <label><input type="radio" name="q25" value="A"> A) Cambios en la imagen de marca de un producto</label><br>
+                <label><input type="radio" name="q25" value="B"> B) Introducción de un nuevo tipo de liderazgo empresarial</label><br>
+                <label><input type="radio" name="q25" value="C"> C) Implementación de un método de producción o distribución significativamente mejorado</label><br>
+                <label><input type="radio" name="q25" value="D"> D) Desarrollo de nuevas políticas internas de la empresa</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>26. La innovación de marketing incluye:</p>
+            <div class="options">
+                <label><input type="radio" name="q26" value="A"> A) Mejoras en los procedimientos de manufactura</label><br>
+                <label><input type="radio" name="q26" value="B"> B) Diseño o empaque significativamente nuevo para diferenciar un producto</label><br>
+                <label><input type="radio" name="q26" value="C"> C) Nuevos contratos laborales</label><br>
+                <label><input type="radio" name="q26" value="D"> D) Cambios en el sistema operativo de la empresa</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>27. En un análisis FODA, las 'debilidades' se refieren a:</p>
+            <div class="options">
+                <label><input type="radio" name="q27" value="A"> A) Factores internos que limitan el desempeño de un proyecto o institución</label><br>
+                <label><input type="radio" name="q27" value="B"> B) Factores externos que pueden aprovecharse</label><br>
+                <label><input type="radio" name="q27" value="C"> C) Riesgos del entorno político</label><br>
+                <label><input type="radio" name="q27" value="D"> D) Obstáculos inevitables impuestos por la ley</label>
+            </div>
+        </div>
+        
+        <div class="question">
+            <p>28. ¿Qué característica distingue a la innovación inclusiva?</p>
+            <div class="options">
+                <label><input type="radio" name="q28" value="A"> A) Se centra exclusivamente en avances tecnológicos para grandes empresas</label><br>
+                <label><input type="radio" name="q28" value="B"> B) Busca generar patentes y registros industriales como prioridad</label><br>
+                <label><input type="radio" name="q28" value="C"> C) Está orientada a incluir y beneficiar a grupos tradicionalmente excluidos o vulnerables</label><br>
+                <label><input type="radio" name="q28" value="D"> D) Se basa únicamente en modelos de negocio digitales</label>
+            </div>
+        </div>
+        
+        <button type="button" onclick="calculateScore()">Calcular Resultado</button>
+    </form>
+    
+    <div id="result"></div>
+    
+    <script>
+        function calculateScore() {
+            const correctAnswers = {
+                q1: "B", q2: "C", q3: "C", q4: "C", q5: "B",
+                q6: "A", q7: "B", q8: "D", q9: "B", q10: "D",
+                q11: "B", q12: "C", q13: "C", q14: "C", q15: "C",
+                q16: "C", q17: "C", q18: "B", q19: "B", q20: "C",
+                q21: "B", q22: "B", q23: "C", q24: "C", q25: "C",
+                q26: "B", q27: "A", q28: "C"
+            };
+            
+            let score = 0;
+            const totalQuestions = 28;
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = "q" + i;
+                const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+                
+                if (selectedOption && selectedOption.value === correctAnswers[questionName]) {
+                    score++;
+                }
+            }
+            
+            const percentage = Math.round((score / totalQuestions) * 100);
+            let message = "";
+            
+            if (percentage >= 90) {
+                message = `¡Excelente! Obtuviste ${score} de ${totalQuestions} correctas (${percentage}%). Demuestras un gran conocimiento sobre emprendimiento social e innovación.`;
+            } else if (percentage >= 70) {
+                message = `¡Buen trabajo! Obtuviste ${score} de ${totalQuestions} correctas (${percentage}%). Tienes un buen conocimiento sobre el tema, pero hay algunos conceptos que puedes repasar.`;
+            } else if (percentage >= 50) {
+                message = `Obtuviste ${score} de ${totalQuestions} correctas (${percentage}%). Tienes conocimientos básicos, pero sería recomendable repasar más los conceptos de emprendimiento social.`;
+            } else {
+                message = `Obtuviste ${score} de ${totalQuestions} correctas (${percentage}%). Te recomiendo estudiar más sobre emprendimiento social e innovación para mejorar tu comprensión.`;
+            }
+            
+            document.getElementById("result").innerHTML = `<h2>Tu resultado:</h2><p>${message}</p>`;
+            document.getElementById("result").style.display = "block";
+        }
+    </script>
+</body>
+</html>
