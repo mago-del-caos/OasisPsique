@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuestionario - Técnica Sombreros para Pensar</title>
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #f8f8f8;
+      font-family: Arial, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* Contenedor principal */
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    /* Imagen de encabezado modificada */
+    .header-img {
+      display: block;
+      margin: 0 auto 1rem auto;
+      width: 25%;           /* Reduce la imagen a un cuarto del tamaño */
+      height: auto;
+      background-color: #FFB6C1;  /* Color rosa claro */
+    }
+    /* Encabezados y textos */
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #800000; /* color guinda */
+    }
+    p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    /* Grupo de entrada */
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+    }
+    .input-group label {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .input-group input[type="text"] {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    /* Estilo de cada pregunta */
+    .question {
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #eee;
+    }
+    .question p {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      color: #800000;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+    }
+    /* Botones */
+    button {
+      background-color: #800000;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: block;
+      margin: 1rem auto;
+    }
+    button:hover {
+      background-color: #660000;
+    }
+    /* Resultados */
+    .results-container {
+      text-align: center;
+      margin-top: 2rem;
+    }
+    /* Adaptabilidad móvil */
+    @media (max-width: 600px) {
+      .container {
+        margin: 1rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+    <link rel="stylesheet" href="identidad.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Imagen de encabezado -->
+    <img src="profesora-piensa.png" alt="Técnica Sombreros para Pensar" class="header-img">
+    
+    <h1>Cuestionario - Técnica Sombreros para Pensar</h1>
+    <p>Por favor, introduce tu nombre completo y responde las siguientes 10 preguntas.</p>
+    
+    <div class="input-group">
+      <label for="nombre">Nombre del Participante:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre completo" required>
+    </div>
+    
+    <form id="quiz-form">
+      <!-- Pregunta 1 -->
+      <div class="question">
+        <p>1. ¿Qué representa el sombrero blanco en esta técnica?</p>
+        <label><input type="radio" name="q1" value="a"> a) Información y datos objetivos</label>
+        <label><input type="radio" name="q1" value="b"> b) Emociones y opiniones</label>
+        <label><input type="radio" name="q1" value="c"> c) Pensamiento creativo</label>
+      </div>
+      
+      <!-- Pregunta 2 -->
+      <div class="question">
+        <p>2. ¿Qué representa el sombrero rojo?</p>
+        <label><input type="radio" name="q2" value="a"> a) Datos y hechos</label>
+        <label><input type="radio" name="q2" value="b"> b) Emociones y sentimientos</label>
+        <label><input type="radio" name="q2" value="c"> c) Juicio crítico</label>
+      </div>
+      
+      <!-- Pregunta 3 -->
+      <div class="question">
+        <p>3. ¿Qué representa el sombrero negro?</p>
+        <label><input type="radio" name="q3" value="a"> a) Optimismo</label>
+        <label><input type="radio" name="q3" value="b"> b) Creatividad</label>
+        <label><input type="radio" name="q3" value="c"> c) Juicio crítico y precaución</label>
+      </div>
+      
+      <!-- Pregunta 4 -->
+      <div class="question">
+        <p>4. ¿Qué representa el sombrero amarillo?</p>
+        <label><input type="radio" name="q4" value="a"> a) Pensamiento negativo</label>
+        <label><input type="radio" name="q4" value="b"> b) Optimismo y pensamiento positivo</label>
+        <label><input type="radio" name="q4" value="c"> c) Organización</label>
+      </div>
+      
+      <!-- Pregunta 5 -->
+      <div class="question">
+        <p>5. ¿Qué representa el sombrero verde?</p>
+        <label><input type="radio" name="q5" value="a"> a) Datos y análisis</label>
+        <label><input type="radio" name="q5" value="b"> b) Creatividad y nuevas ideas</label>
+        <label><input type="radio" name="q5" value="c"> c) Control del proceso</label>
+      </div>
+      
+      <!-- Pregunta 6 -->
+      <div class="question">
+        <p>6. ¿Qué representa el sombrero azul?</p>
+        <label><input type="radio" name="q6" value="a"> a) Organización y dirección del proceso</label>
+        <label><input type="radio" name="q6" value="b"> b) Emociones</label>
+        <label><input type="radio" name="q6" value="c"> c) Pensamiento crítico</label>
+      </div>
+      
+      <!-- Pregunta 7 -->
+      <div class="question">
+        <p>7. ¿Cuántos sombreros integran la técnica?</p>
+        <label><input type="radio" name="q7" value="a"> a) 5</label>
+        <label><input type="radio" name="q7" value="b"> b) 6</label>
+        <label><input type="radio" name="q7" value="c"> c) 7</label>
+      </div>
+      
+      <!-- Pregunta 8 -->
+      <div class="question">
+        <p>8. ¿Quién es el creador de la técnica de los sombreros para pensar?</p>
+        <label><input type="radio" name="q8" value="a"> a) Peter Drucker</label>
+        <label><input type="radio" name="q8" value="b"> b) Edward de Bono</label>
+        <label><input type="radio" name="q8" value="c"> c) Stephen Covey</label>
+      </div>
+      
+      <!-- Pregunta 9 -->
+      <div class="question">
+        <p>9. ¿Cuál es el principal beneficio de utilizar esta técnica?</p>
+        <label><input type="radio" name="q9" value="a"> a) Genera un pensamiento unidimensional</label>
+        <label><input type="radio" name="q9" value="b"> b) Facilita la toma de decisiones al explorar múltiples perspectivas</label>
+        <label><input type="radio" name="q9" value="c"> c) Limita la creatividad</label>
+      </div>
+      
+      <!-- Pregunta 10 -->
+      <div class="question">
+        <p>10. ¿En qué ámbitos es más común aplicar la técnica de los sombreros para pensar?</p>
+        <label><input type="radio" name="q10" value="a"> a) Solo en el arte</label>
+        <label><input type="radio" name="q10" value="b"> b) En la resolución de problemas y toma de decisiones en equipos</label>
+        <label><input type="radio" name="q10" value="c"> c) Únicamente en presentaciones académicas</label>
+      </div>
+      
+      <button type="submit" id="submit-btn">Enviar Respuestas</button>
+    </form>
+    
+    <div id="results" class="results-container" style="display: none;">
+      <h2>Resultados</h2>
+      <p id="score"></p>
+      <p id="message"></p>
+      <button id="download-btn" style="display: none;">Descargar Constancia</button>
+    </div>
+  </div>
+  
+  <script>
+    // Evaluación del cuestionario
+    document.getElementById("quiz-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Definición de respuestas correctas
+      const answers = {
+        q1: "a",
+        q2: "b",
+        q3: "c",
+        q4: "b",
+        q5: "b",
+        q6: "a",
+        q7: "b",
+        q8: "b",
+        q9: "b",
+        q10: "b"
+      };
+      
+      let score = 0;
+      const totalQuestions = Object.keys(answers).length;
+      
+      // Recorrer cada pregunta y verificar respuestas
+      for (let key in answers) {
+        const radios = document.getElementsByName(key);
+        for (let radio of radios) {
+          if (radio.checked && radio.value === answers[key]) {
+            score++;
+            break;
+          }
+        }
+      }
+      
+      // Mostrar resultados según la puntuación
+      let resultMessage = "";
+      if (score >= 7) {
+        resultMessage = "¡Felicidades, has aprobado el cuestionario!";
+        document.getElementById("download-btn").style.display = "block";
+      } else {
+        resultMessage = "No has alcanzado la nota mínima. Inténtalo de nuevo.";
+        document.getElementById("download-btn").style.display = "none";
+      }
+      
+      document.getElementById("score").textContent = "Puntuación: " + score + " / " + totalQuestions;
+      document.getElementById("message").textContent = resultMessage;
+      document.getElementById("results").style.display = "block";
+      
+      // Almacenar datos para la constancia
+      document.getElementById("download-btn").dataset.nombre = document.getElementById("nombre").value;
+      document.getElementById("download-btn").dataset.score = score;
+      document.getElementById("download-btn").dataset.total = totalQuestions;
+      document.getElementById("download-btn").dataset.message = resultMessage;
+    });
+    
+    // Descargar constancia en formato HTML con estilo rosa
+    document.getElementById("download-btn").addEventListener("click", function() {
+      const nombre = this.dataset.nombre || "Participante";
+      const score = this.dataset.score;
+      const total = this.dataset.total;
+      const resultMessage = this.dataset.message;
+      
+      // Contenido HTML de la constancia con estilo rosa
+      const certificateHTML = `
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Constancia de Participación</title>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+    .certificate {
+      border: 10px solid #FF69B4;
+      margin: 50px auto;
+      padding: 20px;
+      width: 80%;
+    }
+    h1 {
+      color: #FF69B4;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    .issuer {
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate">
+    <h1>Constancia de Participación - Técnica Sombreros para Pensar</h1>
+    <p>Se otorga la presente constancia a <strong>${nombre}</strong></p>
+    <p>Puntuación: ${score} / ${total}</p>
+    <p>${resultMessage}</p>
+    <p><em>Constancia otorgada en reconocimiento a la participación en el cuestionario sobre la <strong>Técnica Sombreros para Pensar</strong></em></p>
+    <p class="issuer">Emitida por el maestro Pablo Adrian Rivera Juvenal</p>
+    <p class="issuer">por parte del Movimiento Mexicano</p>
+  </div>
+</body>
+</html>
+      `;
+      
+      const blob = new Blob([certificateHTML], { type: "text/html;charset=utf-8" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "constancia.html";
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+/* ============================================================
+   Oasis Psique — Identidad gráfica UNRC (LAD-H)
+   Paleta oficial: vino #800020 y dorado #C9A227 sobre crema.
+   Este archivo se enlaza DESPUÉS de los estilos propios de cada
+   página: moderniza sin sustituir la lógica ni la estructura.
+   ============================================================ */
+:root{
+  --vino:#800020;
+  --vino-oscuro:#5f0018;
+  --dorado:#C9A227;
+  --dorado-claro:#e8cf7a;
+  --crema:#FBF7EF;
+  --tinta:#2b2320;
+  --sombra:0 4px 18px rgba(95,0,24,.14);
+  --radio:14px;
+}
+
+html{ scroll-behavior:smooth; }
+
+body:not(.fondo-propio){
+  background-color:var(--crema);
+  color:var(--tinta);
+}
+
+body{
+  font-family:"Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  line-height:1.55;
+}
+
+/* ---------- Encabezados ---------- */
+header{
+  background:linear-gradient(135deg, var(--vino) 0%, var(--vino-oscuro) 100%) !important;
+  color:#fff !important;
+  border-bottom:4px solid var(--dorado);
+  box-shadow:var(--sombra);
+}
+header h1, header h2, header p{ color:#fff; }
+
+.site-logo{
+  height:64px; width:64px; object-fit:contain;
+  background:#fff; border-radius:50%;
+  padding:4px; box-shadow:0 2px 10px rgba(0,0,0,.25);
+}
+.site-mascot{ height:88px; width:auto; }
+.ilustracion{ max-width:100%; height:auto; border-radius:var(--radio); }
+
+/* ---------- Botones ---------- */
+.button, button{
+  background-color:var(--vino);
+  color:#fff;
+  border:2px solid transparent;
+  border-radius:12px;
+  box-shadow:0 3px 10px rgba(95,0,24,.22);
+  transition:background-color .18s ease, color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+.button:hover, button:hover{
+  background-color:var(--dorado);
+  color:var(--vino-oscuro);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(95,0,24,.28);
+}
+.button:active, button:active{ transform:translateY(0); }
+button:disabled{ opacity:.55; box-shadow:none; transform:none; }
+
+/* ---------- Enlaces y títulos ---------- */
+a{ color:var(--vino); }
+h1{ letter-spacing:.2px; }
+h2{ color:var(--vino); }
+
+/* ---------- Formularios ---------- */
+input[type="text"], input[type="password"], input[type="email"],
+input[type="search"], select, textarea{
+  border:1.5px solid #d9c9a3;
+  border-radius:10px;
+  padding:10px 12px;
+  font:inherit;
+  background:#fff;
+  color:var(--tinta);
+}
+input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus,
+input[type="search"]:focus, select:focus, textarea:focus{
+  outline:none;
+  border-color:var(--dorado);
+  box-shadow:0 0 0 3px rgba(201,162,39,.25);
+}
+label{ font-weight:600; }
+
+/* ---------- Tablas ---------- */
+table{ border-collapse:collapse; }
+th{
+  background-color:var(--vino);
+  color:#fff;
+}
+th, td{ border:1px solid #e3d5ae; padding:10px; }
+tr:nth-child(even) td{ background-color:#fdf6e0; }
+
+/* ---------- Tarjetas genéricas (contenido nuevo) ---------- */
+.tarjeta{
+  background:#fff;
+  border-radius:16px;
+  box-shadow:var(--sombra);
+  border-top:4px solid var(--dorado);
+  padding:20px;
+}
+.rejilla{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));
+  gap:20px;
+}
+.badge-fuente{
+  display:inline-block;
+  background:var(--dorado);
+  color:var(--vino-oscuro);
+  font-size:.78rem; font-weight:700;
+  border-radius:999px;
+  padding:2px 10px;
+}
+
+/* ---------- Herramientas: tarjetas de pregunta y paneles ---------- */
+.question{
+  background:#fff;
+  border-radius:var(--radio);
+  border-left:5px solid var(--dorado);
+  box-shadow:var(--sombra);
+  padding:16px 18px;
+}
+.container{
+  border-radius:18px !important;
+  box-shadow:var(--sombra) !important;
+}
+#content-display{
+  border-radius:var(--radio) !important;
+  box-shadow:var(--sombra);
+}
+.accordion{
+  border-radius:12px !important;
+  border:2px solid var(--dorado) !important;
+  box-shadow:0 3px 10px rgba(95,0,24,.15);
+}
+.technique-item{
+  border-radius:var(--radio) !important;
+  box-shadow:var(--sombra);
+  border-top:3px solid var(--dorado);
+}
+.ai-button{
+  border-radius:16px !important;
+  border:2px solid var(--dorado) !important;
+  box-shadow:var(--sombra) !important;
+}
+.game-button{
+  border-radius:12px !important;
+  box-shadow:0 3px 10px rgba(95,0,24,.22);
+}
+/* aspectos.html: los paneles de contenido pasan a tarjeta clara legible */
+.content{
+  background-color:#fff;
+  color:var(--tinta);
+  border:2px solid var(--dorado);
+  border-radius:12px;
+  box-shadow:var(--sombra);
+}
+
+/* ---------- Pie ---------- */
+footer{
+  border-top:3px solid var(--dorado);
+  margin-top:32px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:640px){
+  main{ width:94% !important; }
+  h1{ font-size:1.55rem; }
+  .site-mascot{ height:60px; }
+  .site-logo{ height:50px; width:50px; }
+  table{ font-size:.92rem; }
+  .rejilla{ grid-template-columns:1fr; }
+}

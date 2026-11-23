@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PsicologIA — Tutores con IA · Oasis Psique</title>
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{
+    display:flex; align-items:center; gap:16px;
+    padding:18px 22px; flex-wrap:wrap;
+  }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; font-size:2rem; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:920px; margin:26px auto; padding:0 16px 40px; }
+  .hidden{ display:none !important; }
+  .tarjeta{ margin-bottom:20px; }
+  .paso{ color:var(--vino); font-weight:700; margin-top:0; }
+  .provs{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:12px 0; }
+  .prov{
+    border:2px solid #d9c9a3; border-radius:12px; padding:12px 14px;
+    cursor:pointer; background:#fff; font-weight:700;
+  }
+  .prov small{ display:block; font-weight:400; color:#6b5f55; margin-top:2px; }
+  .prov.sel{ border-color:var(--dorado); background:#fdf6e0; box-shadow:0 0 0 3px rgba(201,162,39,.25); }
+  #key{ width:100%; margin:8px 0; }
+  .muted{ color:#6b5f55; font-size:.92rem; }
+  .err{ color:#b00020; font-weight:600; min-height:1.2em; }
+  .btn-grande{ width:100%; padding:13px; font-size:1.05rem; font-weight:700; cursor:pointer; }
+  .rejilla-agentes{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:18px;
+  }
+  .agente{
+    background:#fff; border:2px solid #e3d5ae; border-radius:16px;
+    padding:16px 12px; text-align:center; cursor:pointer;
+    box-shadow:0 3px 10px rgba(95,0,24,.12); transition:transform .15s ease, border-color .15s ease;
+  }
+  .agente:hover{ transform:translateY(-3px); }
+  .agente img{ height:110px; width:auto; max-width:100%; object-fit:contain; }
+  .agente .name{ font-size:1.25rem; font-weight:800; margin-top:8px; }
+  .agente .trait{ color:#6b5f55; font-size:.9rem; }
+  .chat-head{
+    display:flex; align-items:center; gap:14px;
+    padding:14px 18px; border-bottom:3px solid var(--acc, var(--dorado));
+  }
+  .chat-head img{ height:58px; width:58px; object-fit:contain; border-radius:50%; background:var(--crema); }
+  .chat-head .name{ font-size:1.2rem; font-weight:800; }
+  .chat-head .trait{ color:#6b5f55; font-size:.9rem; }
+  .chat-head .acciones{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
+  .chat-head .acciones button{ padding:8px 12px; cursor:pointer; font-weight:600; }
+  #msgs{ padding:18px; display:flex; flex-direction:column; gap:10px; min-height:260px; }
+  .msg{ max-width:82%; padding:10px 14px; border-radius:14px; line-height:1.5; white-space:pre-wrap; }
+  .msg.bot{ background:#fff; border:1.5px solid #e3d5ae; align-self:flex-start; border-bottom-left-radius:4px; }
+  .msg.user{ background:var(--vino); color:#fff; align-self:flex-end; border-bottom-right-radius:4px; }
+  .msg.sys{ background:#fdecea; color:#7a1010; align-self:center; font-size:.92rem; }
+  #typing{ padding:0 18px 8px; color:#6b5f55; font-style:italic; min-height:1.2em; }
+  .chat-input{ display:flex; gap:10px; padding:14px 18px 18px; }
+  .chat-input input{ flex:1; }
+  .chat-input button{ padding:10px 20px; font-weight:700; cursor:pointer; }
+  .volver{ display:inline-block; margin-top:6px; font-weight:700; }
+  @media (max-width:640px){ .provs{ grid-template-columns:1fr; } .msg{ max-width:94%; } }
+</style>
+<link rel="stylesheet" href="identidad.css">
+</head>
+<body>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos">
+    <h1>PsicologIA</h1>
+    <p>Cuatro tutores con inteligencia artificial para la Licenciatura en Psicología a Distancia · UNRC</p>
+  </div>
+  <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+
+<main>
+  <!-- 1 · Clave -->
+  <section id="screen-key" class="tarjeta">
+    <p class="paso">1 · Conecta tu clave</p>
+    <p>PsicologIA funciona con <strong>tu propia clave</strong> de Groq o de Gemini. La clave se guarda
+    <strong>solo en tu dispositivo</strong> (en este navegador) y nunca se envía a ningún servidor de este sitio.</p>
+    <div class="provs">
+      <div class="prov sel" id="prov-groq">Groq<small>Rápido y gratuito · modelos Llama y más</small></div>
+      <div class="prov" id="prov-gemini">Gemini<small>De Google · modelos Gemini Flash</small></div>
+    </div>
+    <label id="key-label" for="key">2 · Tu clave de Groq (empieza con gsk_)</label>
+    <input type="password" id="key" placeholder="gsk_..." autocomplete="off">
+    <p class="muted" id="key-hint"></p>
+    <p class="err" id="key-err"></p>
+    <button class="btn-grande" id="btn-key">Probar clave y continuar</button>
+  </section>
+
+  <!-- 2 · Elegir tutor -->
+  <section id="screen-pick" class="hidden">
+    <div class="tarjeta">
+      <p class="paso">Elige a tu tutor</p>
+      <p class="muted">Cada tutor es especialista en un área de tu licenciatura. Puedes cambiar de tutor cuando quieras.</p>
+      <div class="rejilla-agentes" id="pers-grid"></div>
+      <p style="margin-top:16px"><button id="btn-change-key">Cambiar clave</button></p>
+    </div>
+  </section>
+
+  <!-- 3 · Chat -->
+  <section id="screen-chat" class="tarjeta hidden" style="padding:0; overflow:hidden;">
+    <div class="chat-head">
+      <img id="chat-avatar" src="psic-psique.png" alt="Tutor">
+      <div>
+        <div class="name" id="chat-name">Psique</div>
+        <div class="trait" id="chat-trait"></div>
+      </div>
+      <div class="acciones">
+        <button id="btn-change-pers">Cambiar de tutor</button>
+        <button id="btn-change-key-chat">Cambiar clave</button>
+      </div>
+    </div>
+    <div id="msgs"></div>
+    <div id="typing"></div>
+    <div class="chat-input">
+      <input type="text" id="input" placeholder="Escribe tu duda…" autocomplete="off">
+      <button id="btn-send">Enviar</button>
+    </div>
+  </section>
+
+  <p><a class="volver" href="index.html">← Volver al inicio de Oasis Psique</a></p>
+  <p class="muted">La base de conocimiento de los tutores (plan de estudios, asignaturas por semestre,
+  titulación y egreso) proviene del <em>Plan de Estudios de la Licenciatura en Psicología (Resumen Ejecutivo)</em>,
+  documento oficial de la Universidad Rosario Castellanos. Para trámites con fechas o formatos vigentes,
+  confirma siempre en el <a href="https://sites.google.com/rcastellanos.cdmx.gob.mx/lpsi-lad/inicio" target="_blank" rel="noopener">sitio oficial de Psicología a Distancia</a>.</p>
+</main>
+
+<footer style="text-align:center; padding:18px;">
+  <p>© 2026 Pablo Adrian Rivera Juvenal · Oasis Psique · Universidad Rosario Castellanos</p>
+</footer>
+
+<script>
+"use strict";
+/* ============================================================
+   PsicologIA — motor de tutores (misma arquitectura que Ju-bits):
+   el estudiante usa SU PROPIA clave de Groq o Gemini (solo
+   localStorage), descubrimiento de modelos en vivo en ambos
+   proveedores, filtro estricto de modelos de solo texto y
+   respaldo en cascada (hasta 4 modelos).
+
+   BASE DE CONOCIMIENTO VERIFICADA el 2026-11-23 en fuente oficial:
+   «Plan de Estudios de la Licenciatura en Psicología (Resumen
+   Ejecutivo)», Universidad Rosario Castellanos, julio de 2020,
+   https://www.rcastellanos.cdmx.gob.mx/storage/app/media/PlanesEstudiosActualizados/psicologia.pdf
+   (asignaturas por semestre, áreas, titulación y egreso, tal como
+   aparecen en el documento). El micrositio LPSI-LAD se cita como
+   referencia de trámites vigentes; su contenido no es extraíble
+   por texto (Google Sites), por eso no se resume aquí.
+   ============================================================ */
+var PROVIDERS = {
+  groq: {
+    label: "Tu clave de Groq (empieza con gsk_)",
+    placeholder: "gsk_...",
+    hint: '¿No tienes clave? Consíguela gratis en <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a> (crea tu cuenta, pulsa «Create API Key» y cópiala).'
+  },
+  gemini: {
+    label: "Tu clave de Gemini (empieza con AIza o con AQ.)",
+    placeholder: "AIza... o AQ....",
+    hint: '¿No tienes clave? Consíguela gratis en <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a> (entra con tu cuenta de Google, pulsa «Create API key» y cópiala).'
+  }
+};
+
+var PLAN = "BASE DE CONOCIMIENTO — PLAN DE ESTUDIOS OFICIAL DE LA LICENCIATURA EN PSICOLOGÍA (UNRC, Resumen Ejecutivo, julio 2020). " +
+  "Seis áreas formativas: Psicología Clínica con Perspectiva Psicobiológica; Psicología Educativa; Psicología Social; Metodología de Investigación; Psicología Organizacional; Desarrollo Personal y Profesional. " +
+  "Total: 318.81 créditos (279.21 de materias, 9.60 de servicio social y 30.00 de titulación), 5,184 horas. Cada semestre gira en torno a un eje problemático. " +
+  "ASIGNATURAS POR SEMESTRE — 1º (eje: Violencia social y estructural): Escuelas y tradiciones teóricas de la Psicología; Bases Biológicas de la Conducta; Introducción a la Psicología Educativa; Introducción a la Psicología Social; Introducción a la investigación cualitativa; Filosofía y Epistemología de la investigación en Psicología; Taller de desarrollo humano: Aprender a aprender. " +
+  "2º (eje: Violencia de Género): Modelos contemporáneos de la Psicología; Psicobiología y Neurofisiología; Fundamentos Psicológicos del Aprendizaje; Problemas Psicosociales contemporáneos; Perspectiva de Género; Metodología de la investigación cualitativa; Taller de desarrollo humano: Emociones. " +
+  "3º (eje: Maltrato en el ciclo vital): Psicopatología; Neuroquímica y Psicofarmacología; Psicología del Desarrollo; Psicología Social de los Grupos; Introducción a la investigación cuantitativa; Introducción a la Psicología Organizacional; Taller de desarrollo humano: Autoestima. " +
+  "4º (eje: Discriminación): Teoría y técnica de la entrevista; Evaluación y diseño Psicoeducativo; Psicología Social de Masas; Sexualidad y diversidad humana; Metodología de la investigación cuantitativa; Capacitación de personal; Taller de desarrollo humano: Comunicación. " +
+  "5º (eje: Mortalidad y Estrés Postraumático derivados de situaciones de emergencia y desastre): Evaluación clínica; Nuevas tecnologías en educación; Intervención Psicosocial en situaciones de Emergencia y Desastre; Introducción a la Psicometría; Desarrollo Organizacional; Taller de Primeros auxilios Psicológicos. " +
+  "6º (eje: Feminicidio): Psicodiagnóstico; Diversidad e inclusión educativa; Técnicas y estrategias de prevención en comunidades; Diseño y construcción de instrumentos Psicológicos; Reclutamiento y Selección; Taller de Desarrollo Profesional: Ética. " +
+  "7º (eje: Ausencia de fomento a la resiliencia): Modelos de tratamiento en Psicología; Asesoramiento e intervención psicoeducativa; Teorías de Género; Seminario de Titulación Teórico; Taller «Arte y Psicología». " +
+  "8º (eje: Invisibilización de la Salud Mental): Teoría y técnica en Psicoterapia; Formación docente; Laboratorio de Innovación Social; Seminario de Titulación Práctico; Taller de Desarrollo Profesional: Preparación para el mundo laboral. " +
+  "PERFIL DE EGRESO: planear intervenciones clínicas y psicobiológicas, sociales, educativas y organizacionales que respondan a problemáticas individuales, sociales y colectivas, con responsabilidad ética y sensibilidad de género. " +
+  "REQUISITOS DE EGRESO: cumplir el 100% de créditos del plan; contar con la carta de liberación del Servicio Social; presentar el trabajo de titulación; aprobar el examen profesional; presentar constancia de dominio a nivel de comprensión de un idioma diferente al español. " +
+  "MODALIDADES DE TITULACIÓN (todas concluyen con examen profesional): Tesis de investigación; Tesina; Proyecto de investigación o intervención; Portafolio de evidencias; Informe de recuperación de la Experiencia Profesional o Laboral (al menos dos años de servicio en área afín); Informe académico; Informe de Servicio Social; Monografía; Proyecto de innovación; Estudios de posgrado (acreditar al menos el 50% de créditos de un posgrado con promedio mínimo de 8.5). " +
+  "INGRESO: bachillerato concluido (constancia de 100% de créditos o certificado de estudios), inscripción conforme a la convocatoria, correo electrónico personal, CURP y aprobar el curso propedéutico virtual de cuatro módulos.";
+
+var BASE = "Eres un tutor de PsicologIA, el espacio de tutores con inteligencia artificial de Oasis Psique, para estudiantes de la Licenciatura en Psicología en la modalidad a Distancia (LAD-H) de la Universidad Rosario Castellanos (UNRC), Ciudad de México. " +
+  "Tu misión es ayudar a ESTUDIAR y ENTENDER: explica con claridad, en español y con lenguaje sencillo, paso a paso y con ejemplos. " +
+  "Habla como en una conversación: respuestas cortas, de 2 a 5 oraciones por turno, una sola idea a la vez; si un tema es grande, dalo por partes y pregunta si quedó claro antes de seguir. Solo escribe más cuando el estudiante lo pida o cuando una lista breve ayude de verdad. " +
+  "Si te piden resolver una tarea o un examen completo, explica el procedimiento y resuélvelo CON el estudiante, no por él. " +
+  "Si no sabes algo, dilo con honestidad. Nunca inventes fechas, ventanillas, teléfonos, enlaces ni requisitos que no estén en tu base de conocimiento: para datos vigentes remite al sitio oficial de Psicología a Distancia (LPSI-LAD) o a la jefatura de carrera. " +
+  PLAN + " ";
+
+var AGENTS = {
+  adm: {
+    name: "Adm", trait: "Trámites y procesos de la licenciatura", color: "#800020", img: "psic-adm.png",
+    prompt: BASE + "Tu nombre es Adm y eres el experto en TRÁMITES Y PROCESOS de la licenciatura: inscripción y trayectoria en el plan de estudios, servicio social, modalidades de titulación y requisitos de egreso. " +
+      "Explicas cada proceso en pasos ordenados y dices qué documento lo respalda según el plan de estudios oficial. Cuando un dato operativo vigente (fechas, ventanilla, formato, enlace de registro) no esté en tu base, dilo claramente y remite al sitio oficial de Psicología a Distancia o a la jefatura de carrera: jamás completes esos datos de memoria."
+  },
+  psique: {
+    name: "Psique", trait: "Temas de psicología", color: "#5B4B8A", img: "psic-psique.png",
+    prompt: BASE + "Tu nombre es Psique y eres la experta en TEMAS DE PSICOLOGÍA del plan: escuelas y tradiciones teóricas, modelos contemporáneos, psicobiología, psicología del desarrollo, psicopatología, evaluación clínica, psicodiagnóstico, psicoterapia y las áreas educativa, social y organizacional. " +
+      "Enseñas los conceptos con ejemplos claros y conectas cada tema con la asignatura donde se estudia. Límite ético firme: NO das terapia, NO diagnosticas ni interpretas casos de personas reales; tu papel es enseñar la disciplina. Si un estudiante expresa una crisis personal, escúchale con respeto, anímale a buscar apoyo profesional presencial y los servicios de apoyo de su institución, y vuelve al estudio cuando él lo decida."
+  },
+  ini: {
+    name: "Ini", trait: "Innovación y nuevas tecnologías", color: "#C9A227", img: "psic-ini.png",
+    prompt: BASE + "Tu nombre es Ini y eres la experta en INNOVACIÓN Y NUEVAS TECNOLOGÍAS: TIC y TAC para aprender en la modalidad a distancia, herramientas digitales de estudio, plataformas educativas, inteligencia artificial aplicada a la educación y a la psicología (con sentido crítico y ético) y la asignatura Nuevas tecnologías en educación. " +
+      "Propones usos concretos y pasos accionables, y adviertes de los límites: la IA puede equivocarse, los datos personales se protegen y las fuentes se verifican."
+  },
+  hum: {
+    name: "Hum", trait: "Humanidades, filosofía y metodología", color: "#2E6E6A", img: "psic-hum.png",
+    prompt: BASE + "Tu nombre es Hum y eres el experto en HUMANIDADES, FILOSOFÍA Y METODOLOGÍA: filosofía y epistemología de la investigación en psicología, metodología de la investigación cualitativa y cuantitativa, psicometría y construcción de instrumentos, redacción académica, argumentación y ética profesional. " +
+      "Ayudas a formular problemas, preguntas e hipótesis, a elegir métodos y a escribir con rigor, siempre paso a paso y con ejemplos de la propia psicología."
+  }
+};
+
+var state = {
+  provider: localStorage.getItem("psicologia_provider") || "groq",
+  key: localStorage.getItem("psicologia_key") || "",
+  groqModels: null,
+  geminiModels: null,
+  pers: null, history: []
+};
+
+function $(id){ return document.getElementById(id); }
+function show(id){
+  ["screen-key","screen-pick","screen-chat"].forEach(function(s){ $(s).classList.toggle("hidden", s !== id); });
+}
+function setProvider(p){
+  state.provider = p;
+  $("prov-groq").classList.toggle("sel", p === "groq");
+  $("prov-gemini").classList.toggle("sel", p === "gemini");
+  $("key-label").textContent = "2 · " + PROVIDERS[p].label;
+  $("key").placeholder = PROVIDERS[p].placeholder;
+  $("key-hint").innerHTML = PROVIDERS[p].hint;
+  $("key-err").textContent = "";
+}
+function extractKey(provider, raw){
+  var m = null;
+  if(provider === "gemini") m = (raw || "").match(/(?:AIza|AQ\.)[0-9A-Za-z\-_.]{25,}/);
+  else m = (raw || "").match(/gsk_[0-9A-Za-z\-_]{20,}/);
+  return m ? m[0] : "";
+}
+function applyColor(){
+  if(state.pers) document.documentElement.style.setProperty("--acc", AGENTS[state.pers].color);
+}
+function fullPrompt(k){ return AGENTS[k].prompt; }
+function buildGrid(){
+  var grid = $("pers-grid"); grid.innerHTML = "";
+  Object.keys(AGENTS).forEach(function(k){
+    var p = AGENTS[k];
+    var d = document.createElement("div");
+    d.className = "agente";
+    d.setAttribute("data-agent", k);
+    d.innerHTML = '<img src="' + p.img + '" alt="' + p.name + '">' +
+                  '<div class="name">' + p.name + '</div><div class="trait">' + p.trait + '</div>';
+    d.onmouseover = function(){ d.style.borderColor = p.color; };
+    d.onmouseout = function(){ d.style.borderColor = "#e3d5ae"; };
+    d.onclick = function(){ pickAgent(k); };
+    grid.appendChild(d);
+  });
+}
+function greeting(k){
+  if(k === "adm") return "Te ayudo con trámites y procesos de la licenciatura: servicio social, titulación, egreso y tu trayectoria en el plan de estudios. ¿Qué necesitas resolver?";
+  if(k === "psique") return "Estudiemos psicología con calma: dime el tema o la asignatura y lo desmenuzamos paso a paso.";
+  if(k === "ini") return "Exploremos herramientas e ideas nuevas para estudiar a distancia: ¿qué quieres lograr hoy?";
+  return "Pensemos con rigor: filosofía, metodología o redacción académica. ¿Por dónde empezamos?";
+}
+function pickAgent(k){
+  state.pers = k; state.history = [];
+  var p = AGENTS[k];
+  applyColor();
+  $("chat-avatar").src = p.img;
+  $("chat-name").textContent = p.name;
+  $("chat-trait").textContent = p.trait;
+  $("msgs").innerHTML = "";
+  addMsg("bot", "Hola, soy " + p.name + ". " + greeting(k));
+  show("screen-chat");
+  $("input").focus();
+}
+function addMsg(who, text){
+  var d = document.createElement("div");
+  d.className = "msg " + who;
+  d.textContent = text;
+  $("msgs").appendChild(d);
+  $("msgs").scrollTop = $("msgs").scrollHeight;
+}
+function netErr(e){
+  if(e && e.name === "TypeError") return "No hubo conexión con el proveedor. Revisa tu internet e inténtalo de nuevo; si sigue fallando, prueba con el otro proveedor en «Cambiar clave».";
+  return (e && e.message) || "Algo salió mal. Inténtalo de nuevo.";
+}
+function cleanReply(t){
+  return (t || "").replace(/<think>[\s\S]*?<\/think>/gi, "").trim();
+}
+
+/* ---------- GROQ: descubrimiento de modelos de texto + cascada ---------- */
+var GROQ_PREFS = ["llama-3.3-70b-versatile", "openai/gpt-oss-120b", "openai/gpt-oss-20b", "llama-3.1-8b-instant", "qwen-qwq-32b", "gemma2-9b-it"];
+function isTextModel(id){
+  if(/whisper|tts|guard|embed|vision|compound|audio|asr|orpheus|rerank/i.test(id)) return false;
+  return /llama-3\.3|llama-3\.1|llama-4|gpt-oss|qwen|gemma|mixtral|deepseek|kimi/i.test(id);
+}
+async function groqCandidates(){
+  var r = await fetch("https://api.groq.com/openai/v1/models", {
+    headers: { "Authorization": "Bearer " + state.key }
+  });
+  if(r.status === 401) throw new Error("Groq rechazó tu clave. Verifica que la copiaste completa desde la consola de Groq.");
+  if(!r.ok) throw new Error("Groq respondió con error " + r.status + ". Inténtalo de nuevo en un momento.");
+  var d = await r.json();
+  var ids = (d.data || []).map(function(m){ return m.id; }).filter(isTextModel);
+  var ordered = [];
+  GROQ_PREFS.forEach(function(p){ if(ids.indexOf(p) >= 0) ordered.push(p); });
+  ids.forEach(function(id){ if(ordered.indexOf(id) < 0) ordered.push(id); });
+  return ordered;
+}
+async function groqComplete(model, messages, maxTokens){
+  var body = { model: model, temperature: 0.7, messages: messages };
+  if(maxTokens) body.max_tokens = maxTokens;
+  var res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": "Bearer " + state.key },
+    body: JSON.stringify(body)
+  });
+  var data = null;
+  try{ data = await res.json(); }catch(e){ data = null; }
+  return { res: res, data: data };
+}
+function groqSkippable(res, data){
+  var em = (data && data.error && data.error.message) || "";
+  return res.status === 404 || res.status === 400 || res.status === 429 || /does not exist|model_not_found/i.test(em);
+}
+async function askGroq(systemPrompt){
+  if(!state.groqModels) state.groqModels = await groqCandidates();
+  if(!state.groqModels.length) throw new Error("Tu cuenta de Groq no muestra un modelo de chat de texto disponible. Prueba con Gemini en «Cambiar clave».");
+  var messages = [{ role: "system", content: systemPrompt }].concat(state.history);
+  var lastErr = null;
+  for(var i = 0; i < state.groqModels.length && i < 4; i++){
+    var out = await groqComplete(state.groqModels[i], messages, 0);
+    if(out.res.ok){
+      var data = out.data;
+      if(data && data.choices && data.choices[0] && data.choices[0].message) return data.choices[0].message.content;
+      lastErr = new Error("Groq no devolvió respuesta. Inténtalo de nuevo.");
+      continue;
+    }
+    if(out.res.status === 401) throw new Error("Tu clave de Groq no es válida. Revísala en «Cambiar clave».");
+    if(groqSkippable(out.res, out.data)){
+      lastErr = new Error((out.data && out.data.error && out.data.error.message) || ("Error " + out.res.status));
+      continue;
+    }
+    throw new Error((out.data && out.data.error && out.data.error.message) || ("Error " + out.res.status));
+  }
+  throw lastErr || new Error("Ningún modelo de Groq respondió. Inténtalo de nuevo en un momento.");
+}
+
+/* ---------- GEMINI: descubrimiento de modelos de texto + cascada ---------- */
+var GEMINI_PREFS = ["gemini-flash-lite-latest", "gemini-flash-latest", "gemini-3.5-flash", "gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-2.0-flash-lite", "gemini-1.5-flash"];
+function geminiBad(id){
+  return /tts|image|audio|whisper|guard|embed|vision|lyria|veo|imagen|computer-use|robotics|aqa/i.test(id);
+}
+async function geminiCandidates(){
+  var r = await fetch("https://generativelanguage.googleapis.com/v1beta/models", {
+    headers: { "x-goog-api-key": state.key }
+  });
+  if(r.status === 400 || r.status === 403) throw new Error("Gemini rechazó tu clave. Verifica que la copiaste completa desde Google AI Studio.");
+  if(!r.ok) throw new Error("Gemini respondió con error " + r.status + ". Inténtalo de nuevo en un momento.");
+  var d = await r.json();
+  var usable = (d.models || []).filter(function(m){
+    var id = (m.name || "").replace(/^models\//, "");
+    var methods = m.supportedGenerationMethods || [];
+    return methods.indexOf("generateContent") >= 0 && !geminiBad(id);
+  }).map(function(m){ return (m.name || "").replace(/^models\//, ""); });
+  var ordered = [];
+  GEMINI_PREFS.forEach(function(p){ if(usable.indexOf(p) >= 0) ordered.push(p); });
+  usable.forEach(function(id){ if(ordered.indexOf(id) < 0) ordered.push(id); });
+  return ordered;
+}
+async function geminiOnce(model, systemPrompt, contentsOverride){
+  var contents = contentsOverride || state.history.map(function(m){
+    return { role: m.role === "assistant" ? "model" : "user", parts: [{ text: m.content }] };
+  });
+  var body = { contents: contents, generationConfig: { temperature: 0.7 } };
+  if(/gemma/i.test(model)){
+    if(contents.length && contents[0].role === "user"){
+      var first = contents[0];
+      var merged = [{ text: systemPrompt + "\n\n" + (first.parts[0] ? first.parts[0].text : "") }].concat(first.parts.slice(1));
+      var copy = contents.slice();
+      copy[0] = { role: "user", parts: merged };
+      body.contents = copy;
+    }
+  } else {
+    body.systemInstruction = { parts: [{ text: systemPrompt }] };
+  }
+  var res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "x-goog-api-key": state.key },
+    body: JSON.stringify(body)
+  });
+  var data = null;
+  try{ data = await res.json(); }catch(e){ data = null; }
+  if(!res.ok){
+    var em = (data && data.error && data.error.message) || ("Error " + res.status);
+    var err = new Error(em);
+    if(res.status === 401 || res.status === 403 || /API_KEY_INVALID|API key not valid/i.test(em)){
+      err.message = "Tu clave de Gemini no es válida. Revísala en «Cambiar clave».";
+      err.fatal = true;
+    }
+    throw err;
+  }
+  if(!data || !data.candidates || !data.candidates[0] || !data.candidates[0].content) throw new Error("Gemini no devolvió respuesta esta vez.");
+  return data.candidates[0].content.parts.map(function(p){ return p.text || ""; }).join("");
+}
+async function askGemini(systemPrompt){
+  if(!state.geminiModels) state.geminiModels = await geminiCandidates();
+  if(!state.geminiModels.length) throw new Error("Tu cuenta de Gemini no muestra un modelo de chat de texto disponible. Prueba con Groq en «Cambiar clave».");
+  var lastErr = null;
+  for(var i = 0; i < state.geminiModels.length && i < 4; i++){
+    try{
+      return await geminiOnce(state.geminiModels[i], systemPrompt, null);
+    }catch(e){
+      if(e.fatal) throw e;
+      lastErr = e;
+    }
+  }
+  throw lastErr || new Error("Ningún modelo de Gemini respondió. Inténtalo de nuevo en un momento.");
+}
+
+/* ---------- Prueba de clave: descubrimiento + llamada real mínima ---------- */
+async function testKey(){
+  if(state.provider === "gemini"){
+    var cands = await geminiCandidates();
+    if(!cands.length) throw new Error("Tu cuenta de Gemini no muestra un modelo de chat de texto disponible. Prueba con Groq.");
+    var testContents = [{ role: "user", parts: [{ text: "Di hola" }] }];
+    var lastErr = null;
+    for(var i = 0; i < cands.length && i < 3; i++){
+      try{
+        await geminiOnce(cands[i], "Eres un asistente breve y amable.", testContents);
+        state.geminiModels = cands;
+        return;
+      }catch(e){ if(e.fatal) throw e; lastErr = e; }
+    }
+    throw lastErr || new Error("Ningún modelo de Gemini respondió a la prueba.");
+  }
+  var gcands = await groqCandidates();
+  if(!gcands.length) throw new Error("Tu cuenta de Groq no muestra un modelo de chat de texto disponible. Prueba con Gemini.");
+  var gErr = null;
+  for(var j = 0; j < gcands.length && j < 3; j++){
+    var out = await groqComplete(gcands[j], [{ role: "user", content: "Di hola" }], 1);
+    if(out.res.ok){ state.groqModels = gcands; return; }
+    if(out.res.status === 401) throw new Error("Groq rechazó tu clave. Verifica que la copiaste completa desde la consola de Groq.");
+    if(groqSkippable(out.res, out.data)){ gErr = new Error((out.data && out.data.error && out.data.error.message) || ("Error " + out.res.status)); continue; }
+    throw new Error((out.data && out.data.error && out.data.error.message) || ("Error " + out.res.status));
+  }
+  throw gErr || new Error("Ningún modelo de Groq respondió a la prueba.");
+}
+
+async function send(){
+  var text = $("input").value.trim();
+  if(!text || !state.pers) return;
+  $("input").value = "";
+  addMsg("user", text);
+  state.history.push({ role: "user", content: text });
+  $("typing").textContent = AGENTS[state.pers].name + " está pensando...";
+  try{
+    var raw = state.provider === "gemini"
+      ? await askGemini(fullPrompt(state.pers))
+      : await askGroq(fullPrompt(state.pers));
+    var reply = cleanReply(raw);
+    if(!reply) reply = "Perdón, me quedé en blanco. ¿Me lo preguntas de otra forma?";
+    state.history.push({ role: "assistant", content: reply });
+    $("typing").textContent = "";
+    addMsg("bot", reply);
+  }catch(e){
+    $("typing").textContent = "";
+    addMsg("sys", "⚠ " + netErr(e));
+    state.history.pop();
+  }
+}
+
+function afterKey(){ buildGrid(); show("screen-pick"); }
+
+$("prov-groq").onclick = function(){ setProvider("groq"); };
+$("prov-gemini").onclick = function(){ setProvider("gemini"); };
+$("btn-key").onclick = async function(){
+  var v = extractKey(state.provider, $("key").value);
+  if(!v){
+    $("key-err").textContent = state.provider === "gemini"
+      ? "No encontré una clave válida en lo que pegaste. Copia la clave completa de Gemini (empieza con AIza o con AQ.)."
+      : "No encontré una clave válida en lo que pegaste. Copia la clave completa de Groq (empieza con gsk_).";
+    return;
+  }
+  $("key-err").textContent = "";
+  $("key").value = v;
+  state.key = v;
+  state.groqModels = null;
+  state.geminiModels = null;
+  var btn = $("btn-key");
+  btn.disabled = true; btn.textContent = "Probando tu clave...";
+  try{
+    await testKey();
+  }catch(e){
+    btn.disabled = false; btn.textContent = "Probar clave y continuar";
+    $("key-err").textContent = netErr(e);
+    return;
+  }
+  btn.disabled = false; btn.textContent = "Probar clave y continuar";
+  localStorage.setItem("psicologia_key", v);
+  localStorage.setItem("psicologia_provider", state.provider);
+  afterKey();
+};
+$("btn-send").onclick = send;
+$("input").addEventListener("keydown", function(e){ if(e.key === "Enter") send(); });
+$("btn-change-pers").onclick = function(){ buildGrid(); show("screen-pick"); };
+$("btn-change-key").onclick = function(){ setProvider(state.provider); $("key").value = state.key; show("screen-key"); };
+$("btn-change-key-chat").onclick = function(){ setProvider(state.provider); $("key").value = state.key; show("screen-key"); };
+
+setProvider(state.provider);
+if(state.key){ $("key").value = state.key; afterKey(); } else { show("screen-key"); }
+
+/* Ganchos de prueba (verificación con jsdom, sin clave real) */
+window.__psicologia = { AGENTS: AGENTS, state: state, pickAgent: pickAgent, buildGrid: buildGrid,
+  extractKey: extractKey, isTextModel: isTextModel, geminiBad: geminiBad, cleanReply: cleanReply, PLAN: PLAN };
+</script>
+</body>
+</html>
