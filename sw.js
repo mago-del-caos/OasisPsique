@@ -7,7 +7,7 @@
    sin esperar a que el navegador decida revisar (clave en teléfonos
    que cachean fuerte).
    Para forzar una limpieza total, sube el número de CACHE. */
-var CACHE = 'oasis-v7';
+var CACHE = 'oasis-v8';
 
 self.addEventListener('install', function (event) {
   self.skipWaiting();
