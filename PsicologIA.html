@@ -74,7 +74,40 @@
   <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
 </header>
 
-<main>
+<main class="psic-main">
+  <!-- Vitrina: los cuatro tutores, visibles antes de conectar la clave -->
+  <section class="vitrina" aria-label="Conoce a los tutores de PsicologIA">
+    <p class="eyebrow">Tutores con inteligencia artificial</p>
+    <h2>Cuatro especialistas para acompañarte</h2>
+    <p class="vitrina-sub">Cada tutor conoce el plan de estudios oficial de la Licenciatura en Psicología a Distancia y se especializa en un área. Conecta tu clave, elige al tuyo y empieza a preguntar.</p>
+    <div class="vitrina-grid">
+      <article class="agente-card" style="--acc:#800020; --acc-t:#800020;">
+        <div class="retrato"><img src="psic-adm.png" alt="Adm, tutor de trámites y procesos"></div>
+        <h3>Adm</h3>
+        <p class="rol">Trámites y procesos de la licenciatura</p>
+        <p class="desc">Te orienta en inscripción, servicio social, modalidades de titulación y requisitos de egreso, paso a paso y con el documento que respalda cada proceso.</p>
+      </article>
+      <article class="agente-card" style="--acc:#5B4B8A; --acc-t:#5B4B8A;">
+        <div class="retrato"><img src="psic-psique.png" alt="Psique, tutora de temas de psicología"></div>
+        <h3>Psique</h3>
+        <p class="rol">Temas de psicología</p>
+        <p class="desc">Te ayuda a estudiar la disciplina: escuelas teóricas, desarrollo, psicopatología, evaluación clínica y las áreas educativa, social y organizacional.</p>
+      </article>
+      <article class="agente-card" style="--acc:#C9A227; --acc-t:#7c6212;">
+        <div class="retrato"><img src="psic-ini.png" alt="Ini, tutora de innovación y nuevas tecnologías"></div>
+        <h3>Ini</h3>
+        <p class="rol">Innovación y nuevas tecnologías</p>
+        <p class="desc">Herramientas digitales, plataformas e inteligencia artificial para estudiar mejor en la modalidad a distancia, con sentido crítico y ético.</p>
+      </article>
+      <article class="agente-card" style="--acc:#2E6E6A; --acc-t:#2E6E6A;">
+        <div class="retrato"><img src="psic-hum.png" alt="Hum, tutor de humanidades, filosofía y metodología"></div>
+        <h3>Hum</h3>
+        <p class="rol">Humanidades, filosofía y metodología</p>
+        <p class="desc">Filosofía y epistemología de la investigación, metodología cualitativa y cuantitativa, psicometría y redacción académica con rigor.</p>
+      </article>
+    </div>
+  </section>
+
   <!-- 1 · Clave -->
   <section id="screen-key" class="tarjeta">
     <p class="paso">1 · Conecta tu clave</p>
@@ -466,7 +499,7 @@ async function send(){
     addMsg("bot", reply);
   }catch(e){
     $("typing").textContent = "";
-    addMsg("sys", "⚠ " + netErr(e));
+    addMsg("sys", netErr(e));
     state.history.pop();
   }
 }

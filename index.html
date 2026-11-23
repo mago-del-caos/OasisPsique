@@ -4,90 +4,117 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Oasis Psique</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        header img {
-            height: 150px;
-            margin: 0 20px;
-        }
-        h1 {
-            margin: 0;
-        }
-        h2 {
-            margin: 10px 0 0;
-            font-size: 1.2em;
-        }
-        main {
-            margin: 20px auto;
-            width: 80%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 20px 30px;
-            border-radius: 10px;
-            font-size: 1.2em;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
-        footer {
-            margin-top: 20px;
-            background-color: #f8f8f8;
-            padding: 10px 0;
-            color: #333;
-            font-size: 0.9em;
-        }
-    </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo" style="height:110px;width:110px;">
-        <div>
-            <h1>Oasis</h1>
-            <h2>Un ecosistema digital educativo libre</h2>
+    <header class="hero">
+        <div class="hero-inner">
+            <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="hero-logo">
+            <div class="hero-copy">
+                <p class="eyebrow eyebrow-claro">Licenciatura en Psicología a Distancia · UNRC</p>
+                <h1>Oasis Psique</h1>
+                <p class="hero-sub">Un ecosistema digital educativo libre: artículos, biblioteca, herramientas de estudio y tutores con inteligencia artificial para las y los estudiantes de Psicología a Distancia de la Universidad Rosario Castellanos.</p>
+            </div>
+            <img src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando" class="hero-mascot">
         </div>
-        <img src="albatros-saludo.png" alt="Albatros mascota de la UNRC" style="height:135px;width:auto;"> 
     </header>
-    <main>
-        <a href="quienes_somos.html" class="button">Quienes Somos</a>
-        <a href="Canales_Youtube.html" class="button">Canales de Youtube</a>
-        <a href="Infografias.html" class="button">Infografías</a>
-        <a href="Articulos.html" class="button">Artículos</a>
-        <a href="Blog_OASIS.html" class="button">Blog</a>
-        <a href="Aplicacion.html" class="button">Aplicaciones de apoyo</a>
-        <a href="Ejercicios_y_Pruebas.html" class="button">Ejercicios y pruebas</a>
-        <a href="dialogo.html" class="button">Habla con los autores</a>
-        <a href="biblioteca.html" class="button">Biblioteca digital</a>
-        <a href="Comic.html" class="button">Comics educativos</a>
-        <a href="guias_estudio.html" class="button">Guías de estudio</a>
-         <a href="RepositorioIA.HTML" class="button">IAs de apoyo </a>
-            <a href="PsicologIA.html" class="button">PsicologIA — tutores con IA</a>
-            <a href="https://sites.google.com/rcastellanos.cdmx.gob.mx/lpsi-lad/inicio" class="button" target="_blank" rel="noopener">Psicología a Distancia — Sitio oficial</a>
+
+    <main class="inicio">
+        <div class="sec-head">
+            <p class="eyebrow">Nuevo</p>
+            <h2>Tutores con inteligencia artificial</h2>
+        </div>
+        <a href="PsicologIA.html" class="nav-destacada">
+            <img src="psic-psique.png" alt="Psique, tutora de PsicologIA">
+            <div>
+                <h3>PsicologIA — tutores con IA</h3>
+                <p>Cuatro tutores que conocen el plan de estudios oficial de tu licenciatura: Adm te orienta en trámites y procesos; Psique, en temas de psicología; Ini, en innovación y nuevas tecnologías; y Hum, en humanidades, filosofía y metodología. Funcionan con tu propia clave de Groq o Gemini.</p>
+                <span class="accion">Conocer a los tutores →</span>
+            </div>
+        </a>
+
+        <div class="sec-head">
+            <p class="eyebrow">Secciones</p>
+            <h2>Explora el oasis</h2>
+        </div>
+        <nav class="nav-grid" aria-label="Secciones de Oasis Psique">
+            <a href="quienes_somos.html" class="nav-card">
+                <span class="thumb"><img src="profe-saludo.png" alt=""></span>
+                <span><h3>Quienes Somos</h3><p>La misión, la visión, la historia y los colaboradores detrás de este proyecto.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Articulos.html" class="nav-card">
+                <span class="thumb"><img src="profesora-lee.png" alt=""></span>
+                <span><h3>Artículos</h3><p>Producción académica y de divulgación del autor, publicada en revistas y espacios académicos.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="biblioteca.html" class="nav-card">
+                <span class="thumb"><img src="profe-lee.png" alt=""></span>
+                <span><h3>Biblioteca digital</h3><p>Colecciones de libros de psicología, filosofía y temas varios para tu estudio.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Aplicacion.html" class="nav-card">
+                <span class="thumb"><img src="albatros-salto.png" alt=""></span>
+                <span><h3>Aplicaciones de apoyo</h3><p>Aplicaciones, simuladores y modelos interactivos creados para tu formación.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Ejercicios_y_Pruebas.html" class="nav-card">
+                <span class="thumb"><img src="profesora-ok.png" alt=""></span>
+                <span><h3>Ejercicios y pruebas</h3><p>Pruebas y ejercicios para prepararte y comprobar lo aprendido.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="guias_estudio.html" class="nav-card">
+                <span class="thumb"><img src="profesora-celebra.png" alt=""></span>
+                <span><h3>Guías de estudio</h3><p>Guías elaboradas por el equipo docente para acompañar tus asignaturas.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Infografias.html" class="nav-card">
+                <span class="thumb"><img src="profesora-escribe.png" alt=""></span>
+                <span><h3>Infografías</h3><p>Material visual del profe Adrian para repasar conceptos de forma rápida.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Comic.html" class="nav-card">
+                <span class="thumb"><img src="profesora-sorpresa.png" alt=""></span>
+                <span><h3>Comics educativos</h3><p>Cómics para aprender sobre psicología y educación de forma visual y divertida.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Canales_Youtube.html" class="nav-card">
+                <span class="thumb"><img src="profesora-megafono.png" alt=""></span>
+                <span><h3>Canales de Youtube</h3><p>Videos y canales recomendados para reforzar tus asignaturas.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="Blog_OASIS.html" class="nav-card">
+                <span class="thumb"><img src="albatros-presenta.png" alt=""></span>
+                <span><h3>Blog</h3><p>Un espacio de expresión y recursos para la comunidad educativa.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="dialogo.html" class="nav-card">
+                <span class="thumb"><img src="albatros-piensa.png" alt=""></span>
+                <span><h3>Habla con los autores</h3><p>Conversa con Popper, Aristóteles y Sócrates mediante GPT personalizados.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+            <a href="RepositorioIA.HTML" class="nav-card">
+                <span class="thumb"><img src="albatros-saludo.png" alt=""></span>
+                <span><h3>IAs de apoyo</h3><p>Repositorio de inteligencias artificiales de acompañamiento pedagógico.</p></span>
+                <span class="flecha" aria-hidden="true">→</span>
+            </a>
+        </nav>
+
+        <div class="sec-head">
+            <p class="eyebrow">Sitio institucional</p>
+            <h2>Psicología a Distancia en la UNRC</h2>
+        </div>
+        <a href="https://sites.google.com/rcastellanos.cdmx.gob.mx/lpsi-lad/inicio" class="nav-oficial" target="_blank" rel="noopener">
+            <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+            <span>
+                <h3>Psicología a Distancia — Sitio oficial</h3>
+                <p>El micrositio oficial de la Licenciatura en Psicología a Distancia (LPSI-LAD): avisos, trámites y documentos vigentes.</p>
+            </span>
+            <span class="flecha" aria-hidden="true">→</span>
+        </a>
     </main>
-    <footer>
+
+    <footer style="text-align:center; padding:20px 16px;">
         <strong>Este proyecto es una creación del maestro Pablo Adrian Rivera Juvenal, profesor de tiempo completo de la URC.</strong>
     </footer>
 </body>
