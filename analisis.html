@@ -6,391 +6,53 @@
     <title>Técnicas de Análisis de Contenido</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #800020; /* Cambiado a guinda */
-            --secondary: #600018; /* Tono más oscuro de guinda */
-            --accent: #7c6212; /* Dorado oscuro: acento único de la identidad UNRC */
-            --light: #f8f9fa;
-            --dark: #212529;
-            --success: #4cc9f0;
-            --warning: #ff9e00;
-            --info: #4895ef;
-            --gray: #6c757d;
-            --border-radius: 12px;
-            --box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #FBF7EF;
-            color: var(--dark);
-            line-height: 1.6;
-            padding: 20px;
-            min-height: 100vh;
-        }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: cover;
-        }
-        
-        h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-        }
-        
-        .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            font-weight: 300;
-            position: relative;
-        }
-        
-        .controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        
-        .search-box {
-            flex-grow: 1;
-            max-width: 500px;
-            position: relative;
-        }
-        
-        input[type="text"] {
-            width: 100%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            background: white;
-        }
-        
-        input[type="text"]:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.3); /* Actualizado para guinda */
-        }
-        
-        .search-box i {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-        
-        .filter-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        button {
-            padding: 12px 25px;
-            background: white;
-            color: var(--primary);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            box-shadow: var(--box-shadow);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        button:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-        
-        .back-button {
-            display: block;
-            margin: 30px auto;
-            padding: 15px 30px;
-            background: var(--primary);
-            color: white;
-            font-size: 1.1rem;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: var(--transition);
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            max-width: 200px;
-        }
-        
-        .back-button:hover {
-            background: var(--secondary);
-            transform: translateY(-3px);
-            color: white;
-        }
-        
-        .techniques-container {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-            margin-bottom: 40px;
-        }
-        
-        .technique-item {
-            border-bottom: 1px solid #eee;
-            transition: var(--transition);
-        }
-        
-        .technique-item:last-child {
-            border-bottom: none;
-        }
-        
-        .technique-header {
-            padding: 20px 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .technique-header:hover {
-            background-color: #f8f9fa;
-        }
-        
-        .technique-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--secondary);
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .technique-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.2rem;
-        }
-        
-        .technique-arrow {
-            color: var(--gray);
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-        
-        .technique-content {
-            padding: 0 25px;
-            max-height: 0;
-            overflow: hidden;
-            transition: var(--transition);
-            background: #f8f9fa;
-            border-radius: 0 0 var(--border-radius) var(--border-radius);
-        }
-        
-        .technique-item.active .technique-content {
-            max-height: 1000px;
-            padding: 25px;
-        }
-        
-        .technique-item.active .technique-arrow {
-            transform: rotate(180deg);
-            color: var(--accent);
-        }
-        
-        .technique-item.active .technique-header {
-            background-color: #f0f4ff;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .technique-content p {
-            margin-bottom: 15px;
-        }
-        
-        .technique-content ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        .technique-content li {
-            margin-bottom: 8px;
-            position: relative;
-            padding-left: 10px;
-        }
-        
-        .technique-content li::before {
-            content: "•";
-            color: var(--accent);
-            font-weight: bold;
-            position: absolute;
-            left: -10px;
-        }
-        
-        .highlight {
-            background-color: rgba(216, 27, 96, 0.1); /* Actualizado para el acento */
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--accent);
-            font-weight: 600;
-        }
-        
-        .technique-meta {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px dashed #ddd;
-        }
-        
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
-            color: var(--gray);
-            font-size: 0.9rem;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 15px;
-        }
-        
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .stat-label {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-            }
-            
-            .search-box {
-                max-width: 100%;
-            }
-            
-            .filter-buttons {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .technique-header {
-                padding: 15px 20px;
-            }
-            
-            .technique-title {
-                font-size: 1.2rem;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .stats {
-                flex-wrap: wrap;
-                gap: 15px;
-            }
-        }
-        
-        /* Animación de entrada */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .technique-item {
-            animation: fadeIn 0.5s ease forwards;
-            opacity: 0;
-        }
-        
-        .technique-item:nth-child(1) { animation-delay: 0.1s; }
-        .technique-item:nth-child(2) { animation-delay: 0.2s; }
-        .technique-item:nth-child(3) { animation-delay: 0.3s; }
-        .technique-item:nth-child(4) { animation-delay: 0.4s; }
-        .technique-item:nth-child(5) { animation-delay: 0.5s; }
-        .technique-item:nth-child(6) { animation-delay: 0.6s; }
-        .technique-item:nth-child(7) { animation-delay: 0.7s; }
-        .technique-item:nth-child(8) { animation-delay: 0.8s; }
-        .technique-item:nth-child(9) { animation-delay: 0.9s; }
-        .technique-item:nth-child(10) { animation-delay: 1.0s; }
-        .technique-item:nth-child(11) { animation-delay: 1.1s; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:1000px; margin:26px auto; padding:0 16px 40px; }
+  .controls{ display:flex; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:14px; }
+  .search-box{ flex-grow:1; max-width:500px; position:relative; }
+  .search-box input{ width:100%; }
+  .search-box i{ position:absolute; right:16px; top:50%; transform:translateY(-50%); color:var(--suave); }
+  .filter-buttons{ display:flex; gap:12px; flex-wrap:wrap; }
+  .techniques-container{ background:var(--papel); border:1px solid var(--borde); border-radius:var(--r-lg); box-shadow:var(--sombra-sm); overflow:hidden; margin-bottom:32px; }
+  .technique-item{ border-bottom:1px solid var(--borde-suave); background:var(--papel); }
+  .technique-item:last-child{ border-bottom:none; }
+  .technique-header{ padding:18px 22px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+  .technique-header:hover{ background:var(--crema); }
+  .technique-title{ font-size:1.25rem; font-weight:650; color:var(--vino); display:flex; align-items:center; gap:14px; }
+  .technique-icon{ width:40px; height:40px; flex:none; background:var(--vino); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.1rem; }
+  .technique-arrow{ color:var(--suave); transition:transform .25s ease; font-size:1.1rem; }
+  .technique-content{ padding:0 22px; max-height:0; overflow:hidden; transition:max-height .3s ease, padding .3s ease; background:var(--crema); }
+  .technique-item.active .technique-content{ max-height:1000px; padding:22px; }
+  .technique-item.active .technique-arrow{ transform:rotate(180deg); color:var(--dorado-oscuro); }
+  .technique-content p{ margin:0 0 14px; }
+  .technique-content ul{ margin:0 0 14px 20px; }
+  .technique-content li{ margin-bottom:7px; }
+  .highlight{ background:var(--crema-2); padding:2px 6px; border-radius:4px; color:var(--vino-oscuro); font-weight:600; }
+  .technique-meta{ display:flex; gap:16px; flex-wrap:wrap; margin-top:18px; padding-top:14px; border-top:1px dashed var(--borde); }
+  .meta-item{ display:flex; align-items:center; gap:5px; color:var(--suave); font-size:.9rem; }
+  .back-button{ display:table; margin:0 auto; background:var(--vino); color:#fff; font-weight:600; text-decoration:none; padding:.85em 1.5em; border-radius:14px; box-shadow:var(--sombra-sm); }
+  .back-button:hover{ background:var(--vino-oscuro); color:#fff; }
+  footer{ text-align:center; padding:20px; color:var(--suave); font-size:.9rem; }
+  .stats{ display:flex; justify-content:center; gap:28px; margin-top:14px; flex-wrap:wrap; }
+  .stat-item{ display:flex; flex-direction:column; align-items:center; }
+  .stat-value{ font-size:1.5rem; font-weight:700; color:var(--vino); }
+  .stat-label{ font-size:.8rem; color:var(--suave); }
+  @media (max-width:700px){ .controls{ flex-direction:column; } .search-box{ max-width:100%; } .technique-title{ font-size:1.1rem; } }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-            <h1>Técnicas de Análisis de Contenido</h1>
-            <p class="subtitle">Herramientas metodológicas para la investigación cualitativa y cuantitativa</p>
-        </header>
+<header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Técnicas de Análisis de Contenido</h1><p>Herramientas metodológicas para la investigación cualitativa y cuantitativa</p></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+    </header>
+    <main>
         
         <div class="controls">
             <div class="search-box">
@@ -439,7 +101,7 @@
                 </div>
             </div>
         </footer>
-    </div>
+    </main>
 
     <script>
         // Datos de las técnicas
@@ -736,5 +398,6 @@
         // Iniciar la aplicación cuando el DOM esté listo
         document.addEventListener('DOMContentLoaded', init);
     </script>
+    <script src="reveal.js"></script>
 </body>
 </html>

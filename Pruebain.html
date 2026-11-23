@@ -5,54 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cuestionario de Emprendimiento Social</title>
     <style>
-        body {
-            background-color: #FFD6E7; /* Fondo rosa claro */
-            color: #800020; /* Letra guinda */
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .header-img {
-            width: 100%;
-            max-height: 200px;
-            object-fit: cover;
-            margin-bottom: 20px;
-        }
-        .question {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #FFF0F5;
-            border-radius: 8px;
-        }
-        .options {
-            margin-left: 20px;
-        }
-        button {
-            background-color: #800020;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #A00030;
-        }
-        #result {
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #FFF0F5;
-            border-radius: 8px;
-            font-size: 18px;
-            display: none;
-        }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:880px; margin:26px auto; padding:0 16px 40px; }
+  .header-img{ width:100%; max-height:220px; object-fit:cover; border-radius:var(--r-md); border:1px solid var(--borde); margin-bottom:22px; }
+  .question{ margin-bottom:16px; }
+  .question p{ font-weight:600; margin:0 0 10px; }
+  .options{ margin-left:6px; }
+  .options label{ display:block; padding:6px 8px; border-radius:8px; cursor:pointer; }
+  .options label:hover{ background:var(--crema); }
+  form > button{ margin-top:8px; font-size:1.05rem; }
+  #result{ margin-top:26px; padding:22px; font-size:1.05rem; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
+    <header class="site">
+    <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+    <div class="titulos"><h1>Cuestionario de Emprendimiento Social</h1></div>
+    <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
     <img src="Innovación.jpg" alt="Innovación" class="header-img">
-    <h1>Cuestionario de Emprendimiento Social</h1>
     
     <form id="quiz">
         <div class="question">
@@ -339,6 +317,7 @@
     </form>
     
     <div id="result"></div>
+</main>
     
     <script>
         function calculateScore() {
@@ -380,5 +359,6 @@
             document.getElementById("result").style.display = "block";
         }
     </script>
+    <script src="reveal.js"></script>
 </body>
 </html>

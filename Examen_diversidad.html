@@ -5,97 +5,54 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Guía Diversidad e Inclusión Educativa</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #ffffff;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-    }
-    header {
-      background-color: #800020;
-      color: white;
-      padding: 20px 0;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2em;
-    }
-    img {
-      width: 40%;
-      max-width: 400px;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
-    .dedicatoria {
-      font-size: 1.1em;
-      margin: 20px auto;
-      width: 80%;
-      color: #333;
-    }
-    main {
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-    }
-    .button-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-    }
-    .button {
-      text-decoration: none;
-      color: white;
-      background-color: #800020;
-      padding: 15px 25px;
-      border-radius: 10px;
-      font-size: 1.2em;
-      transition: background-color 0.3s;
-    }
-    .button:hover {
-      background-color: #555555;
-    }
-    footer {
-      background-color: #f8f8f8;
-      padding: 10px 0;
-      font-size: 0.9em;
-      color: #333;
-    }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:960px; margin:26px auto; padding:0 16px 40px; }
+  .dedicatoria{ font-size:1.08rem; color:var(--suave); text-align:center; margin-bottom:26px; }
+  .dedicatoria p{ margin:0; }
+  .rejilla{ text-align:center; }
+  .rejilla .tarjeta{ display:flex; align-items:center; justify-content:center; min-height:110px; }
+  footer{ text-align:center; padding:18px; font-size:.9rem; }
   </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-  <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-    <h1>Guía Diversidad e Inclusión Educativa</h1>
-    <img src="profe-presenta.png" alt="Profesores de Psicología a Distancia">
+  <header class="site">
+    <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+    <div class="titulos"><h1>Guía Diversidad e Inclusión Educativa</h1></div>
+    <img class="site-mascot" src="profe-presenta.png" alt="Profesores de Psicología a Distancia">
   </header>
 
-  <div class="dedicatoria">
-    <p>De parte del equipo docente de la carrera de Psicología a Distancia, esperamos que esta guía te sea de gran utilidad y contribuya a tu formación profesional.</p>
-  </div>
-
   <main>
-    <div class="button-container">
-      <a href="https://issuu.com/home/docs/xt8jaad3tn1/share" target="_blank" class="button">
-        Formato Revista Digital
-      </a>
-      <a href="https://drive.google.com/file/d/1cCQ2_3K4cMmIkuCsrguujWRmXP_Xhxz5/view?usp=sharing" target="_blank" class="button">
-        Formato PDF
-      </a>
-      <a href="index.html" class="button">
-        Volver al inicio
-      </a>
+    <div class="dedicatoria tarjeta">
+      <p>De parte del equipo docente de la carrera de Psicología a Distancia, esperamos que esta guía te sea de gran utilidad y contribuya a tu formación profesional.</p>
+    </div>
+    <div class="rejilla">
+      <article class="tarjeta">
+        <a href="https://issuu.com/home/docs/xt8jaad3tn1/share" target="_blank" class="button">
+          Formato Revista Digital
+        </a>
+      </article>
+      <article class="tarjeta">
+        <a href="https://drive.google.com/file/d/1cCQ2_3K4cMmIkuCsrguujWRmXP_Xhxz5/view?usp=sharing" target="_blank" class="button">
+          Formato PDF
+        </a>
+      </article>
+      <article class="tarjeta">
+        <a href="index.html" class="button secundario">
+          Volver al inicio
+        </a>
+      </article>
     </div>
   </main>
 
   <footer>
     Proyecto Oasis Psique | URC
   </footer>
+  <script src="reveal.js"></script>
 </body>
 </html>

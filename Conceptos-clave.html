@@ -2,87 +2,32 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Conceptos de Innovación Social</title>
-<img src="profe-lee.png" alt="Zorro maestro con conceptos clave" style="display: block; margin: 0 auto; max-width: 100%; height: auto;">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #fbe3e8;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-      color: #60002c;
-      font-size: 24px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-    }
-
-    .accordion {
-      background-color: #ffffff;
-      color: #60002c;
-      cursor: pointer;
-      padding: 15px;
-      width: 100%;
-      text-align: left;
-      border: 1px solid #ccc;
-      outline: none;
-      font-size: 16px;
-    }
-
-    .accordion:hover {
-      background-color: #f5cfd8;
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.4);
-    }
-
-    .modal-content {
-      background-color: #fff0f4;
-      margin: 10% auto;
-      padding: 20px;
-      border: 2px solid #60002c;
-      width: 80%;
-      max-width: 600px;
-      font-size: 16px;
-      color: #60002c;
-    }
-
-    .close {
-      color: #60002c;
-      float: right;
-      font-size: 24px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    @media (max-width: 768px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:1020px; margin:26px auto; padding:0 16px 40px; }
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+  .accordion{ width:100%; text-align:left; background-color:#fff; color:var(--vino); font-size:1rem; padding:15px; }
+  .modal{ display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; overflow:auto; background-color:rgba(67,0,19,.45); }
+  .modal-content{ margin:10% auto; padding:20px; width:88%; max-width:600px; font-size:1rem; color:var(--tinta); border:1.5px solid var(--dorado); }
+  .close{ color:var(--vino); float:right; font-size:24px; font-weight:bold; cursor:pointer; }
+  @media (max-width:700px){ .grid{ grid-template-columns:1fr; } }
+</style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-
-<h1>Conceptos Clave de Innovación Social</h1>
-
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Conceptos Clave de Innovación Social</h1></div>
+  <img class="site-mascot" src="profe-lee.png" alt="Zorro maestro con conceptos clave">
+</header>
+<main>
 <div class="grid">
   <button class="accordion" onclick="openModal(`Transformar ideas en realidades sostenibles.`)">Innovación social implica acción, no solo pensamiento</button>
   <button class="accordion" onclick="openModal(`<ul><li>Es novedoso en su contexto.</li><li>Responde a necesidades sociales específicas.</li><li>Se pone en práctica (no es solo una idea).</li><li>Involucra y moviliza a los beneficiarios.</li><li>Transforma relaciones sociales.</li></ul>`)">Características de un proyecto de innovación social</button>
@@ -106,6 +51,7 @@
   <button class="accordion" onclick="openModal(`Permite identificar las brechas actuales.`)">Visualización del futuro deseado</button>
   <button class="accordion" onclick="openModal(`Como la lluvia de ideas para generar soluciones innovadoras.`)">Uso de herramientas creativas</button>
 </div>
+</main>
 
 <div id="modal" class="modal">
   <div class="modal-content">
@@ -132,6 +78,6 @@
   }
 
 </script>
-
+  <script src="reveal.js"></script>
 </body>
 </html>

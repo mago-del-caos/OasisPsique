@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,66 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aspectos fundamentales del emprendimiento social y su aplicación</title>
     <style>
-        body {
-            background-color: #800000; /* Color guinda */
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        .button {
-            background-color: #5c2a2a;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            margin: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 80%;
-        }
-        .button:hover {
-            background-color: #a14d4d;
-        }
-        .content {
-            display: none;
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #4d1f1f;
-            border-radius: 5px;
-        }
-        #backButton {
-            background-color: #5c2a2a;
-            padding: 15px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-size: 18px;
-        }
-        #backButton:hover {
-            background-color: #a14d4d;
-        }
-        img {
-            width: 100%;
-            max-width: 300px;
-            margin-top: 20px;
-        }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:860px; margin:26px auto; padding:0 16px 40px; }
+  .lista{ display:flex; flex-direction:column; }
+  .lista .button{ display:block; width:100%; text-align:left; margin:0 0 10px; }
+  .content{ display:none; margin:0 0 14px; }
+  #regresar-button{ align-self:center; margin-top:10px; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
-<body class="fondo-propio">
-
-    <img src="albatros-presenta.png" alt="Zorro23">
-
-    <div class="container">
-        <h1>Aspectos fundamentales del emprendimiento social y su aplicación</h1>
-
-        <button class="button" onclick="toggleContent(1)">1. Emprendimiento Social</button>
+<body>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Aspectos fundamentales del emprendimiento social y su aplicación</h1></div>
+  <img class="site-mascot" src="albatros-presenta.png" alt="Zorro23">
+</header>
+<main>
+  <div class="lista">
+<button class="button" onclick="toggleContent(1)">1. Emprendimiento Social</button>
         <div class="content" id="content1">El emprendimiento social se centra en resolver problemas sociales y ambientales mediante modelos de negocio sostenibles.</div>
 
         <button class="button" onclick="toggleContent(2)">2. Diferencia con el emprendimiento tradicional</button>
@@ -140,17 +102,11 @@
         <button class="button" onclick="toggleContent(25)">25. Evaluación continua</button>
         <div class="content" id="content25">El impacto social debe medirse continuamente para ajustar las intervenciones y asegurar la eficacia del proyecto.</div>
 
-            <!-- Botón Regresar corregido -->
-
+    <!-- Botón Regresar corregido -->
     <button id="regresar-button" onclick="location.href='Aplicacion.html'">Regresar</button>
-
-</body>
-</html>
-
-
-    </div>
-
-    <script>
+  </div>
+</main>
+<script>
         function toggleContent(id) {
             var content = document.getElementById('content' + id);
             if (content.style.display === "none" || content.style.display === "") {
@@ -160,5 +116,6 @@
             }
         }
     </script>
+  <script src="reveal.js"></script>
 </body>
 </html>

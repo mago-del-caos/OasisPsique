@@ -1,31 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
     <base href="." />
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego Didáctico</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             background-color: #FBF7EF;
             font-family: 'Arial', sans-serif;
         }
 
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+            background: #ffffff;
+            border: 1px solid var(--borde);
             padding: 2rem;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            box-shadow: var(--sombra-sm);
         }
 
         h1 {
-            color: #333;
+            color: var(--vino);
             font-size: 2.5em;
             margin-bottom: 1.5rem;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -230,7 +229,7 @@
         .paddle {
             width: 100px;
             height: 10px;
-            background: #2196F3;
+            background: var(--vino);
             border-radius: 5px;
             position: absolute;
             bottom: 20px;
@@ -408,12 +407,41 @@
             text-align: center;
             font-style: italic;
         }
+
+        /* --- Reprogramación nativa: encabezado del sistema y móvil --- */
+        header.site {
+            display: flex; align-items: center; gap: 16px;
+            padding: 18px 22px; flex-wrap: wrap; width: 100%;
+            box-sizing: border-box;
+        }
+        header.site .titulos { flex: 1; min-width: 200px; }
+        header.site p { margin: 0; opacity: .92; font-size: 1.05rem; }
+        main {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 1rem; padding: 22px 12px 44px; width: 100%; box-sizing: border-box;
+        }
+        #gameCanvas, .rhizome-canvas { max-width: 100%; height: auto; }
+        #gameArea { max-width: 100%; }
+        .game-container, .droplet-game-container, .nonlinear-game-container,
+        .dino-game-container, .rhizome-game-container { max-width: 100%; box-sizing: border-box; }
+        .modal-content { max-width: calc(100vw - 32px); box-sizing: border-box; }
+        @media (max-width: 700px) {
+            .container { padding: 1.2rem; }
+            h1 { font-size: 1.7em; }
+            .game-button { font-size: 1rem; padding: 12px 18px; }
+            header.site { flex-wrap: nowrap; }
+        }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1 class="floating">¡Juego Didáctico!</h1><p>Juegos para pensar la complejidad, la modernidad líquida y el pensamiento en red</p></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+    </header>
+    <main>
     <div class="container" id="mainPage">
-        <h1 class="floating">¡Juego Didáctico!</h1>
         <div class="button-container">
             <button class="game-button" id="btnPensamientoComplejo">Pensamiento Complejo</button>
             <button class="game-button" id="btnModernidadLiquida">Modernidad Líquida</button>
@@ -433,7 +461,7 @@
 
     <div class="droplet-game-container" id="dropletGameContainer">
         <div class="score">Gotas: <span id="dropletScore">0</span></div>
-        <div id="gameArea" style="width: 600px; height: 400px; position: relative; background: #f0f9ff; border-radius: 10px;">
+        <div id="gameArea" style="width: 600px; max-width: 100%; height: 400px; position: relative; background: #F4EBD6; border-radius: 10px;">
             <div class="collected-concepts" id="collectedConcepts"></div>
             <div id="paddle" class="paddle"></div>
         </div>
@@ -467,6 +495,7 @@
         <button class="game-button" onclick="closeAlertAndReturn()">Continuar</button>
     </div>
 
+    </main>
     <script>
         const concepts = [
             {id: 1, x: 300, y: 200},
@@ -1235,5 +1264,6 @@
 });
       
     </script>
+    <script src="reveal.js"></script>
 </body>
 </html>

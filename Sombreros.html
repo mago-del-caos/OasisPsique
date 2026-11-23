@@ -5,70 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sombreros para Pensar</title>
     <style>
-        body {
-            background-color: #800000;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-        .buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        button {
-            padding: 15px;
-            font-size: 1.5em;
-            color: white;
-            border: 2px solid black;
-            cursor: pointer;
-            width: 200px;
-        }
-        #blanco-button {
-            background-color: #ffffff;
-            color: black;
-        }
-        #rojo-button {
-            background-color: #ff0000;
-        }
-        #negro-button {
-            background-color: #000000;
-        }
-        #amarillo-button {
-            background-color: #ffff00;
-            color: black;
-        }
-        #verde-button {
-            background-color: #008000;
-        }
-        #azul-button {
-            background-color: #0000ff;
-        }
-        #cumbia-button {
-            background-color: #ffa500;
-        }
-        #prueba-button {
-            background-color: #4b0082;
-        }
-        #regresar-button {
-            background-color: #ff69b4;
-            margin-top: 20px;
-        }
-        .content-container {
-            margin-top: 20px;
-            width: 80%;
-            max-width: 800px;
-            border: 1px solid #ccc;
-            padding: 20px;
-            font-size: 1.2em;
-            min-height: 100px;
-            display: none;
-        }
-    </style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:920px; margin:26px auto; padding:0 16px 40px; }
+  .buttons-container{ display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px; margin-bottom:20px; }
+  .buttons-container button{ width:100%; padding:16px 12px; font-size:1.12rem; font-weight:700; border:2px solid var(--vino-tinta); border-radius:14px; box-shadow:var(--sombra-sm); }
+  #blanco-button{ background-color:#ffffff; color:#000000; }
+  #rojo-button{ background-color:#ff0000; color:#ffffff; }
+  #negro-button{ background-color:#000000; color:#ffffff; }
+  #amarillo-button{ background-color:#ffff00; color:#000000; }
+  #verde-button{ background-color:#008000; color:#ffffff; }
+  #azul-button{ background-color:#0000ff; color:#ffffff; }
+  #cumbia-button{ background-color:#ffa500; color:#000000; }
+  #prueba-button{ background-color:#4b0082; color:#ffffff; }
+  .content-container{ display:none; padding:22px; font-size:1.08rem; line-height:1.6; border:1.5px solid var(--borde); border-radius:var(--r-md); box-shadow:var(--sombra-sm); }
+  #regresar-button{ display:block; margin:22px auto 0; }
+  @media (max-width:700px){
+    .buttons-container{ grid-template-columns:1fr 1fr; }
+    .buttons-container button{ font-size:1rem; padding:14px 8px; }
+  }
+</style>
     <link rel="stylesheet" href="identidad.css">
     <script>
         function toggleContent(button) {
@@ -129,8 +89,13 @@
         }
     </script>
 </head>
-<body class="fondo-propio">
-    <h1>Sombreros para Pensar</h1>
+<body>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Sombreros para Pensar</h1></div>
+  <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
     
     <div class="buttons-container">
         <button id="blanco-button" onclick="toggleContent(this)">Sombrero Blanco</button>
@@ -147,5 +112,7 @@
 
     <!-- Botón Regresar corregido -->
     <button id="regresar-button" onclick="location.href='Aplicacion.html'">Regresar</button>
+</main>
+  <script src="reveal.js"></script>
 </body>
 </html>

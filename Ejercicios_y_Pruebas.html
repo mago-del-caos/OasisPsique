@@ -5,59 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicios y Pruebas</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
-        }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            margin: 20px auto;
-            width: 80%;
-        }
-        p {
-            font-size: 1.2em;
-            color: #333;
-            margin: 20px 0;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin: 10px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  main{ max-width:960px; margin:26px auto; padding:0 16px 40px; text-align:center; }
+  .intro{ font-size:1.1rem; color:var(--suave); max-width:44em; margin:0 auto; }
+  .rejilla{ margin:26px 0 20px; text-align:center; }
+  .rejilla .tarjeta{ display:flex; align-items:center; justify-content:center; min-height:110px; }
+  .volver-wrap{ margin-top:6px; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Ejercicios y Pruebas</h1>
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Ejercicios y Pruebas</h1></div>
+        <img class="site-mascot" src="profesora-ok.png" alt="Imagen de Examen">
     </header>
     <main>
-        <img src="profesora-ok.png" alt="Imagen de Examen" style="display: block; margin: 0 auto; width: 25%;">
-        <p>Te presentamos un conjunto de pruebas y ejercicios para tu formación y preparación de exámenes.</p>
-        <a href="https://websim.ai/c/9YSXbTQ4rCbc3xEdj" target="_blank" class="button">Prueba TPAP</a>
-        <a href="Examen%20diversidad.html" class="button">Prueba Diversidad e Inclusión Educativa</a>
-        <a href="Pruebain.html" class="button">Prueba Innovación social</a>
-        <a href="index.html" class="button">Volver</a>
+        <p class="intro">Te presentamos un conjunto de pruebas y ejercicios para tu formación y preparación de exámenes.</p>
+        <div class="rejilla">
+            <article class="tarjeta"><a href="https://websim.ai/c/9YSXbTQ4rCbc3xEdj" target="_blank" class="button">Prueba TPAP</a></article>
+            <article class="tarjeta"><a href="Examen%20diversidad.html" class="button">Prueba Diversidad e Inclusión Educativa</a></article>
+            <article class="tarjeta"><a href="Pruebain.html" class="button">Prueba Innovación social</a></article>
+        </div>
+        <p class="volver-wrap"><a href="index.html" class="button secundario">Volver</a></p>
     </main>
+    <script src="reveal.js"></script>
 </body>
 </html>

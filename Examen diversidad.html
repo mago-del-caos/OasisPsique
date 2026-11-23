@@ -5,80 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Examen de Prueba DIversidad e inclusión educativa</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #800020; 
-            color: #800020; 
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            line-height: 1.6;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            background-color: white;
-            padding: 2em;
-            border-radius: 20px;
-            box-shadow: 0 4px rgba(0,0,0.2);
-        }
-        input, button {
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            background-color: #800020;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #66001a;
-        }
-        .question {
-            background-color: #f9f9f9;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            border: 2px solid #800020;
-        }
-        .options {
-            margin-left: 20px;
-        }
-        .option {
-            margin: 10px 0;
-            display: block;
-        }
-        .hidden {
-            display: none;
-        }
-        #results {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f0f8ff;
-            border-radius: 5px;
-            border: 2px solid #800020;
-        }
-        #timer {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #333;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .correct {
-            background-color: #ddffdd;
-        }
-        .incorrect {
-            background-color: #ffdddd;
-        }
-        #quiz-screen {
-            border: 2px solid #800020;
-        }
+  *{ box-sizing:border-box; }
+  body{ margin:0; }
+  header.site{ display:flex; align-items:center; gap:16px; padding:18px 22px; flex-wrap:wrap; }
+  header.site .titulos{ flex:1; min-width:220px; }
+  header.site h1{ margin:0; }
+  header.site p{ margin:4px 0 0; opacity:.92; }
+  body{ background:var(--crema); }
+  main{ max-width:840px; margin:26px auto; padding:0 16px 40px; }
+  .container{ display:flex; flex-direction:column; gap:20px; background:var(--papel); border:1px solid var(--borde); padding:28px; border-radius:var(--r-lg); box-shadow:var(--sombra-sm); }
+  .hidden{ display:none; }
+  #timer{ position:fixed; top:10px; right:10px; background:var(--vino); color:#fff; padding:6px 12px; border-radius:8px; border:1px solid var(--dorado); z-index:50; font-weight:700; }
+  .question{ margin-bottom:16px; }
+  .options{ margin-left:6px; }
+  .option{ margin:10px 0; display:block; cursor:pointer; }
+  .correct{ background:#eef7ee; }
+  .incorrect{ background:#fbeaea; }
+  #results{ margin-top:8px; padding:20px; background:var(--crema); border:1px solid var(--borde); border-radius:var(--r-md); }
+  #start-screen input{ width:100%; margin:8px 0 4px; }
+  @media (max-width:700px){ .container{ padding:20px; } }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
@@ -86,9 +31,14 @@
 <body class="fondo-propio">
     <div id="timer" class="hidden">00:00</div>
     
+    <header class="site">
+    <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+    <div class="titulos"><h1>Examen de Prueba DIversidad e inclusión educativa</h1></div>
+    <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
     <div class="container">
         <div id="start-screen">
-            <h1>Examen de Prueba DIversidad e inclusión educativa</h1>
              <P> Por favor lee y contesta las preguntas al final toma captura de pantalla a tu constancia </P>
             <p>Por favor ingresa tu nombre para comenzar:</p>
             <input type="text" id="username" placeholder="Tu nombre">
@@ -108,6 +58,7 @@
             <button id="view-cert-btn">Ver Constancia</button>
         </div>
     </div>
+</main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.5.1/jspdf-autotable.umd.min.js"></script>
@@ -393,5 +344,6 @@
             document.getElementById('timer').classList.add('hidden');
         }
     </script>
+    <script src="reveal.js"></script>
 </body>
 </html>
