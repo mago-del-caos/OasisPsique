@@ -509,3 +509,101 @@ body.fondo-vino .footer .highlight{ color:var(--dorado-claro) !important; text-s
   html{ scroll-behavior:auto; }
   *, *::before, *::after{ transition:none !important; animation:none !important; }
 }
+
+/* ============================================================
+   Reveal al hacer scroll — el estado oculto lo activa el JS
+   (reveal.js añade .reveal-on a <html> y .revelar a cada
+   elemento). Sin JS, o sin IntersectionObserver, todo se ve.
+   ============================================================ */
+html.reveal-on .revelar{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .38s ease, transform .38s ease;
+}
+html.reveal-on .revelar.revelado{ opacity:1; transform:translateY(0); }
+@media (prefers-reduced-motion: reduce){
+  html.reveal-on .revelar{
+    opacity:1 !important; transform:none !important; transition:none !important;
+  }
+}
+
+/* ============================================================
+   Refinamiento móvil (≤700 px)
+   Causas corregidas aquí:
+   · El héroe es un <header>: la regla genérica de ≤640 px
+     «header img{max-height:88px !important}» estrangulaba a la
+     mascota (de 140 a 88 px), y el flex con wrap la dejaba sola
+     en su fila, a la izquierda, con el vacío a la derecha y el
+     padding inferior de 44 px debajo.
+   · La tarjeta destacada heredaba tamaños de escritorio y
+     ocupaba más de una pantalla.
+   · Las rejillas caían a una sola columna interminable.
+   ============================================================ */
+@media (max-width:700px){
+  /* --- Héroe del index: composición en columna deliberada --- */
+  .hero-inner{
+    flex-direction:column; align-items:flex-start;
+    gap:14px; padding:28px 20px 24px;
+  }
+  .hero-logo{ height:64px; width:64px; border-radius:18px; padding:6px; }
+  .hero-copy{ min-width:0; }
+  .hero-copy h1{ font-size:2.3rem; }
+  .hero-sub{ font-size:1rem; line-height:1.55; margin-top:10px; }
+  .hero img.hero-mascot{
+    height:168px; max-height:200px !important; width:auto;
+    align-self:center; margin-top:2px;
+  }
+
+  /* --- Tarjeta destacada: figura completa, sin cortes --- */
+  .nav-destacada{
+    flex-direction:column; text-align:center;
+    gap:12px; padding:24px 18px 26px; border-radius:22px;
+  }
+  .nav-destacada img{ height:148px; width:auto; margin:0 auto; display:block; }
+  .nav-destacada h3{ font-size:1.32rem; }
+  .nav-destacada p{ font-size:.97rem; line-height:1.55; }
+  .nav-destacada .accion{ margin-top:12px; }
+
+  /* --- Ritmo vertical y secciones --- */
+  .inicio{ padding:26px 14px 4px; }
+  .sec-head{ margin:26px 0 14px; }
+  footer{ margin-top:28px; }
+  .rejilla{ gap:14px; }
+  .tarjeta{ padding:20px 18px; }
+
+  /* --- Rejilla de secciones: DOS columnas compactas --- */
+  .nav-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+  .nav-card{
+    flex-direction:column; align-items:flex-start;
+    gap:9px; padding:14px; border-radius:18px;
+  }
+  .nav-card .thumb{ width:50px; height:50px; border-radius:13px; }
+  .nav-card .thumb img{ height:40px; max-width:44px; }
+  .nav-card h3{ font-size:.97rem; margin:0 0 4px; line-height:1.25; }
+  .nav-card p{ font-size:.82rem; line-height:1.45; }
+  .nav-card .flecha{ margin-left:auto; margin-top:auto; font-size:1.1rem; }
+
+  /* --- Tarjeta del sitio oficial --- */
+  .nav-oficial{ padding:16px; gap:12px; }
+  .nav-oficial img{ height:48px; width:48px; }
+  .nav-oficial h3{ font-size:1.02rem; }
+  .nav-oficial p{ font-size:.88rem; line-height:1.5; }
+
+  /* --- Encabezado de PsicologIA: una sola fila, sin huérfanos --- */
+  header.site{ flex-wrap:nowrap; gap:12px; padding:16px 18px; }
+  header.site .titulos{ min-width:0; }
+  header.site h1{ font-size:1.5rem; }
+  header.site p{ font-size:.86rem; line-height:1.4; }
+  header.site .site-logo{ height:50px; width:50px; border-radius:13px; }
+  header.site .site-mascot{ height:74px; }
+
+  /* --- Vitrina de tutores: 2 × 2 --- */
+  .vitrina{ margin-bottom:20px; }
+  .vitrina-sub{ margin-bottom:16px; font-size:.95rem; }
+  .vitrina-grid{ grid-template-columns:1fr 1fr; gap:12px; }
+  .agente-card{ padding:14px 12px; border-radius:18px; }
+  .agente-card .retrato{ padding:8px 6px 0; margin-bottom:10px; }
+  .agente-card .retrato img{ height:86px; }
+  .agente-card h3{ font-size:1.08rem; }
+  .agente-card .rol{ font-size:.8rem; margin:2px 0 8px; }
+  .agente-card p.desc{ font-size:.84rem; line-height:1.5; }
+}

@@ -5,66 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historia</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
-        }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            margin: 20px auto;
-            width: 80%;
-            text-align: center;
-        }
-        img {
-            max-width: 25%;
-            height: auto;
-            margin: 20px 0;
-        }
-        p {
-            font-size: 1.2em;
-            color: #333;
-            text-align: justify;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
-        }
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:920px; margin:26px auto; padding:0 16px 40px; }
+        .volver{ text-align:center; margin:26px 0 8px; }
+        .tarjeta .ilustracion{ display:block; height:180px; width:auto; max-width:100%; object-fit:contain; margin:0 auto 18px; }
+        .tarjeta p{ margin:0 0 14px; }
+        .tarjeta p:last-child{ margin-bottom:0; }
+        .tarjeta p{ text-align:justify; }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    <header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-        <h1>Historia</h1>
-    </header>
-    <main>
-        <img src="profe-lee.png" alt="Imagen de Historia">
-        <p>
-            Proyecto OASIS surge en un primer momento por la necesidad de acercar el mundo digital a los estudiantes. <p>
-Para ello, se crearon presentaciones interactivas y se realizó un seminario con el objetivo de mejorar las prácticas educativas.<p>
- Posteriormente, se incursionó en el uso de GDevelop y pedagogías digitales, hasta que en 2024 se construyó la página EDUPUNK sin fines de lucro y con la idea de ser un territorio digital libre con recursos gratuitos, cuidando los datos del usuario y sin publicidad.
-        </p>
-        <a href="quienes_somos.html" class="button">Regresar</a>
-    </main>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Historia</h1></div>
+  <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
+    <article class="tarjeta">
+        <img class="ilustracion" src="profe-lee.png" alt="Imagen de Historia">
+        <p>Proyecto OASIS surge en un primer momento por la necesidad de acercar el mundo digital a los estudiantes.</p>
+        <p>Para ello, se crearon presentaciones interactivas y se realizó un seminario con el objetivo de mejorar las prácticas educativas.</p>
+        <p>Posteriormente, se incursionó en el uso de GDevelop y pedagogías digitales, hasta que en 2024 se construyó la página EDUPUNK sin fines de lucro y con la idea de ser un territorio digital libre con recursos gratuitos, cuidando los datos del usuario y sin publicidad.</p>
+    </article>
+    <div class="volver"><a href="quienes_somos.html" class="button secundario">Regresar</a></div>
+</main>
+<script src="reveal.js"></script>
 </body>
 </html>

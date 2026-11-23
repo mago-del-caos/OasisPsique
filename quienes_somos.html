@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,50 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quienes Somos - OASIS</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #800020; /* Guinda */
-            margin: 0;
-            padding: 0;
-            color: white;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-
-        img {
-            max-width: 25%; /* Reducir al 25% */
-            height: auto;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:920px; margin:26px auto; padding:0 16px 40px; }
+        .volver{ text-align:center; margin:26px 0 8px; }
+        .tarjeta .ilustracion{ display:block; height:180px; width:auto; max-width:100%; object-fit:contain; margin:0 auto 18px; }
+        .tarjeta p{ margin:0 0 14px; }
+        .tarjeta p:last-child{ margin-bottom:0; }
+        .hub{
+            display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
+            gap:16px;
         }
-
-        .buttons {
-            margin-top: 20px;
-        }
-
-        button {
-            background-color: #ffffff; /* Blanco */
-            color: #800020; /* Guinda */
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #dddddd;
+        .hub button{ width:100%; padding:1em 1.2em; font-size:1.02rem; }
+        .intro{ text-align:center; margin:0 0 22px; }
+        .intro img{ height:150px; width:auto; }
+        @media (max-width:700px){
+            .hub{ grid-template-columns:1fr 1fr; gap:12px; }
+            .hub button{ padding:.85em .6em; font-size:.95rem; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
-<body class="fondo-propio">
-    <h1>Quienes Somos</h1>
-    <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo" style="height:140px;width:140px;">
-    <div class="buttons">
+<body>
+<header class="site">
+  <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+  <div class="titulos"><h1>Quienes Somos</h1></div>
+  <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC saludando">
+</header>
+<main>
+    <div class="hub">
         <button onclick="location.href='Mision.html'">Misión</button>
         <button onclick="location.href='Vision.html'">Visión</button>
         <button onclick="location.href='Historia.html'">Historia</button>
         <button onclick="location.href='Colaboradores.html'">Colaboradores</button>
         <button onclick="location.href='index.html'">Volver</button>
     </div>
+</main>
+<script src="reveal.js"></script>
 </body>
 </html>

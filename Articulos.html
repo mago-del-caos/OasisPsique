@@ -6,13 +6,13 @@
 <title>Artículos — Oasis Psique</title>
 <style>
     body{ font-family: Arial, sans-serif; margin:0; padding:0; text-align:center; }
-    header{
-        background-color:#800020; color:white; padding:20px;
-        display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    header.site{
+        display:flex; align-items:center; gap:16px;
+        padding:18px 22px; flex-wrap:wrap; text-align:left;
     }
-    header .titulos{ flex:1; min-width:220px; }
-    header h1{ margin:0; }
-    header p{ margin:6px 0 0; }
+    header.site .titulos{ flex:1; min-width:220px; }
+    header.site h1{ margin:0; }
+    header.site p{ margin:6px 0 0; }
     main{ margin:24px auto; width:88%; max-width:1100px; text-align:left; }
     .tarjeta{ display:flex; flex-direction:column; }
     .tarjeta img{ height:130px; width:auto; max-width:100%; object-fit:contain; margin:0 auto; }
@@ -28,13 +28,13 @@
 <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-<header>
-    <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo" style="height:96px;width:96px;">
+<header class="site">
+    <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
     <div class="titulos">
         <h1>Artículos</h1>
         <p>Publicaciones de Pablo Adrian Rivera Juvenal</p>
     </div>
-    <img src="profesora-lee.png" alt="Albatros profesora leyendo" style="height:110px;width:auto;">
+    <img src="profesora-lee.png" alt="Albatros profesora leyendo" class="site-mascot">
 </header>
 <main>
     <p>En este espacio se comparte la producción académica y de divulgación del autor: filosofía, psicología, educación y tecnología, publicada en <strong>Filosofía en la Red</strong>, en <strong>Sin Contraseñas</strong> (revista digital de la UNIVIM) y en otros espacios académicos.</p>
@@ -189,5 +189,6 @@
 <footer>
     <strong>Este proyecto es una creación del maestro Pablo Adrian Rivera Juvenal, profesor de tiempo completo de la URC.</strong>
 </footer>
+<script src="reveal.js"></script>
 </body>
 </html>

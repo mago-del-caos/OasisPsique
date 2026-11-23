@@ -5,89 +5,75 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Digital</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
-            text-align: center;
+        *{ box-sizing:border-box; }
+        body{ margin:0; }
+        header.site{
+            display:flex; align-items:center; gap:16px;
+            padding:18px 22px; flex-wrap:wrap;
         }
-        header {
-            background-color: #800020;
-            color: white;
-            padding: 20px 0;
+        header.site .titulos{ flex:1; min-width:220px; }
+        header.site h1{ margin:0; }
+        main{ max-width:1020px; margin:28px auto; padding:0 16px 40px; }
+        .hero-img{
+            display:block; margin:0 auto 26px;
+            width:220px; max-width:60%; height:auto;
         }
-        header h1 {
-            margin: 0;
+        .tarjeta{ display:flex; flex-direction:column; text-align:left; }
+        .tarjeta a{ display:block; text-align:center; }
+        .tarjeta a img{
+            height:150px; width:auto; max-width:100%; object-fit:contain;
         }
-        table {
-            margin: 20px auto;
-            border-collapse: collapse;
-            width: 80%;
-        }
-        td {
-            padding: 10px;
-            vertical-align: top;
-            text-align: left;
-        }
-        img {
-            max-width: 150px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
-        .button {
-            display: inline-block;
-            text-decoration: none;
-            color: white;
-            background-color: #800020;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-size: 1em;
-            margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #555555;
+        .tarjeta p{ margin:14px 0 0; color:var(--suave); }
+        .volver{ display:inline-block; margin-top:24px; }
+        @media (max-width:700px){
+            .rejilla.rejilla-corta{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+            .rejilla-corta .tarjeta{ padding:16px 14px; }
+            .rejilla-corta .tarjeta a img{ height:96px; }
+            .rejilla-corta .tarjeta p{ font-size:.88rem; line-height:1.5; }
         }
     </style>
     <link rel="stylesheet" href="identidad.css">
 </head>
 <body>
-    
-<header>
-        <img src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC" class="site-logo">
-    <h1 style="font-size: 2em;">Biblioteca Digital</h1>
-</header>
-<img src="profesora-lee.png" alt="Biblioteca Digital" style="display: block; margin: 0 auto; width: 25%;">
+    <header class="site">
+        <img class="site-logo" src="logo-ladh.png" alt="Logo de Psicología a Distancia LAD-H, UNRC">
+        <div class="titulos"><h1>Biblioteca Digital</h1></div>
+        <img class="site-mascot" src="albatros-saludo.png" alt="Albatros mascota de la UNRC">
+    </header>
     <main>
-        <table>
-            <tr>
-                <td>
-                    <a href="https://drive.google.com/drive/folders/1AMR1ZRoNzKm3g7TCG6MdLKPs2MJmffoG?usp=sharing" target="_blank">
-                        <img src="profe-lee.png" alt="Libros de Psicología">
-                    </a>
-                </td>
-                <td>Esta biblioteca tiene una compilación de libros de psicología.</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://drive.google.com/drive/folders/1XD2EKIeSxBh2nB5aRDpghxO47I4HGAGC?usp=drive_link" target="_blank">
-                        <img src="albatros-piensa.png" alt="Libros de Filosofía">
-                    </a>
-                </td>
-                <td>Esta página posee una colección de libros de filosofía.</td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="https://drive.google.com/drive/folders/1-l-aJNdKR8PFmiPxZN3lZYqonPMH1Fp1?usp=sharing" target="_blank">
-                        <img src="albatros-presenta.png" alt="Libros de varios temas">
-                    </a>
-                </td>
-                <td>Este recurso posee libros de diferentes temas para tu estudio.</td>
-            </tr>
-        </table>
-        <a href="index.html" class="button">Volver</a>
+        <img class="hero-img" src="profesora-lee.png" alt="Biblioteca Digital">
+        <div class="rejilla rejilla-corta">
+            <article class="tarjeta">
+                <a href="https://drive.google.com/drive/folders/1JCAqXCzHkeoamC8sqEoVTF6L6VsRVkMk" target="_blank">
+                    <img src="profe-lee.png" alt="Libros de Psicología">
+                </a>
+                <p><strong>Biblioteca — Psicología.</strong> Compilación de libros y artículos de psicología: salud mental, intervención psicológica, psicología clínica y clásicos como los Principios de psicología de William James.</p>
+            </article>
+            <article class="tarjeta">
+                <a href="https://drive.google.com/drive/folders/1vzacAiwyDomtKgQZqJSyQybBOmaz7bS-" target="_blank">
+                    <img src="albatros-piensa.png" alt="Libros de Filosofía">
+                </a>
+                <p><strong>Biblioteca — Filosofía.</strong> Colección de libros de filosofía: hermenéutica (Gadamer, Dilthey, Palmer), Aristóteles, Pico della Mirandola y clásicos grecolatinos en dominio público.</p>
+            </article>
+            <article class="tarjeta">
+                <a href="https://drive.google.com/drive/folders/12h2Za-98gdIgtyk-n3Y8YRy1SGBLRFun" target="_blank">
+                    <img src="albatros-presenta.png" alt="Libros de varios temas">
+                </a>
+                <p><strong>Biblioteca — Temas de estudio.</strong> Libros y artículos de diferentes temas para tu estudio: educación a distancia, hábitos de estudio, cultura digital y el informe Delors de la UNESCO.</p>
+            </article>
+        </div>
+        <section class="tarjeta" style="margin-top:22px;">
+            <h2 style="margin:0 0 10px; color:#800020; font-size:1.25rem;">Lecturas destacadas</h2>
+            <ul style="margin:0; padding-left:20px; line-height:1.9;">
+                <li><a href="https://drive.google.com/file/d/18WNBReJFJ-nCwM6vl9eif4iHjvD7Xsqp/view?usp=drivesdk" target="_blank">Gadamer — Verdad y método, vol. 1</a> · Filosofía</li>
+                <li><a href="https://drive.google.com/file/d/17Q_ioYiNUh5RLBVqcDPu0ByOjH42KDKQ/view?usp=drivesdk" target="_blank">Platón — Apología de Sócrates</a> · Filosofía</li>
+                <li><a href="https://drive.google.com/file/d/1I7D8Sp93gRIuvZDEV2BGbSMViQBUZGB7/view?usp=drivesdk" target="_blank">William James — Principios de psicología</a> · Psicología</li>
+                <li><a href="https://drive.google.com/file/d/1D7lchw-xFm0jxeBfOX2FbHWj5l6BF0C6/view?usp=drivesdk" target="_blank">Psicología clínica. Integración y desafíos del siglo XXI (UNAM)</a> · Psicología</li>
+                <li><a href="https://drive.google.com/file/d/1tGD7ki0XUwu65z6yNCbvAgzIYf970o-u/view?usp=drivesdk" target="_blank">Delors (UNESCO) — La educación encierra un tesoro</a> · Temas de estudio</li>
+            </ul>
+        </section>
+        <p><a href="index.html" class="volver">← Volver</a></p>
     </main>
+    <script src="reveal.js"></script>
 </body>
 </html>
